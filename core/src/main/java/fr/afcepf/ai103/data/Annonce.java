@@ -20,8 +20,6 @@ public class Annonce implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_publi;
 
-	private String com_eval;
-
 	@Temporal(TemporalType.DATE)
 	private Date date_publication;
 
@@ -36,6 +34,11 @@ public class Annonce implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="Id_motif_retrait")
 	private MotifRetrait motifRetrait;
+
+	//bi-directional many-to-one association to Stock
+	@ManyToOne
+	@JoinColumn(name="Id_prod_stock")
+	private Stock stock;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne
@@ -55,14 +58,6 @@ public class Annonce implements Serializable {
 
 	public void setId_publi(int id_publi) {
 		this.id_publi = id_publi;
-	}
-
-	public String getCom_eval() {
-		return this.com_eval;
-	}
-
-	public void setCom_eval(String com_eval) {
-		this.com_eval = com_eval;
 	}
 
 	public Date getDate_publication() {
@@ -103,6 +98,14 @@ public class Annonce implements Serializable {
 
 	public void setMotifRetrait(MotifRetrait motifRetrait) {
 		this.motifRetrait = motifRetrait;
+	}
+
+	public Stock getStock() {
+		return this.stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 
 	public Utilisateur getUtilisateur() {

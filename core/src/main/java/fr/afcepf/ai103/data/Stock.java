@@ -32,6 +32,10 @@ public class Stock implements Serializable {
 
 	private BigDecimal qte_initiale;
 
+	//bi-directional many-to-one association to Annonce
+	@OneToMany(mappedBy="stock")
+	private List<Annonce> annonces;
+
 	//bi-directional many-to-one association to Consommation
 	@OneToMany(mappedBy="stock")
 	private List<Consommation> consommations;
@@ -95,6 +99,28 @@ public class Stock implements Serializable {
 
 	public void setQte_initiale(BigDecimal qte_initiale) {
 		this.qte_initiale = qte_initiale;
+	}
+
+	public List<Annonce> getAnnonces() {
+		return this.annonces;
+	}
+
+	public void setAnnonces(List<Annonce> annonces) {
+		this.annonces = annonces;
+	}
+
+	public Annonce addAnnonce(Annonce annonce) {
+		getAnnonces().add(annonce);
+		annonce.setStock(this);
+
+		return annonce;
+	}
+
+	public Annonce removeAnnonce(Annonce annonce) {
+		getAnnonces().remove(annonce);
+		annonce.setStock(null);
+
+		return annonce;
 	}
 
 	public List<Consommation> getConsommations() {
