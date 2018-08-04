@@ -28,7 +28,7 @@ public class SousCategorie implements Serializable {
 	private List<Produit> produits;
 
 	//bi-directional many-to-one association to Categorie
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_cat")
 	private Categorie categorie;
 

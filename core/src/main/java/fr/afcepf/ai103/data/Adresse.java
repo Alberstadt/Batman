@@ -19,7 +19,7 @@ public class Adresse implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_adresse;
 
-	private byte adr_principale;
+	private short adr_principale;
 
 	private String code_postal;
 
@@ -52,11 +52,11 @@ public class Adresse implements Serializable {
 		this.id_adresse = id_adresse;
 	}
 
-	public byte getAdr_principale() {
+	public short getAdr_principale() {
 		return this.adr_principale;
 	}
 
-	public void setAdr_principale(byte adr_principale) {
+	public void setAdr_principale(short adr_principale) {
 		this.adr_principale = adr_principale;
 	}
 

@@ -2,7 +2,6 @@ package fr.afcepf.ai103.data;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -22,15 +21,15 @@ public class Consommation implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date_conso;
 
-	private BigDecimal qte_conso;
+	private double qte_conso;
 
 	//bi-directional many-to-one association to ModeConso
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_mode")
 	private ModeConso modeConso;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_prod_stock")
 	private Stock stock;
 
@@ -53,11 +52,11 @@ public class Consommation implements Serializable {
 		this.date_conso = date_conso;
 	}
 
-	public BigDecimal getQte_conso() {
+	public double getQte_conso() {
 		return this.qte_conso;
 	}
 
-	public void setQte_conso(BigDecimal qte_conso) {
+	public void setQte_conso(double qte_conso) {
 		this.qte_conso = qte_conso;
 	}
 

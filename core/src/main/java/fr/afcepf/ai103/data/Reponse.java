@@ -36,17 +36,17 @@ public class Reponse implements Serializable {
 	private List<Evaluation> evaluations;
 
 	//bi-directional many-to-one association to Annonce
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_publi")
 	private Annonce annonce;
 
 	//bi-directional many-to-one association to MotifAnnulation
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_motif_annul")
 	private MotifAnnulation motifAnnulation;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_user")
 	private Utilisateur utilisateur;
 

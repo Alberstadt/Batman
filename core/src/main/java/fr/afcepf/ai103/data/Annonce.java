@@ -2,7 +2,6 @@ package fr.afcepf.ai103.data;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -26,22 +25,24 @@ public class Annonce implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date_retrait;
 
-	private BigDecimal qte_publi;
+	private String description;
+
+	private double qte_publi;
 
 	private String titre;
 
 	//bi-directional many-to-one association to MotifRetrait
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_motif_retrait")
 	private MotifRetrait motifRetrait;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_prod_stock")
 	private Stock stock;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_user")
 	private Utilisateur utilisateur;
 
@@ -76,11 +77,19 @@ public class Annonce implements Serializable {
 		this.date_retrait = date_retrait;
 	}
 
-	public BigDecimal getQte_publi() {
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getQte_publi() {
 		return this.qte_publi;
 	}
 
-	public void setQte_publi(BigDecimal qte_publi) {
+	public void setQte_publi(double qte_publi) {
 		this.qte_publi = qte_publi;
 	}
 

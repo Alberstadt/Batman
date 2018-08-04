@@ -22,12 +22,12 @@ public class Evaluation implements Serializable {
 	private int note;
 
 	//bi-directional many-to-one association to Reponse
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_reponse")
 	private Reponse reponse;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_user")
 	private Utilisateur utilisateur;
 

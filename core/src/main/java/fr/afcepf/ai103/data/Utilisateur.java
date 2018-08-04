@@ -40,7 +40,7 @@ public class Utilisateur implements Serializable {
 
 	private String prenom;
 
-	private byte sexe;
+	private short sexe;
 
 	private String telephone;
 
@@ -164,11 +164,11 @@ public class Utilisateur implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public byte getSexe() {
+	public short getSexe() {
 		return this.sexe;
 	}
 
-	public void setSexe(byte sexe) {
+	public void setSexe(short sexe) {
 		this.sexe = sexe;
 	}
 

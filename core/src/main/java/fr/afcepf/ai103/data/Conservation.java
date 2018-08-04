@@ -22,9 +22,9 @@ public class Conservation implements Serializable {
 
 	private String type;
 
-	//bi-directional many-to-one association to Produit
+	//bi-directional many-to-one association to Stock
 	@OneToMany(mappedBy="conservation")
-	private List<Produit> produits;
+	private List<Stock> stocks;
 
 	public Conservation() {
 	}
@@ -53,26 +53,26 @@ public class Conservation implements Serializable {
 		this.type = type;
 	}
 
-	public List<Produit> getProduits() {
-		return this.produits;
+	public List<Stock> getStocks() {
+		return this.stocks;
 	}
 
-	public void setProduits(List<Produit> produits) {
-		this.produits = produits;
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
 	}
 
-	public Produit addProduit(Produit produit) {
-		getProduits().add(produit);
-		produit.setConservation(this);
+	public Stock addStock(Stock stock) {
+		getStocks().add(stock);
+		stock.setConservation(this);
 
-		return produit;
+		return stock;
 	}
 
-	public Produit removeProduit(Produit produit) {
-		getProduits().remove(produit);
-		produit.setConservation(null);
+	public Stock removeStock(Stock stock) {
+		getStocks().remove(stock);
+		stock.setConservation(null);
 
-		return produit;
+		return stock;
 	}
 
 }

@@ -3,6 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
 	<persistence-unit transaction-type="JTA" name="core">
 		<jta-data-source>java:jboss/datasources/FoodDs</jta-data-source>
 		<class>fr.afcepf.ai103.data.Adresse</class>
@@ -23,8 +24,39 @@
 		<class>fr.afcepf.ai103.data.Utilisateur</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/>  -->
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
 	</persistence-unit>
+	<!-- 
+	<persistence-unit transaction-type="RESOURCE_LOCAL" name="core">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>fr.afcepf.ai103.data.Adresse</class>
+		<class>fr.afcepf.ai103.data.Annonce</class>
+		<class>fr.afcepf.ai103.data.Categorie</class>
+		<class>fr.afcepf.ai103.data.Conservation</class>
+		<class>fr.afcepf.ai103.data.Consommation</class>
+		<class>fr.afcepf.ai103.data.Contact</class>
+		<class>fr.afcepf.ai103.data.Evaluation</class>
+		<class>fr.afcepf.ai103.data.ModeConso</class>
+		<class>fr.afcepf.ai103.data.MotifAnnulation</class>
+		<class>fr.afcepf.ai103.data.MotifRetrait</class>
+		<class>fr.afcepf.ai103.data.Produit</class>
+		<class>fr.afcepf.ai103.data.Reponse</class>
+		<class>fr.afcepf.ai103.data.SousCategorie</class>
+		<class>fr.afcepf.ai103.data.Stock</class>
+		<class>fr.afcepf.ai103.data.Unite</class>
+		<class>fr.afcepf.ai103.data.Utilisateur</class>
+		<properties>
+		    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/food_db?serverTimezone=UTC" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="root" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+    	</properties>
+	</persistence-unit>
+	 -->
 </persistence>

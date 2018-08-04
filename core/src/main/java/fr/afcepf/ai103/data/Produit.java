@@ -16,32 +16,21 @@ public class Produit implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int numero;
+	private int id_prod;
 
 	private String code;
 
-	private int id_prod;
-
 	private String image;
-
-	private String label;
 
 	private String libelle_prod;
 
-	private double prix;
-
-	//bi-directional many-to-one association to Conservation
-	@ManyToOne
-	@JoinColumn(name="Id_conserv")
-	private Conservation conservation;
-
 	//bi-directional many-to-one association to SousCategorie
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_sous_cat")
 	private SousCategorie sousCategorie;
 
 	//bi-directional many-to-one association to Unite
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_unite")
 	private Unite unite;
 
@@ -52,12 +41,12 @@ public class Produit implements Serializable {
 	public Produit() {
 	}
 
-	public int getNumero() {
-		return this.numero;
+	public int getId_prod() {
+		return this.id_prod;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setId_prod(int id_prod) {
+		this.id_prod = id_prod;
 	}
 
 	public String getCode() {
@@ -68,14 +57,6 @@ public class Produit implements Serializable {
 		this.code = code;
 	}
 
-	public int getId_prod() {
-		return this.id_prod;
-	}
-
-	public void setId_prod(int id_prod) {
-		this.id_prod = id_prod;
-	}
-
 	public String getImage() {
 		return this.image;
 	}
@@ -84,36 +65,12 @@ public class Produit implements Serializable {
 		this.image = image;
 	}
 
-	public String getLabel() {
-		return this.label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public String getLibelle_prod() {
 		return this.libelle_prod;
 	}
 
 	public void setLibelle_prod(String libelle_prod) {
 		this.libelle_prod = libelle_prod;
-	}
-
-	public double getPrix() {
-		return this.prix;
-	}
-
-	public void setPrix(double prix) {
-		this.prix = prix;
-	}
-
-	public Conservation getConservation() {
-		return this.conservation;
-	}
-
-	public void setConservation(Conservation conservation) {
-		this.conservation = conservation;
 	}
 
 	public SousCategorie getSousCategorie() {
