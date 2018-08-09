@@ -45,9 +45,14 @@ public class Stock implements Serializable {
 	private Conservation conservation;
 
 	//bi-directional many-to-one association to Produit
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_prod")
 	private Produit produit;
+
+	//bi-directional many-to-one association to Unite
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Id_unite")
+	private Unite unite;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -165,6 +170,14 @@ public class Stock implements Serializable {
 		this.produit = produit;
 	}
 
+	public Unite getUnite() {
+		return this.unite;
+	}
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
+	}
+
 	public Utilisateur getUtilisateur() {
 		return this.utilisateur;
 	}
@@ -173,4 +186,10 @@ public class Stock implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Stock [id_prod_stock=" + id_prod_stock + ", qte_initiale=" + qte_initiale + "]";
+	}
+	
 }

@@ -20,9 +20,9 @@ public class Unite implements Serializable {
 
 	private String libelle_unite;
 
-	//bi-directional many-to-one association to Produit
+	//bi-directional many-to-one association to Stock
 	@OneToMany(mappedBy="unite")
-	private List<Produit> produits;
+	private List<Stock> stocks;
 
 	public Unite() {
 	}
@@ -43,26 +43,26 @@ public class Unite implements Serializable {
 		this.libelle_unite = libelle_unite;
 	}
 
-	public List<Produit> getProduits() {
-		return this.produits;
+	public List<Stock> getStocks() {
+		return this.stocks;
 	}
 
-	public void setProduits(List<Produit> produits) {
-		this.produits = produits;
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
 	}
 
-	public Produit addProduit(Produit produit) {
-		getProduits().add(produit);
-		produit.setUnite(this);
+	public Stock addStock(Stock stock) {
+		getStocks().add(stock);
+		stock.setUnite(this);
 
-		return produit;
+		return stock;
 	}
 
-	public Produit removeProduit(Produit produit) {
-		getProduits().remove(produit);
-		produit.setUnite(null);
+	public Stock removeStock(Stock stock) {
+		getStocks().remove(stock);
+		stock.setUnite(null);
 
-		return produit;
+		return stock;
 	}
 
 }

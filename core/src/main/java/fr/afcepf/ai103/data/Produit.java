@@ -29,11 +29,6 @@ public class Produit implements Serializable {
 	@JoinColumn(name="Id_sous_cat")
 	private SousCategorie sousCategorie;
 
-	//bi-directional many-to-one association to Unite
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_unite")
-	private Unite unite;
-
 	//bi-directional many-to-one association to Stock
 	@OneToMany(mappedBy="produit")
 	private List<Stock> stocks;
@@ -79,14 +74,6 @@ public class Produit implements Serializable {
 
 	public void setSousCategorie(SousCategorie sousCategorie) {
 		this.sousCategorie = sousCategorie;
-	}
-
-	public Unite getUnite() {
-		return this.unite;
-	}
-
-	public void setUnite(Unite unite) {
-		this.unite = unite;
 	}
 
 	public List<Stock> getStocks() {

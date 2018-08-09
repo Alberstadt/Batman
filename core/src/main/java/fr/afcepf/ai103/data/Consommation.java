@@ -29,7 +29,7 @@ public class Consommation implements Serializable {
 	private ModeConso modeConso;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_prod_stock")
 	private Stock stock;
 
