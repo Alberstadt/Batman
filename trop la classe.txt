@@ -3,5 +3,9 @@ toto1
 sfhsdovhjdsojbh;doijsokmvdlnj
 
 
+<<<<<<< HEAD
 
  ligne ajouter par joachim lkjglkjhgjhtfiytfiugvouybouiboub
+=======
+modif
+>>>>>>> c5e47514b7ae196f661f9db973f3bf454b1d2ca7
