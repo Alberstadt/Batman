@@ -17,6 +17,8 @@ public class Evaluation implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_eval;
 
+	private short auteur_eval;
+
 	private String com_eval;
 
 	private int note;
@@ -40,6 +42,14 @@ public class Evaluation implements Serializable {
 
 	public void setId_eval(int id_eval) {
 		this.id_eval = id_eval;
+	}
+
+	public short getAuteur_eval() {
+		return this.auteur_eval;
+	}
+
+	public void setAuteur_eval(short auteur_eval) {
+		this.auteur_eval = auteur_eval;
 	}
 
 	public String getCom_eval() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">	
+	
+	 <h:head>
+        <title>Food2Eat - Login</title>
+        <style type="text/css">
+            .form-signin 
+            {
+                margin: 0 auto;
+                max-width: 165px;
+            }
+            #login
+            {
+            	margin-top:190px;
+            }
+            #inscription
+            {
+            	color:black;
+            }
+            
+        </style>
+    </h:head>
+    <h:body style="padding-top: 20px; background-color: white;background-image:url(resources/images/login.png);background-repeat:no-repeat;background-position:50% 5%;">
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+            <br/>
+                <b:inputText id="login" placeholder="login" value="#{sessionMB.pseudo}">
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+                <b:inputText id="password" placeholder="Password" type="password" value="#{sessionMB.password}">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputText>
+                <br/>
+                 <br/>
+                <b:commandButton look="primary btn-block" value="Login" icon="log-in" size="lg" action="#{sessionMB.verifPassword()}" />
+                 <b:selectBooleanCheckbox value="true" caption="se rappeler de moi"/>
+                 <div style="text-align:center"><a href="inscription.jsf"><b:label id="inscription" text="S'inscrire" severity="non"/></a></div>
+            </h:form>
+        </b:container>
+</h:body>
+
+</html>

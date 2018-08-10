@@ -40,7 +40,7 @@ public class Stock implements Serializable {
 	private List<Consommation> consommations;
 
 	//bi-directional many-to-one association to Conservation
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_conserv")
 	private Conservation conservation;
 
@@ -50,12 +50,12 @@ public class Stock implements Serializable {
 	private Produit produit;
 
 	//bi-directional many-to-one association to Unite
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_unite")
 	private Unite unite;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_user")
 	private Utilisateur utilisateur;
 
@@ -186,10 +186,4 @@ public class Stock implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-	@Override
-	public String toString()
-	{
-		return "Stock [id_prod_stock=" + id_prod_stock + ", qte_initiale=" + qte_initiale + "]";
-	}
-	
 }

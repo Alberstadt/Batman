@@ -13,7 +13,7 @@ import org.junit.Test;
 import fr.afcepf.ai103.dao.DaoReponse;
 import fr.afcepf.ai103.dao.DaoStock;
 import fr.afcepf.ai103.data.Stock;
-import fr.afcepf.ai103.service.ServiceStock;
+import fr.afcepf.ai103.service.StockService;
 
 public class MainTest
 {

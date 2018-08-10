@@ -24,7 +24,7 @@ public class Consommation implements Serializable {
 	private double qte_conso;
 
 	//bi-directional many-to-one association to ModeConso
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_mode")
 	private ModeConso modeConso;
 

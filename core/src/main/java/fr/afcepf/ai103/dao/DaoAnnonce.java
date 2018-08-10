@@ -15,7 +15,7 @@ public class DaoAnnonce implements IDaoAnnonce
 	@PersistenceContext(unitName = "core")
 	private EntityManager entityManager;
 
-	public DaoAnnonce()	{}
+	public DaoAnnonce(){}
 
 	@Override
 	public Annonce create(Annonce annonce)

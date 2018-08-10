@@ -37,6 +37,10 @@ public class Adresse implements Serializable {
 
 	private String voirie;
 
+	//bi-directional many-to-one association to Annonce
+	@OneToMany(mappedBy="adresse")
+	private List<Annonce> annonces;
+
 	//bi-directional many-to-many association to Utilisateur
 	@ManyToMany(mappedBy="adresses")
 	private List<Utilisateur> utilisateurs;
@@ -114,6 +118,28 @@ public class Adresse implements Serializable {
 
 	public void setVoirie(String voirie) {
 		this.voirie = voirie;
+	}
+
+	public List<Annonce> getAnnonces() {
+		return this.annonces;
+	}
+
+	public void setAnnonces(List<Annonce> annonces) {
+		this.annonces = annonces;
+	}
+
+	public Annonce addAnnonce(Annonce annonce) {
+		getAnnonces().add(annonce);
+		annonce.setAdresse(this);
+
+		return annonce;
+	}
+
+	public Annonce removeAnnonce(Annonce annonce) {
+		getAnnonces().remove(annonce);
+		annonce.setAdresse(null);
+
+		return annonce;
 	}
 
 	public List<Utilisateur> getUtilisateurs() {

@@ -31,6 +31,11 @@ public class Annonce implements Serializable {
 
 	private String titre;
 
+	//bi-directional many-to-one association to Adresse
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="Id_adresse")
+	private Adresse adresse;
+
 	//bi-directional many-to-one association to MotifRetrait
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Id_motif_retrait")
@@ -42,7 +47,7 @@ public class Annonce implements Serializable {
 	private Stock stock;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_user")
 	private Utilisateur utilisateur;
 
@@ -99,6 +104,14 @@ public class Annonce implements Serializable {
 
 	public void setTitre(String titre) {
 		this.titre = titre;
+	}
+
+	public Adresse getAdresse() {
+		return this.adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
 	}
 
 	public MotifRetrait getMotifRetrait() {

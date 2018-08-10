@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Compte utilisateur</ui:define>
+	<style>
+		.alerte
+		{
+			background-color:#007AFF;
+		}
+	</style>
+	    <h:link rel="stylesheet" type="text/css" href="css/styleCompte.css"></h:link>
+
+	<ui:define name="content">
+
+	<b:accordion>
+		<b:panel id="panel1" title="Données renseignées">
+			<b:row>
+			  	<b:form>
+			   		<b:alert class="alert" background-color="#007AFF" span="2" title="IDENTITE : " />
+			    	<b:label span="2" severity="none" value="#{sessionCourante.getPrenom()}" style="margin-top:10px"/>
+			    	<b:label span="2" severity="none" value="#{sessionCourante.getNom()}" style="margin-top:10px"/>
+			 	 </b:form>
+			</b:row>
+			<b:row>
+				<b:form>
+    				<b:alert class="alert" background-color="#007AFF" span="2" title="COORDONNEES : " style="margin-top:10px"/>
+    				<b:label span="4" severity="none" value="#{sessionCourante.getAdresse()}" />
+    				<b:label span="2" severity="none" value="#{sessionCourante.getCodePostal()}" style="margin-top:10px"/>
+    				<b:label span="2" severity="none" value="#{sessionCourante.getVille()}" style="margin-top:10px"/>
+   				</b:form>
+   			</b:row>
+   			<b:row>
+				<b:form>
+    				<b:alert class="alert" background-color="#007AFF" span="2" title="DATE D'INSCRIPTION : " />
+    				<b:label span="2" severity="none" value="#{sessionCourante.getDateInscription()}" style="margin-top:10px"/>
+   				</b:form>
+			</b:row>
+		</b:panel>
+		<b:panel id="panel2" title="Données optionnelles">
+			<b:row>
+			  	<b:form>
+			   		<b:alert class="alert" background-color="#007AFF" span="2" title="MAIL : " />
+			    	<b:inputText span="2" value="#{sessionCourante.mail}" style="margin-top:10px"/>
+			    	<b:commandButton span="2" value="Ajouter/Modifier" action="sessionCourante." style="margin-top:10px"/>
+			    	<b:alert class="alert" background-color="#007AFF" span="2" title="TELEPHONE : " />
+			    	<b:inputText span="2" value="#{sessionCourante.telephone}" style="margin-top:10px" />
+			    	<b:commandButton span="2" value="Ajouter/Modifier" action="sessionCourante." style="margin-top:10px"/>
+			 	 </b:form>
+			</b:row>
+			<b:row>
+				<b:form>
+    				<b:alert class="alert" background-color="#007AFF" span="2" title="DATE DE NAISSANCE : " />
+    				<b:datepicker span="2" value="#{sessionCourante.dateDeNaissance}" style="margin-top:10px"/>
+					<b:commandButton span="2" value="Ajouter/Modifier" action="sessionCourante." style="margin-top:10px"/>
+   				</b:form>
+			</b:row>
+			<b:row>
+				<b:form>
+    				<b:alert class="alert" background-color="#FFC94D" span="3" title="AJOUTER UNE ADRESSE : " />
+    				<b:inputText span="2" value="#{sessionCourante.adresse}" style="margin-top:10px"/>
+    				<b:inputText span="2" value="#{sessionCourante.codePostal}" style="margin-top:10px"/>
+    				<b:inputText span="2" value="#{sessionCourante.ville}" style="margin-top:10px"/>
+    				<b:commandButton span="2" value="Ajouter/Modifier" action="sessionCourante." style="margin-top:10px"/>
+   				</b:form>
+   			</b:row>
+		</b:panel>
+		<b:panel id="panel3" title="Paramètres">
+		<b:row>
+			<b:alert class="alert" background-color="#007AFF" span="3" title="ALERTES ET IMAGE: "></b:alert>
+		</b:row>
+		<b:column span="3">
+			<b:row>
+				(nombre de jours avant alerte)
+			</b:row>
+		  	<b:row>
+		  		<b:slider min="0" max="15" value="#{testBean.val5}" label="Péremption" style="width:150px;margin-left:45px"/>
+		  	</b:row>
+		  	<b:row>
+		  		<b:slider min="0" max="15" value="#{testBean.val5}" label="Extension" style="width:150px;margin-left:45px"/>
+		  	</b:row>
+		</b:column>
+		<b:column span="3">
+			<b:row><br/></b:row>
+	  		<b:row>
+	  			<img src="resources/images/user.png" style="border: 1px solid #ddd;border-radius: 4px;padding: 5px;"></img>
+	  		</b:row>
+	  		<b:row><br/></b:row>
+	  		<b:row>
+	  			<p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+	  		</b:row>
+		</b:column>		
+		  </b:panel>
+	</b:accordion>
+      
+	</ui:define>
+</ui:composition>
+</html> 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">	
+	
+	 <h:head>
+        <title>Food2Eat - Inscription</title>
+        <style type="text/css">
+            .form-signin 
+            {
+                margin: 0 auto;
+                padding:0px;
+                max-width: 165px;
+            }
+            #login
+            {
+            	margin-top:190px;
+            }
+            #inscription
+            {
+            	color:black;
+            }
+            
+        </style>
+    </h:head>
+    <h:body style="padding-top: 20px; background-color: white;background-image:url(images/apple.png);background-repeat: no-repeat; background-position: 50% 1%;">
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+            <br/>
+                <b:inputText id="nom" placeholder="Nom" value="#{sessionMB.nom}">
+                </b:inputText>
+                <b:inputText id="prenom" placeholder="Prénom" value="#{sessionMB.prenom}">
+                </b:inputText>
+                <b:inputText id="pseudo" placeholder="Pseudo" value="#{sessionMB.pseudo}">
+                </b:inputText>
+                <b:inputText id="password" placeholder="Password" type="password" value="#{sessionMB.password}">
+                </b:inputText>
+                <b:inputText id="confirmpassword" placeholder="Confirmer Password" type="password">
+                </b:inputText>
+                <b:inputText id="codepostal" placeholder="Code Postal" value="#{sessionMB.codePostal}">
+                </b:inputText>
+                 <b:inputText id="ville" placeholder="Ville" value="#{sessionMB.ville}">
+                </b:inputText>
+                <b:inputText id="mail" placeholder="Adresse mail" value="#{sessionMB.mail}">
+                </b:inputText>
+                <b:commandButton action="#{sessionCourante.inscription()}" look="primary btn-block" id="btnInscription" value="S'inscrire" icon="log-in" size="lg" back-color=""/>
+            </h:form>
+        </b:container>
+</h:body>
+
+</html>

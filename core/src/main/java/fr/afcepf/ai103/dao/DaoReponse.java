@@ -17,7 +17,7 @@ public class DaoReponse implements IDaoReponse
 	@PersistenceContext(unitName = "core")
 	private EntityManager entityManager;
 	
-	public DaoReponse() {}
+	public DaoReponse(){}
 	
 	@Override
 	public List<Date> getDateTransByStockId(Integer id_prod_stock)

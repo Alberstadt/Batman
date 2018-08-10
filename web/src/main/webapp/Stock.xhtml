@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">stock</ui:define>
+	<ui:define name="content">
+	  CONSOMMER MANGER : <br/>
+	  <hr/>
+	  	<b:alert severity="success"><strong>Succes du chargement !</strong> Message d'alerte au chargement de la page</b:alert>
+	  <div class="formBootsFaces">
+	  Données produit 1 utilisateur 1 avant de consommer 50g : <br/>
+	 1 - données de l'objet : <br/>
+	 <br/>
+	 	<h:outputText value="date d'ajout :   "  /> 
+	 	 <b:label text="#{stockBean.recupDonneesProduit().getDate_ajout()}" severity="info"/><br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  quantité initiale : <h:outputText value="#{stockBean.recupDonneesProduit().getQte_initiale()}"  /> <br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  prix : <h:outputText value="#{stockBean.recupDonneesProduit().getPrix()}"  /> <br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  durée d'extention : <h:outputText value="#{stockBean.recupDonneesProduit().getDuree_ext_stock()}"  /> <br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  date de peremption : <h:outputText value="#{stockBean.recupDonneesProduit().getDate_peremption()}"  /><br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  id produit ref : <h:outputText value="#{stockBean.recupDonneesProduit().getProduit().getId_prod()}"  /> <br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  id utilisateur : <h:outputText value="#{stockBean.recupDonneesProduit().getUtilisateur().getId_user()}"  /><br/>
+	 	<b:iconAwesome value="shield" rotate="L" />  id mode conservation : <h:outputText value="#{stockBean.recupDonneesProduit().getConservation().getId_conserv()}"  /><br/> 
+	 	<b:iconAwesome value="shield" rotate="L" />  id produit stock : <h:outputText value="#{stockBean.recupDonneesProduit().getId_prod_stock()}"  />  <br/>
+	 	</div>
+	 	<div class="formBootsFaces">
+	 	<b:carousel id="parque" style="width:100px; height:100px; background:#000000">
+  		<b:carouselItem>
+    	<img src="resources/images/front.jpg" />
+  		</b:carouselItem>
+  		<b:carouselItem>
+    	<img src="resources/images/ingredients.jpg" />
+  		</b:carouselItem>
+  		<b:carouselItem>
+    	<img src="resources/images/nutrition.jpg"/>
+  		</b:carouselItem>
+		</b:carousel>
+	 	</div>
+	 	<div class="formBootsFaces">
+	 	 <b:openStreetMap width="100%" height="300px"
+       center="48.8164171,2.327170600000045" marker="48.8164171,2.327170600000045"
+       popupMsg="AFCEPF"
+       zoom="17"
+		urlTemplate="http://c.tiles.wmflabs.org/hillshading/${z}/${x}/${y}.png"/>
+	 	</div>
+	 	<hr/>
+	 	    
+     2 - methode quantité restante : <h:outputText value="#{stockBean.recupQuantiteRestante()}"  /> <br/>
+     <hr/>
+          <h:outputText value="#{stockBean.mangerProduit()}" /><br/>
+      <hr/>
+     
+      
+	</ui:define>
+</ui:composition>
+</html> 

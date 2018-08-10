@@ -25,7 +25,7 @@ public class Produit implements Serializable {
 	private String libelle_prod;
 
 	//bi-directional many-to-one association to SousCategorie
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Id_sous_cat")
 	private SousCategorie sousCategorie;
 
