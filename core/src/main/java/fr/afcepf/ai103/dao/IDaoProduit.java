@@ -12,4 +12,6 @@ public interface IDaoProduit {
 
 	List<Produit> listeProduitByIdUtilisateur(int id_user);
 
+	Produit getImageProduitById(int id_prod_stock);
+
 }

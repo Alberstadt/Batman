@@ -54,5 +54,12 @@ public class DaoProduit implements IDaoProduit {
 				.getResultList();
 		}
 	
+	@Override
+	public Produit getImageProduitById(int id_prod_stock) {
+		
+		return entityManager.createQuery("select p from Produit s where p.id_prod_stock = :id_prod_stock" , Produit.class )
+				.setParameter("id_prod_stock", id_prod_stock)
+				.getSingleResult();
+		}
 					
 }
