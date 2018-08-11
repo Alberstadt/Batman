@@ -1,0 +1,18 @@
+insert into CATEGORIE (id_cat, Libelle_cat) values (1, 'Fruits');
+insert into CATEGORIE (id_cat, Libelle_cat) values (2, 'Legumes');
+insert into CATEGORIE (id_cat, Libelle_cat) values (3, 'Cereales');
+insert into CATEGORIE (id_cat, Libelle_cat) values (4, 'Pains');
+insert into CATEGORIE (id_cat, Libelle_cat) values (5, 'Biscuits');
+insert into CATEGORIE (id_cat, Libelle_cat) values (6, 'Pates');
+insert into CATEGORIE (id_cat, Libelle_cat) values (7, 'Viandes');
+insert into CATEGORIE (id_cat, Libelle_cat) values (8, 'Poissons');
+insert into CATEGORIE (id_cat, Libelle_cat) values (9, 'Oeufs');
+insert into CATEGORIE (id_cat, Libelle_cat) values (10, 'Produits laitiers');
+insert into CATEGORIE (id_cat, Libelle_cat) values (11, 'Huiles');
+insert into CATEGORIE (id_cat, Libelle_cat) values (12, 'Desserts');
+insert into CATEGORIE (id_cat, Libelle_cat) values (13, 'Boissons');
+insert into CATEGORIE (id_cat, Libelle_cat) values (14, 'Condiments');
+insert into CATEGORIE (id_cat, Libelle_cat) values (15, 'Aperitifs');
+insert into CATEGORIE (id_cat, Libelle_cat) values (16, 'Plats prepares');
+insert into CATEGORIE (id_cat, Libelle_cat) values (17, 'Autres');
+commit;
