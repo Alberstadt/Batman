@@ -10,7 +10,6 @@
 	<artifactId>ear</artifactId>
 	<packaging>ear</packaging>
 	<dependencies>
-
 		<dependency>
 			<groupId>fr.afcepf.ai103</groupId>
 			<artifactId>core</artifactId>
@@ -23,6 +22,12 @@
 			<artifactId>web</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wildfly.plugins</groupId>
+			<artifactId>wildfly-maven-plugin</artifactId>
+			<version>1.2.2.Final</version>
 		</dependency>
 	</dependencies>
 
@@ -52,6 +57,38 @@
 					</modules>
 					<version>7</version>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.2.Final</version>
+				<configuration>
+					<hostname>localhost</hostname>
+					<port>9990</port>
+					<username>jbadmin</username>
+					<password>hotpink#42</password>
+					<jboss-home>/usr/local/share/wildfly</jboss-home>
+					<name>food2eat.ear</name>
+				</configuration>
+				<executions>
+					<execution>
+						<id>undeploy</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>undeploy</goal>
+						</goals>
+						<configuration>
+							<ignoreMissingDeployment>true</ignoreMissingDeployment>
+						</configuration>
+					</execution>
+					<execution>
+						<id>deploy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
