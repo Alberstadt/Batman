@@ -1,3 +1,3 @@
-INSERT into VALUES (1,"manger");
-INSERT into VALUES (2,"jeter");
+INSERT into Mode_conso VALUES (1,"manger");
+INSERT into Mode_conso VALUES (2,"jeter");
 commit;
