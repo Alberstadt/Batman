@@ -58,6 +58,7 @@
 					<version>7</version>
 				</configuration>
 			</plugin>
+			<!-- 
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
@@ -71,7 +72,6 @@
 					<name>food2eat.ear</name>
 				</configuration>
 				<executions>
-					<!-- 
 					<execution>
 						<id>undeploy</id>
 						<phase>clean</phase>
@@ -82,7 +82,6 @@
 							<ignoreMissingDeployment>true</ignoreMissingDeployment>
 						</configuration>
 					</execution>
-					 -->
 					<execution>
 						<id>deploy</id>
 						<phase>install</phase>
@@ -92,6 +91,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 </project>
