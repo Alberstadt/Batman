@@ -63,7 +63,7 @@
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.2.2.Final</version>
 				<configuration>
-					<hostname>localhost</hostname>
+					<hostname>64.190.91.57</hostname>
 					<port>9990</port>
 					<username>jbadmin</username>
 					<password>hotpink#42</password>
@@ -71,6 +71,7 @@
 					<name>food2eat.ear</name>
 				</configuration>
 				<executions>
+					<!-- 
 					<execution>
 						<id>undeploy</id>
 						<phase>clean</phase>
@@ -81,6 +82,7 @@
 							<ignoreMissingDeployment>true</ignoreMissingDeployment>
 						</configuration>
 					</execution>
+					 -->
 					<execution>
 						<id>deploy</id>
 						<phase>install</phase>
