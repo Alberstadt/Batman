@@ -12,11 +12,14 @@ import javax.faces.bean.ManagedProperty;
 
 import fr.afcepf.ai103.data.Stock;
 import fr.afcepf.ai103.service.IStockService;
+import fr.afcepf.ai103.service.IUtilisateurService;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import fr.afcepf.ai103.dao.IDaoStock;
+import fr.afcepf.ai103.dao.IDaoUtilisateur;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Utilisateur;
 import javax.faces.event.ValueChangeEvent;
@@ -41,9 +44,11 @@ public class StockBean implements Serializable
 	@EJB
 	private IDaoStock daoStock;
 	
+	@EJB
+	private IUtilisateurService utilisateurService;
+	
 	@ManagedProperty(value="#{sessionMB}")
 	private LoginBean sessionMB;
-	
 	
 	
 	private int id_prod;
@@ -98,10 +103,10 @@ public class StockBean implements Serializable
 		libelle = stockService.recupererLibelle(1);
 		qte = stockService.recupererQuantite(1);
 		categories = stockService.getAllCategorie();
-		stocks = stockService.listerProdDispo(1);
+		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
-
+	
 	public void onCarDrop(DragDropEvent ddEvent) 
 	{
         cons = ((Consommation) ddEvent.getData());
@@ -117,15 +122,13 @@ public class StockBean implements Serializable
   
         stockDrop.add(stk);
         stocks.remove(stk);
-        consommerProduit(stk.getId_prod_stock());
-        System.out.println("coucou consommé");        
-       
+        consommerProduit(stk.getId_prod_stock());       
     }
 	
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
 	{
-		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, 1);
+		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
 public void ajouterProduit()  
@@ -134,7 +137,7 @@ public void ajouterProduit()
 		 Stock stock = new Stock();
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
-		 utilisateur = stockService.getUtilisateurByIDUser(1);
+		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
 		 stock.setUtilisateur(utilisateur);
 		 produit = stockService.GetProduitbyIDProduit(id_prod);
 		 stock.setProduit(produit);
@@ -253,7 +256,7 @@ public void ajouterProduit()
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, 1);
+		stockService.consommerProduitStock(1, 1, date , 50.00, sessionMB.getSessionUtilisateur().getId_user());
 	}
 
 	public Stock getStock() {

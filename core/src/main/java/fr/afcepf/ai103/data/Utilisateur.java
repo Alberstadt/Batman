@@ -69,7 +69,7 @@ public class Utilisateur implements Serializable {
 	private List<Stock> stocks;
 
 	//bi-directional many-to-many association to Adresse
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(
 		name="resider"
 		, joinColumns={

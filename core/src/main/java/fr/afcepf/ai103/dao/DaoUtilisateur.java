@@ -1,10 +1,14 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import fr.afcepf.ai103.data.Adresse;
+import fr.afcepf.ai103.data.ModeConso;
 import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
@@ -15,19 +19,16 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	private EntityManager entityManager;
 	
 	public DaoUtilisateur(){}
-	
-	@Override
-	public Utilisateur getUtilisateurByIDUser(int id_user)
-	{
-		return entityManager.find(Utilisateur.class, id_user);
-	}
 
 	@Override
-	public Utilisateur verifierMotDePasse (String Pseudo)
+	public Utilisateur verifierMotDePasse (String Pseudo, String password)
 	{
 		Utilisateur u = null;
 		try {
-			u = entityManager.createQuery("SELECT p FROM Utilisateur p WHERE p.login = :Pseudo", Utilisateur.class).setParameter("Pseudo", Pseudo).getSingleResult();
+			u = entityManager.createQuery("SELECT p FROM Utilisateur p WHERE p.login = :Pseudo AND p.password = :password", Utilisateur.class)
+					.setParameter("Pseudo", Pseudo)
+					.setParameter("password", password)
+					.getSingleResult();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,9 +45,14 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	@Override
 	public Utilisateur create(Utilisateur u)
 	{
-		System.out.println("methode inscription() DaoUtilisateur");
-
 		entityManager.persist(u);
 		return u;
 	}
+	
+	@Override
+	public Utilisateur update(Utilisateur sessionUtilisateur)
+	{
+		return entityManager.merge(sessionUtilisateur);
+	}
+
 }

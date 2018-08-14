@@ -33,8 +33,6 @@ public interface IStockService
 
 	List<Conservation> getAllConservation();
 
-	Utilisateur getUtilisateurByIDUser(int id_user);
-
 	Produit GetProduitbyIDProduit(int id_prod);
 
 	List<Produit> GetProduitbyIDSousCategorie(int id_sous_cat);
