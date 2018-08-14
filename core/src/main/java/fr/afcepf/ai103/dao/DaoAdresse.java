@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.afcepf.ai103.data.Adresse;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -17,14 +18,6 @@ public class DaoAdresse implements IDaoAdresse
 	private EntityManager entityManager;
 
 	public DaoAdresse(){}
-
-	@Override
-	public Adresse create(Adresse adresse, int id_user)
-	{
-		entityManager.persist(adresse);
-		entityManager.merge(adresse);
-		return adresse;
-	}
 	
 	@Override
 	public Adresse update(Adresse adresse)

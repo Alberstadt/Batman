@@ -51,4 +51,12 @@ public class UtilisateurService implements IUtilisateurService
 		
 		return adresses;
 	}
+
+	@Override
+	public Utilisateur ajouterAdresse(Adresse newAdresse, Utilisateur sessionUtilisateur) 
+	{
+		daoUtilisateur.ajouterAdresse(newAdresse, sessionUtilisateur);
+		
+		return sessionUtilisateur;
+	}
 }
