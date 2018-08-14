@@ -9,6 +9,7 @@ public interface IDaoUtilisateur
 {
 	Utilisateur getUserById(Integer id_user);
 
+
 	Utilisateur verifierMotDePasse(String Pseudo, String password);
 
 	Utilisateur create(Utilisateur u);

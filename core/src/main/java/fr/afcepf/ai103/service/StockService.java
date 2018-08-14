@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import fr.afcepf.ai103.dao.IDaoAdresse;
 import fr.afcepf.ai103.dao.IDaoAnnonce;
 import fr.afcepf.ai103.dao.IDaoCategorie;
 import fr.afcepf.ai103.dao.IDaoConservation;
@@ -18,6 +19,7 @@ import fr.afcepf.ai103.dao.IDaoReponse;
 import fr.afcepf.ai103.dao.IDaoSousCategorie;
 import fr.afcepf.ai103.dao.IDaoStock;
 import fr.afcepf.ai103.dao.IDaoUtilisateur;
+import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Categorie;
 import fr.afcepf.ai103.data.Conservation;
@@ -51,7 +53,15 @@ public class StockService implements IStockService
 	private IDaoStock daoStock;
 	@EJB
 	private IDaoUtilisateur daoUtilisateur;
+	@EJB
+	private IDaoAdresse daoAdresse;
 
+	@Override
+	public Adresse recupererAdresseById(int id_adresse)
+	{
+		return daoAdresse.getAdresseById(id_adresse);
+	}
+	
 	@Override
 	public void ajouterProduit(Stock stock)
 	{
@@ -67,20 +77,6 @@ public class StockService implements IStockService
 	public void partagerProduit(Annonce annonce) 
 	{
 		daoAnnonce.create(annonce);
-	}
-	
-	@Override
-	public String recupererLibelle(Integer id_prod_stock)
-	{
-		Stock st = daoStock.getStockById(id_prod_stock);
-		return st.getProduit().getLibelle_prod();
-	}
-	
-	@Override
-	public Double recupererQuantite(Integer id_prod_stock) {
-		Stock st = daoStock.getStockById(id_prod_stock);
-		Double qte = st.getQte_initiale();
-		return qte;
 	}
 	
 	// méthode manger/jeter produit
@@ -168,7 +164,6 @@ public class StockService implements IStockService
 		return daoProduit.GetProduitbyIDProduit(id_prod);
 		 	
 	}
-	
 	
 	@Override
 	public List<Conservation> getAllConservation()

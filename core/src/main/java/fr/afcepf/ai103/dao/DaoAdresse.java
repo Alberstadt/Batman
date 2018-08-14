@@ -9,6 +9,7 @@ import fr.afcepf.ai103.data.Adresse;
 
 @Stateless
 @Local
+
 public class DaoAdresse implements IDaoAdresse
 {
 
@@ -20,18 +21,14 @@ public class DaoAdresse implements IDaoAdresse
 	@Override
 	public Adresse create(Adresse adresse, int id_user)
 	{
-		System.out.println("DAO ajouter adresse : " + adresse);
-
 		entityManager.persist(adresse);
 		entityManager.merge(adresse);
 		return adresse;
 	}
-
+	
 	@Override
 	public Adresse update(Adresse adresse)
 	{
-		System.out.println("DAO maj adresse : " + adresse);
-
 		entityManager.merge(adresse);
 		return adresse;
 	}
@@ -47,5 +44,5 @@ public class DaoAdresse implements IDaoAdresse
 	{
 		return entityManager.find(Adresse.class, id_adresse);
 	}
-
 }
+

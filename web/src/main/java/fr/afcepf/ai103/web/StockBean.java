@@ -53,7 +53,6 @@ public class StockBean implements Serializable
 	
 	private int id_prod;
 	private String id_prod_stock;
-	private String libelle_prod;
 	private Produit produit;
 	private Produit prodConsomme;
 	private Stock stk;
@@ -64,9 +63,7 @@ public class StockBean implements Serializable
 	private List<Stock> stockDrop = new ArrayList<Stock>();
 //	private List<Consommation> consommations = new ArrayList<Consommation>();
 	private List<Consommation> consoDrop = new ArrayList<Consommation>();
-	private String libelle;
 	private String titre;
-	private Double qte;
 	private String description;
 	private Utilisateur user;
 	private Stock stock;
@@ -100,8 +97,6 @@ public class StockBean implements Serializable
 	@PostConstruct
 	public void init()
 	{
-		libelle = stockService.recupererLibelle(1);
-		qte = stockService.recupererQuantite(1);
 		categories = stockService.getAllCategorie();
 		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
 	}
@@ -198,41 +193,6 @@ public void ajouterProduit()
 
 	}
 	
-	
-	
-	
-	
-	public void buttonAction(ActionEvent actionEvent) {
-        validerAnnonce("Votre annonce a bien été enregistrée!!", "");
-    }
-	
-	
-	public void validerAnnonce(String msg, String summary)
-	{
-		Annonce annonce = new Annonce();
-		annonce.setStock(daoStock.getStockById(1));
-		annonce.setUtilisateur(daoStock.getStockById(1).getUtilisateur());
-		annonce.setTitre(this.titre);
-		annonce.setDescription(this.description);
-		annonce.setQte_publi(qte);
-		annonce.setDate_publication(new Date());
-		annonce.setMotifRetrait(null);
-		annonce.setDate_retrait(null);
-		
-		//System.out.println("nom user dans annonce" + annonce.getUtilisateur().getNom());
-		stockService.partagerProduit(annonce);
-		
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-	
-	public void annulerValidationAnnonce()
-	{
-		
-		
-	}
-	
-	
 	public Stock recupDonneesProduit()
 	{
 		stock = stockService.getStockById(1);
@@ -274,14 +234,6 @@ public void ajouterProduit()
 	public void setQuantite(String quantite) {
 		this.quantite = quantite;
 	}
-	  
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
 
 	public String getTitre() {
 		return titre;
@@ -290,15 +242,7 @@ public void ajouterProduit()
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-
-	public Double getQte() {
-		return qte;
-	}
-
-	public void setQte(Double qte) {
-		this.qte = qte;
-	}
-
+	
 	public String getDescription() {
 		return description;
 	}
@@ -473,14 +417,6 @@ public void ajouterProduit()
 
 	public void setServiceStock(IStockService serviceStock) {
 		this.stockService = serviceStock;
-	}
-
-	public String getLibelle_prod() {
-		return libelle_prod;
-	}
-
-	public void setLibelle_prod(String libelle_prod) {
-		this.libelle_prod = libelle_prod;
 	}
 
 	public List<Stock> getStocks() {

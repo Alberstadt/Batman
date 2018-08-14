@@ -24,13 +24,15 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	public Utilisateur verifierMotDePasse (String Pseudo, String password)
 	{
 		Utilisateur u = null;
-		try {
+		try 
+		{
 			u = entityManager.createQuery("SELECT p FROM Utilisateur p WHERE p.login = :Pseudo AND p.password = :password", Utilisateur.class)
 					.setParameter("Pseudo", Pseudo)
 					.setParameter("password", password)
 					.getSingleResult();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (Exception e) 
+		{ 
 			e.printStackTrace();
 		}
 		return u;

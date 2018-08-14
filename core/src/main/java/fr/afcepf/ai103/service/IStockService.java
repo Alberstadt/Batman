@@ -3,6 +3,7 @@ package fr.afcepf.ai103.service;
 import java.util.Date;
 import java.util.List;
 
+import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Categorie;
 import fr.afcepf.ai103.data.Conservation;
@@ -21,10 +22,6 @@ public interface IStockService
 
 	void partagerProduit(Annonce annonce);
 
-	String recupererLibelle(Integer id_prod_stock);
-
-	Double recupererQuantite(Integer id_prod_stock);
-
 	void consommerProduitStock(Integer id_prod_stock, Integer id_mode, Date date, Double quantite, Integer id_user);
 
 	Double quantiteRestante(Integer id_prod_stock, Integer id_user);
@@ -42,4 +39,7 @@ public interface IStockService
 	List<Categorie> getAllCategorie();
 
 	Stock getStockById(Integer Id_prod_stock);
+
+	Adresse recupererAdresseById(int id_adresse);
+
 }

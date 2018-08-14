@@ -2,7 +2,9 @@ package fr.afcepf.ai103.dao;
 
 import fr.afcepf.ai103.data.Adresse;
 
-public interface IDaoAdresse {
+
+public interface IDaoAdresse 
+{
 
 	Adresse create(Adresse adresse, int id_user);
 
