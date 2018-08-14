@@ -6,41 +6,36 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.afcepf.ai103.data.Adresse;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
-public class DaoAdresse implements IDaoAdresse {
-	
-	@PersistenceContext(unitName="core")
-	private EntityManager em;
-	
+
+public class DaoAdresse implements IDaoAdresse
+{
+
+	@PersistenceContext(unitName = "core")
+	private EntityManager entityManager;
+
 	public DaoAdresse(){}
 	
 	@Override
-	public Adresse create(Adresse adresse)
-	{
-		em.persist(adresse);
-		return adresse;
-	}
-	
-
-	@Override
 	public Adresse update(Adresse adresse)
 	{
-		em.merge(adresse);
+		entityManager.merge(adresse);
 		return adresse;
 	}
-	
 
 	@Override
-	public void delete(Integer id)
+	public void delete(Adresse adresse)
 	{
-		Adresse adresse = getAdresseById(id);
-		em.remove(adresse);
+		entityManager.remove(adresse);
 	}
-	
-    @Override
-	public Adresse getAdresseById(Integer id_adresse) {
-		return em.find(Adresse.class, id_adresse);
+
+	@Override
+	public Adresse getAdresseById(Integer id_adresse)
+	{
+		return entityManager.find(Adresse.class, id_adresse);
 	}
 }
+

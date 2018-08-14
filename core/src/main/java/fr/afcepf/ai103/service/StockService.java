@@ -166,12 +166,6 @@ public class StockService implements IStockService
 	}
 	
 	@Override
-	public Utilisateur getUtilisateurByIdUser(int id_user)
-	{
-		return daoUtilisateur.getUserById(id_user);
-	}
-	
-	@Override
 	public List<Conservation> getAllConservation()
 	{
 		return daoConservation.getAllConservation();

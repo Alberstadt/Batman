@@ -9,108 +9,90 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Stock</ui:define>
+
 	<ui:define name="content">
-		<h2>bienvenu dans mon stock</h2>
-		<!-- ce script permet de deplacer nos data grid de la table stock dans la table stockDrop-->
-			<script type="text/javascript">
+	<link rel="stylesheet" href="./resources/css/styleStock.css"/>
+	
+			 <script type="text/javascript">
     			function handleDrop(event, ui) 
     			{
       			  var droppedProduit = ui.draggable;
       			droppedProduit.fadeOut('fast');
-  			  }
+  			 	}
 			</script>
-
-			<script src="http://maps.google.com/maps/api/js?sensor=true|false" type="text/javascript"></script>
-		
-		<h:form id="Id">
-		
-		
-	       <!-- Poubelle pour les produits jeter-->	 
-    	<p:fieldset id="idProdConsommer"   style=" margin-top:1em; width:10em; height:10em">
-    		<h:graphicImage value="/resources/images/trash.png" style="width:100%"/>
-        	 <p:outputPanel id="idDropProd"   var="idStock" value="#{stockBean.stockDrop}" rendered="#{not empty stockBean.stockDrop}" >
-	        </p:outputPanel> 
-	     </p:fieldset><br/>
+			
+	<h:form id="Id">
+        <!-- Poubelle pour les produits jeter-->	 
+		<p:fieldset id="idProdConsommer" style=" margin-top:10px; width:90px; height:90px;text-align: center">
+			<h:graphicImage value="/resources/images/trash.png" style=""/>			
+			<p:outputPanel id="idDropProd" var="idStock" value="#{stockBean.stockDrop}" rendered="#{not empty stockBean.stockDrop}" />
+		</p:fieldset><br/>
 	     
-		
-			<!-- remplir le datagrid a partir de la liste consommations -->
-      		
-      			  
-      	  <p:dataGrid id="idStock" var="idStock" value="#{stockBean.stocks}" columns="4" layout="grid"
-                		rows="130" paginator="false" style="margin-top:2em;  width:100% ">
-      		
-      	 	 
-           	 <p:panel id="pnl" classe="monStock" header="#{idStock.id_prod_stock} #{idStock.produit.libelle_prod}"
-           			 style="text-align:center; width:100%;height:100% ; background:  white" >
-              
-			 	 
-              	 <b:image  value="#{idStock.produit.image}" style=" float:left; margin-bottom:2em " />
-              	 <!--  <h:graphicImage value="/resources/images/ananas.jpg" style="margin-left: 2em; margin-right: 2em; width:70%"/>  -->	
-	           
-	              
-	             <div>		
-	              <b:label text="#{idStock.qte_initiale} #{idStock.unite.libelle_unite} "  severity="success"/>
-								  
-	                  <b:commandButton update=":Id:display" oncomplete="PF('carDialog').show()" value="Détails" ajax="true" look="info" style="margin-top:0.5em">
-	                   	<f:setPropertyActionListener value="#{idStock}" target="#{stockBean.stk}" />
-	                   </b:commandButton>  
-	             </div> 			 
-               				
-          			</p:panel>
- 				  
-            		<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" opacity="0.3"/>
-       		 	
-       			 </p:dataGrid>
+		<!-- remplir le datagrid a partir de la liste consommations -->  
+		<p:dataGrid id="idStock" var="idStock" value="#{stockBean.stocks}" columns="4" layout="grid" rows="130" paginator="false" style="margin-top:2em;text-align:center;border:none">
+			<p:panel id="pnl" classe="monStock" header="#{idStock.produit.libelle_prod}" style="text-align:center; width:100%;height:175px;border:1px solid #d2d2d2" >
+					<b:image  value="#{idStock.produit.image}" style=" float:left; margin-bottom:5px;border-radius:3px " /><br/>
+            	<div style="border-right:20px">		
+					<b:label text="#{idStock.qte_initiale} #{idStock.unite.libelle_unite} " severity="none" style="color:black"/>	  
+					<b:commandButton update=":Id:display" oncomplete="PF('carDialog').show()" value="Détails" ajax="true" look="default" style="margin-top:5px;width:80px">
+						<f:setPropertyActionListener value="#{idStock}" target="#{stockBean.stk}" size="xs" style="width:70px"/>
+					</b:commandButton>
+				</div>
+				<p> </p>	
+						<div class="bar">
+							<div class="percentage has-tip"  style="width: 60%" data-perc="perime dans 2 jours"></div>
+						</div>
+			 	
+			</p:panel>
+			<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" opacity="0.3"/>
+		</p:dataGrid>
    			
-   		<!-- cette partie du code permet dedepacer mon panel -->
+   		<!-- cette partie du code permet deplacer mon panel -->
 	    <p:droppable for="idProdConsommer" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="idStock" onDrop="handleDrop">
 	        <p:ajax listener="#{stockBean.deplacerProduit}" update="idDropProd idStock" />
 	    </p:droppable>   
 	    
 	   <!-- pop up fiche produit --> 
-     <p:dialog header="Fiche produit" widgetVar="carDialog" resizable="false" draggable="false"
-              showEffect="fade" hideEffect="fade" modal="true">
- 
-        <p:outputPanel id="display">
-            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty stockBean.stk}">
+		<p:dialog header="Fiche produit" widgetVar="carDialog" resizable="false" draggable="false" showEffect="fade" hideEffect="fade" modal="true">
+			<p:outputPanel id="display">
+            	<h:panelGrid columns="2" cellpadding="5" rendered="#{stockBean.stk}">
               
-                 <h:outputText value="idStock : " />
-                <h:outputText value="#{stockBean.stk.id_prod_stock}" style="font-weight:bold"/>
- 
-                <h:outputText value="libele : " />
-                <h:outputText value="#{stockBean.stk.produit.libelle_prod}" style="font-weight:bold"/>
- 
-                <h:outputText value="conservation : " />
-                <h:outputText value="#{stockBean.stk.conservation.type}" style="font-weight:bold"/>
+	                <h:outputText value="idStock : " />
+	                <h:outputText value="#{stockBean.stk.id_prod_stock}" style="font-weight:bold"/>
+	 
+	                <h:outputText value="libele : " />
+	                <h:outputText value="#{stockBean.stk.produit.libelle_prod}" style="font-weight:bold"/>
+	 
+	                <h:outputText value="conservation : " />
+	                <h:outputText value="#{stockBean.stk.conservation.type}" style="font-weight:bold"/>
+	                
+	                <h:outputText value="categorie : " />
+	                <h:outputText value="#{stockBean.stk.produit.sousCategorie.categorie.libelle_cat}" style="font-weight:bold"/>
+	                
+	                <h:outputText value="Sous Categorie : " />
+	                <h:outputText value="#{stockBean.stk.produit.sousCategorie.libelle_sous_cat}" style="font-weight:bold"/>
+	                
+	                <h:outputText value="date d'extension : " />
+	                <h:outputText value="#{stockBean.stk.produit.sousCategorie.duree_ext_scat}" style="font-weight:bold"/>
+	                
+	                <h:outputText value="quantité : " />
+	                <h:outputText value="#{stockBean.stk.qte_initiale} #{stockBean.stk.unite.libelle_unite} " style="font-weight:bold"/>
+	                                
+	                <h:outputText value="Date d'ajout : " />
+	                <h:outputText value="#{stockBean.stk.date_ajout}" style="font-weight:bold"/>
+	                
+	                <h:outputText value="Date peremption : " />
+	                <h:outputText value="#{stockBean.stk.date_peremption}" style="font-weight:bold"/>
+	               
+	                <h:outputText value="Prix : " />
+	                <h:outputText value="#{stockBean.stk.prix}" style="font-weight:bold"/>
                 
-                <h:outputText value="categorie : " />
-                <h:outputText value="#{stockBean.stk.produit.sousCategorie.categorie.libelle_cat}" style="font-weight:bold"/>
-                
-                <h:outputText value="Sous Categorie : " />
-                <h:outputText value="#{stockBean.stk.produit.sousCategorie.libelle_sous_cat}" style="font-weight:bold"/>
-                
-                <h:outputText value="date d'extension : " />
-                <h:outputText value="#{stockBean.stk.produit.sousCategorie.duree_ext_scat}" style="font-weight:bold"/>
-                
-                <h:outputText value="quantité : " />
-                <h:outputText value="#{stockBean.stk.qte_initiale} #{stockBean.stk.unite.libelle_unite} " style="font-weight:bold"/>
-                                
-               <h:outputText value="Date d'ajout : " />
-                <h:outputText value="#{stockBean.stk.date_ajout}" style="font-weight:bold"/>
-                
-                <h:outputText value="Date peremption : " />
-                <h:outputText value="#{stockBean.stk.date_peremption}" style="font-weight:bold"/>
-               
-                <h:outputText value="Prix : " />
-                <h:outputText value="#{stockBean.stk.prix}" style="font-weight:bold"/>
-                
-                
-            </h:panelGrid>
-        </p:outputPanel>
-    </p:dialog> 
+            	</h:panelGrid>
+        	</p:outputPanel>
+    	</p:dialog> 
     
-    
-		</h:form>
+	</h:form>
 	</ui:define>
 </ui:composition>
 </html>

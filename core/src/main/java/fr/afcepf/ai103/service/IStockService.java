@@ -42,5 +42,4 @@ public interface IStockService
 
 	Adresse recupererAdresseById(int id_adresse);
 
-	Utilisateur getUtilisateurByIdUser(int id_user);
 }
