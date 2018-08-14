@@ -13,11 +13,11 @@
     <b:navLink href="formulaireAnnonce.jsf"><img src="./resources/images/annonce.png"/><b:label value="Annonces" style="margin-left:5px"/></b:navLink>
     <b:navLink href="#"><img src="./resources/images/foodfriend.png"/><b:label value="FoodFriends" style="margin-left:5px"/></b:navLink>
     <b:navLink href="compte.jsf"><img src="./resources/images/compte.png"/><b:label value="Compte" style="margin-left:5px"/></b:navLink>
-        <b:navLink href="login.jsf"><p:button value="Logout" size="xs" onclick="#{sessionMB.deconnexion()}" style="margin-top:22px"/></b:navLink>
+        <b:navLink href="login.jsf"><p:button value="Logout" size="xs" onclick="#{connexion.deconnexion()}" style="margin-top:22px"/></b:navLink>
     
   </b:navbarLinks>  
   <div style="text-align:center;margin-top:15px;margin-right:15px">
-  	<img src="./resources/images/user.png"/><br/><b:label severity="info" value="#{sessionMB.sessionUtilisateur.login}" style="background-color:#007AFF"/>
+  	<img src="./resources/images/user.png"/><br/><b:label severity="info" value="#{session.user.login}" style="background-color:#007AFF"/>
   </div>
 </b:navBar>
 </div>

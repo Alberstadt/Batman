@@ -28,19 +28,19 @@
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
             <br/>
-                <b:inputText id="login" placeholder="login" value="#{sessionMB.pseudo}">
+                <b:inputText id="login" placeholder="login" value="#{connexion.pseudo}">
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Password" type="password" value="#{sessionMB.password}">
+                <b:inputText id="password" placeholder="Password" type="password" value="#{connexion.password}">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
                 </b:inputText>
                 <br/>
                  <br/>
-                <b:commandButton look="primary btn-block" value="Login" icon="log-in" size="lg" action="#{sessionMB.verifPassword()}" />
+                <b:commandButton look="primary btn-block" value="Login" icon="log-in" size="lg" action="#{connexion.verifPassword()}" />
                  <b:selectBooleanCheckbox value="true" caption="se rappeler de moi"/>
                  <div style="text-align:center"><a href="inscription.jsf"><b:label id="inscription" text="S'inscrire" severity="non"/></a></div>
             </h:form>

@@ -30,8 +30,8 @@ public class FormAnnonceBean implements Serializable
 		@EJB
 		private IUtilisateurService utilisateurService;
 		
-		@ManagedProperty(value="#{sessionMB}")
-		private LoginBean sessionMB;
+		@ManagedProperty(value="#{session}")
+		private SessionBean session;
 		
 		private String libelle;
 		private Double qte_stock;
@@ -50,7 +50,7 @@ public class FormAnnonceBean implements Serializable
 		@PostConstruct
 		public void init()
 		{
-			this.user = this.sessionMB.getSessionUtilisateur();
+			this.user = this.session.getUser();
 			this.stock = stockService.getStockById(id_prod_stock);
 			this.libelle = stock.getProduit().getLibelle_prod();
 			this.qte_stock = stockService.calculerQteReelle(id_prod_stock);
@@ -177,13 +177,13 @@ public class FormAnnonceBean implements Serializable
 			this.qte_publi = qte_publi;
 		}
 
-		public LoginBean getSessionMB()
+		public SessionBean getSession()
 		{
-			return sessionMB;
+			return session;
 		}
 
-		public void setSessionMB(LoginBean sessionMB)
+		public void setSession(SessionBean session)
 		{
-			this.sessionMB = sessionMB;
+			this.session = session;
 		}
 }

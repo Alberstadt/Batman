@@ -8,34 +8,30 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Utilisateur;
-import fr.afcepf.ai103.service.IAdresseService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
-@ManagedBean(name="sessionMB")
+@ManagedBean
 @SessionScoped
 public class LoginBean implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	@ManagedProperty(value="#{session}")
+	private SessionBean session;
+	
 	@EJB
 	private IUtilisateurService utilisateurService;
+
+	public LoginBean(){}
 	
-	@EJB
-	private IAdresseService adresseService;
-		
-	
-	public LoginBean()
-	{
-	
-	}
-	
-	private Utilisateur sessionUtilisateur;
+	private Utilisateur user;
 	private boolean chckboxAdr_principale = false;
 	private String longitude;
 	private String latitude;
@@ -61,29 +57,19 @@ public class LoginBean implements Serializable
 		return suite;
 	}
 	
-	public Utilisateur getSessionUtilisateur() {
-		return sessionUtilisateur;
-	}
-
-
-	public void setSessionUtilisateur(Utilisateur sessionUtilisateur) {
-		this.sessionUtilisateur = sessionUtilisateur;
-	}
-
-
 	public String verifPassword()
 	{
-		sessionUtilisateur = utilisateurService.verifierMotDePasse(pseudo,password);
+		user = utilisateurService.verifierMotDePasse(pseudo,password);
 		String suite = null;
 		
-		if (sessionUtilisateur == null)
+		if (user == null)
 		{
 			
 		}
 		else
 		{
+			session.setUser(user);
 			suite = "/archeVide.xhtml?faces-redirect=true";
-
 		}
 		return suite;
 	}
@@ -99,19 +85,19 @@ public class LoginBean implements Serializable
 		}
 		else
 		{
-			sessionUtilisateur = new Utilisateur();
-			sessionUtilisateur.setPassword(password);
-			sessionUtilisateur.setDate_inscription(dateInscription);
-			sessionUtilisateur.setDate_naissance(dateDeNaissance);
-			sessionUtilisateur.setLogin(pseudo);
-			sessionUtilisateur.setMail(mail);
-			sessionUtilisateur.setNom(nom);
-			sessionUtilisateur.setPassword(password);
-			sessionUtilisateur.setPrenom(prenom);
-			sessionUtilisateur.setSexe(sexe);
-			sessionUtilisateur.setTelephone(telephone);
-			sessionUtilisateur.setPortrait(portrait);
-			utilisateurService.inscription(sessionUtilisateur);
+			user = new Utilisateur();
+			user.setPassword(password);
+			user.setDate_inscription(dateInscription);
+			user.setDate_naissance(dateDeNaissance);
+			user.setLogin(pseudo);
+			user.setMail(mail);
+			user.setNom(nom);
+			user.setPassword(password);
+			user.setPrenom(prenom);
+			user.setSexe(sexe);
+			user.setTelephone(telephone);
+			user.setPortrait(portrait);
+			utilisateurService.inscription(user);
 			suite = "archeVide.xhtml?faces-redirect=true";
 
 		}
@@ -122,6 +108,7 @@ public class LoginBean implements Serializable
 	
 	public void ajouterAdresse()
 	{
+	/*
 	System.out.println("BEAN passage ajouterAdresse");
 	System.out.println("BEAN checkbox : "+ chckboxAdr_principale);
 	
@@ -152,7 +139,7 @@ public class LoginBean implements Serializable
 			System.out.println("BEAN boucle ajouter une adresse");
 			utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
 		}
-
+	*/
 	}
 	
 	public Adresse getAdressePrincipale(List<Adresse> list)
@@ -172,20 +159,20 @@ public class LoginBean implements Serializable
 
 	public Utilisateur updateMail()
 	{
-		sessionUtilisateur.setMail(mail);
-		return utilisateurService.update(sessionUtilisateur);
+		user.setMail(mail);
+		return utilisateurService.update(user);
 	}
 	
 	public Utilisateur updateTelephone()
 	{
-		sessionUtilisateur.setTelephone(telephone);
-		return sessionUtilisateur = utilisateurService.update(sessionUtilisateur);
+		user.setTelephone(telephone);
+		return user = utilisateurService.update(user);
 	}
 	
 	public Utilisateur updateDateNaissance()
 	{
-		sessionUtilisateur.setMail(mail);
-		return sessionUtilisateur = utilisateurService.update(sessionUtilisateur);
+		user.setMail(mail);
+		return user = utilisateurService.update(user);
 
 	}
 	
@@ -295,17 +282,6 @@ public class LoginBean implements Serializable
 		this.dateInscription = dateInscription;
 	}
 
-
-	public IAdresseService getAdresseService() {
-		return adresseService;
-	}
-
-
-	public void setAdresseService(IAdresseService adresseService) {
-		this.adresseService = adresseService;
-	}
-
-
 	public boolean isChckboxAdr_principale() {
 		return chckboxAdr_principale;
 	}
@@ -364,6 +340,24 @@ public class LoginBean implements Serializable
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	
-	
+
+	public SessionBean getSession()
+	{
+		return session;
+	}
+
+	public void setSession(SessionBean session)
+	{
+		this.session = session;
+	}
+
+	public Utilisateur getUser()
+	{
+		return user;
+	}
+
+	public void setUser(Utilisateur user)
+	{
+		this.user = user;
+	}
 }

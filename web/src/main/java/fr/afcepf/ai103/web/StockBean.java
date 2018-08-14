@@ -47,9 +47,8 @@ public class StockBean implements Serializable
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
-	@ManagedProperty(value="#{sessionMB}")
-	private LoginBean sessionMB;
-	
+	@ManagedProperty(value="#{session}")
+	private SessionBean session;
 	
 	private int id_prod;
 	private String id_prod_stock;
@@ -98,7 +97,7 @@ public class StockBean implements Serializable
 	public void init()
 	{
 		categories = stockService.getAllCategorie();
-		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
+		stocks = stockService.listerProdDispo(session.getUser().getId_user());
 	}
 	
 	
@@ -123,7 +122,7 @@ public class StockBean implements Serializable
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
 	{
-		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, sessionMB.getSessionUtilisateur().getId_user());
+		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, session.getUser().getId_user());
 	}
 	
 public void ajouterProduit()  
@@ -132,7 +131,7 @@ public void ajouterProduit()
 		 Stock stock = new Stock();
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
-		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
+		 utilisateur = utilisateurService.getUserById(session.getUser().getId_user());
 		 stock.setUtilisateur(utilisateur);
 		 produit = stockService.GetProduitbyIDProduit(id_prod);
 		 stock.setProduit(produit);
@@ -216,7 +215,7 @@ public void ajouterProduit()
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, sessionMB.getSessionUtilisateur().getId_user());
+		stockService.consommerProduitStock(1, 1, date , 50.00, session.getUser().getId_user());
 	}
 
 	public Stock getStock() {
@@ -508,29 +507,21 @@ public void ajouterProduit()
 		this.daoStock = daoStock;
 	}
 
-
-
-	public LoginBean getsessionMB() {
-		return sessionMB;
-	}
-
-
-
-	public void setsessionMB(LoginBean sessionMB) {
-		this.sessionMB = sessionMB;
-	}
-
-
-
 	public String getLabel() {
 		return label;
 	}
-
-
 
 	public void setLabel(String label) {
 		this.label = label;
 	}
 	
-	
+	public SessionBean getSession()
+	{
+		return session;
+	}
+
+	public void setSession(SessionBean session)
+	{
+		this.session = session;
+	}
 }
