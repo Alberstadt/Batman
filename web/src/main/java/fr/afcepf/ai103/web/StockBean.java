@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Unite;
 import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
@@ -72,6 +73,7 @@ public class StockBean implements Serializable
 	private List<SousCategorie> sous_categories;
 	private List<Produit> produits;
 	private List<Conservation> conservations;
+	private List<Unite> unites;
 	private Date date_peremption;
 	private Integer duree_ext_stock ;
 	private Double prix;
@@ -84,20 +86,21 @@ public class StockBean implements Serializable
 	private Conservation conservation;
 	private int id_conserv;
 	private String label;
+	private Unite unite;
+	private int id_unite;
 	
 	
-
 	public StockBean ()
 	{
 		
 	}
 	
-	
-	
+		
 	@PostConstruct
 	public void init()
 	{
 		categories = stockService.getAllCategorie();
+		unites = stockService.getAllUnite();
 		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
@@ -130,6 +133,8 @@ public void ajouterProduit()
 	
 	{
 		 Stock stock = new Stock();
+		 unite = stockService.GetUniteByIDUnite(id_unite);
+		 stock.setUnite(unite);
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
 		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
@@ -531,6 +536,36 @@ public void ajouterProduit()
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
+
+	public List<Unite> getUnites() {
+		return unites;
+	}
+
+
+	public void setUnites(List<Unite> unites) {
+		this.unites = unites;
+	}
+
+
+	public Unite getUnite() {
+		return unite;
+	}
+
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
+	}
+
+
+	public int getId_unite() {
+		return id_unite;
+	}
+
+
+	public void setId_unite(int id_unite) {
+		this.id_unite = id_unite;
+	}
 	
-	
+		
 }
