@@ -39,18 +39,8 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	}
 	
 	@Override
-	public Utilisateur ajouterAdresse(Adresse adresse, Utilisateur utilisateur)
-	{
-        utilisateur.getAdresses().add(adresse);
-        adresse.getUtilisateurs().add(utilisateur);
-        entityManager.persist(utilisateur);
-		return utilisateur;
-	}
-	
-	@Override
 	public Utilisateur getUserById(Integer id_user)
 	{
-		System.out.println("id_user envoyée à getuserbyid " + id_user);
 		return entityManager.find(Utilisateur.class, id_user);
 	}
 	

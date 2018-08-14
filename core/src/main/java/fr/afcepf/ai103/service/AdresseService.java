@@ -14,6 +14,16 @@ public class AdresseService implements IAdresseService
 
 	@EJB
 	private IDaoAdresse daoAdresse;
+
+
+	@Override
+	public Adresse ajouterAdresse(Adresse adresse, int id_user)
+	{
+		System.out.println("SERVICE ajouter adresse");
+
+			return daoAdresse.create(adresse, id_user);
+
+	}
 	
 	@Override
 	public void getAdresseById(int id_adresse)

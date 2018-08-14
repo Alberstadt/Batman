@@ -3,16 +3,10 @@ package fr.afcepf.ai103.web;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.IUtilisateurService;
@@ -49,6 +43,7 @@ public class LoginBean implements Serializable
 	private Date dateDeNaissance;
 	private Date dateInscription = new Date();
 	private String portrait;
+
 
 
 	public String deconnexion()
@@ -111,7 +106,8 @@ public class LoginBean implements Serializable
 	/*
 	System.out.println("BEAN passage ajouterAdresse");
 	System.out.println("BEAN checkbox : "+ chckboxAdr_principale);
-	
+		int id_user = sessionUtilisateur.getId_user();
+
 		if(chckboxAdr_principale)
 		{
 			Adresse Adresse = getAdressePrincipale(sessionUtilisateur.getAdresses());
@@ -137,7 +133,7 @@ public class LoginBean implements Serializable
 			newAdresse.setAdr_principale((short)0);
 			//create
 			System.out.println("BEAN boucle ajouter une adresse");
-			utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
+			adresseService.ajouterAdresse(newAdresse,id_user);
 		}
 	*/
 	}
