@@ -15,12 +15,6 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	private EntityManager entityManager;
 	
 	public DaoUtilisateur(){}
-	
-	@Override
-	public Utilisateur getUtilisateurByIDUser(int id_user)
-	{
-		return entityManager.find(Utilisateur.class, id_user);
-	}
 
 	@Override
 	public Utilisateur verifierMotDePasse (String Pseudo)
