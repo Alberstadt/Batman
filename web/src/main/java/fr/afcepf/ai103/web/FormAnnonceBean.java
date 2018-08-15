@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
@@ -18,7 +18,7 @@ import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FormAnnonceBean implements Serializable
 	{
 
@@ -30,8 +30,8 @@ public class FormAnnonceBean implements Serializable
 		@EJB
 		private IUtilisateurService utilisateurService;
 		
-		@ManagedProperty(value="#{session}")
-		private SessionBean session;
+		@ManagedProperty(value="#{sessionMB}")
+		private LoginBean sessionMB;
 		
 		private String libelle;
 		private Double qte_stock;
@@ -50,7 +50,7 @@ public class FormAnnonceBean implements Serializable
 		@PostConstruct
 		public void init()
 		{
-			this.user = this.session.getUser();
+			this.user = this.sessionMB.getSessionUtilisateur();
 			this.stock = stockService.getStockById(id_prod_stock);
 			this.libelle = stock.getProduit().getLibelle_prod();
 			this.qte_stock = stockService.calculerQteReelle(id_prod_stock);
@@ -177,13 +177,13 @@ public class FormAnnonceBean implements Serializable
 			this.qte_publi = qte_publi;
 		}
 
-		public SessionBean getSession()
+		public LoginBean getSessionMB()
 		{
-			return session;
+			return sessionMB;
 		}
 
-		public void setSession(SessionBean session)
+		public void setSessionMB(LoginBean sessionMB)
 		{
-			this.session = session;
+			this.sessionMB = sessionMB;
 		}
 }

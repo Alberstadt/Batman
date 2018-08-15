@@ -1,60 +1,57 @@
 package fr.afcepf.ai103.web;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean(name="connexion")
-@SessionScoped
+@RequestScoped
 public class ConnexionBean
 {
-	@ManagedProperty(value="#{session}")
-	private SessionBean session;
+	//@ManagedProperty(value="#{sessionBean}")
+	//private SessionBean session;
 	
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
+	private FacesContext context;
 	private Utilisateur user;
 	private String pseudo;
 	private String password;
 	
-	public ConnexionBean() {}
+	public ConnexionBean()
+	{
+		context = FacesContext.getCurrentInstance();
+	}
 	
-	public String verifPassword()
+	public String login()
 	{
 		user = utilisateurService.verifierMotDePasse(pseudo,password);
-		String suite = null;
 		
 		if (user == null)
 		{
-			
+            context.addMessage(null, new FacesMessage("Erreur d'identifiant et/ou de mot de passe"));
+            pseudo = null;
+            password = null;
+            return null;
 		}
 		else
 		{
-			session.setUser(user);
-			suite = "/archeVide.xhtml?faces-redirect=true";
+			//session.setUser(user);
+			context.getExternalContext().getSessionMap().put("user", user);
+			return "/archeVide.xhtml?faces-redirect=true";
 		}
-		return suite;
 	}
 	
-	public String deconnexion()
+	public String logout()
 	{
-		String suite = "/login.xhtml?faces-redirect=true";
-		return suite;
-	}
-	
-	public SessionBean getSession()
-	{
-		return session;
-	}
-
-	public void setSession(SessionBean session)
-	{
-		this.session = session;
+		context.getExternalContext().invalidateSession();
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	public Utilisateur getUser()

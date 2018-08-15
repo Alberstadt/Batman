@@ -42,9 +42,8 @@ public interface IStockService
 	Stock getStockById(Integer Id_prod_stock);
 
 	Adresse recupererAdresseById(int id_adresse);
-
+	
 	List<Unite> getAllUnite();
 
 	Unite GetUniteByIDUnite(int id_unite);
-
 }

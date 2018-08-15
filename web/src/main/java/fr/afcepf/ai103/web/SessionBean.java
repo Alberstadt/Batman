@@ -1,18 +1,22 @@
 package fr.afcepf.ai103.web;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import fr.afcepf.ai103.data.Utilisateur;
 
-@ManagedBean(name="session")
+@ManagedBean(name="sessionBean", eager = true)
 @SessionScoped
-public class SessionBean
+public class SessionBean implements Serializable
 {
-	private Utilisateur user;
+	private static final long serialVersionUID = 1L;
 	
-	public SessionBean() {}
+	private Utilisateur user;
 
+	public SessionBean() {}
+	
 	public Utilisateur getUser()
 	{
 		return user;
