@@ -1,6 +1,6 @@
 ﻿/*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  2018/08/10 18:44:18                      */
+/* Date de création :  2018/08/15 19:33:27                      */
 /*==============================================================*/
 
 drop database food_db;
@@ -233,6 +233,8 @@ create table Utilisateur
    Portrait             varchar(255),
    Date_inscription     date,
    Date_desinscription  date,
+   Bat_param_p          int,
+   Bat_param_e          int,
    primary key (Id_user)
 );
 
