@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Unite;
 import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
@@ -42,8 +43,8 @@ public class StockBean implements Serializable
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
-	@ManagedProperty(value="#{sessionBean}")
-	private SessionBean session;
+	@ManagedProperty(value="#{sessionMB}")
+	private LoginBean sessionMB;
 	
 	private int id_prod;
 	private String id_prod_stock;
@@ -66,6 +67,7 @@ public class StockBean implements Serializable
 	private List<SousCategorie> sous_categories;
 	private List<Produit> produits;
 	private List<Conservation> conservations;
+	private List<Unite> unites;
 	private Date date_peremption;
 	private Integer duree_ext_stock ;
 	private Double prix;
@@ -78,9 +80,10 @@ public class StockBean implements Serializable
 	private Conservation conservation;
 	private int id_conserv;
 	private String label;
+	private Unite unite;
+	private int id_unite;
 	
 	
-
 	public StockBean ()
 	{
 		
@@ -90,7 +93,8 @@ public class StockBean implements Serializable
 	public void init()
 	{
 		categories = stockService.getAllCategorie();
-		stocks = stockService.listerProdDispo(session.getUser().getId_user());
+		unites = stockService.getAllUnite();
+		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
 	public void onCarDrop(DragDropEvent ddEvent) 
@@ -113,16 +117,18 @@ public class StockBean implements Serializable
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
 	{
-		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, session.getUser().getId_user());
+		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
 public void ajouterProduit()  
 	
 	{
 		 Stock stock = new Stock();
+		 unite = stockService.GetUniteByIDUnite(id_unite);
+		 stock.setUnite(unite);
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
-		 utilisateur = utilisateurService.getUserById(session.getUser().getId_user());
+		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
 		 stock.setUtilisateur(utilisateur);
 		 produit = stockService.GetProduitbyIDProduit(id_prod);
 		 stock.setProduit(produit);
@@ -206,7 +212,7 @@ public void ajouterProduit()
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, session.getUser().getId_user());
+		stockService.consommerProduitStock(1, 1, date , 50.00, sessionMB.getSessionUtilisateur().getId_user());
 	}
 
 	public Stock getStock() {
@@ -505,14 +511,44 @@ public void ajouterProduit()
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	
-	public SessionBean getSession()
-	{
-		return session;
+
+
+	public List<Unite> getUnites() {
+		return unites;
 	}
 
-	public void setSession(SessionBean session)
+
+	public void setUnites(List<Unite> unites) {
+		this.unites = unites;
+	}
+
+
+	public Unite getUnite() {
+		return unite;
+	}
+
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
+	}
+
+
+	public int getId_unite() {
+		return id_unite;
+	}
+
+
+	public void setId_unite(int id_unite) {
+		this.id_unite = id_unite;
+	}
+
+	public LoginBean getSessionMB()
 	{
-		this.session = session;
+		return sessionMB;
+	}
+
+	public void setSessionMB(LoginBean sessionMB)
+	{
+		this.sessionMB = sessionMB;
 	}
 }

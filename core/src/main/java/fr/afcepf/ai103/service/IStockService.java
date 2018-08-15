@@ -10,6 +10,7 @@ import fr.afcepf.ai103.data.Conservation;
 import fr.afcepf.ai103.data.Produit;
 import fr.afcepf.ai103.data.SousCategorie;
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Unite;
 import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IStockService 
@@ -41,5 +42,9 @@ public interface IStockService
 	Stock getStockById(Integer Id_prod_stock);
 
 	Adresse recupererAdresseById(int id_adresse);
+
+	List<Unite> getAllUnite();
+
+	Unite GetUniteByIDUnite(int id_unite);
 
 }

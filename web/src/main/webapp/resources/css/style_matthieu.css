@@ -1,0 +1,28 @@
+.couleurmodal{
+	background-color: #9CBFE6;
+}
+
+.combobox{
+	min-height: 25px !important;
+	
+}
+
+.margin-right-0{
+	
+	margin-right: 0% !important;
+}
+
+
+.boutonAnnuler{
+	
+	color: white !important;
+	background-color: #C74159 !important;
+	border-color: #C74159 !important;
+}
+
+
+.boutonValider{
+	
+	background-color: #24A866 !important;
+	border-color: #24A866 !important;
+}
