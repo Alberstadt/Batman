@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
@@ -15,12 +15,7 @@ import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import fr.afcepf.ai103.dao.IDaoStock;
-import fr.afcepf.ai103.dao.IDaoUtilisateur;
-import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Utilisateur;
 import javax.faces.event.ValueChangeEvent;
 
@@ -33,7 +28,7 @@ import fr.afcepf.ai103.data.Conservation;
 import fr.afcepf.ai103.data.Consommation;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StockBean implements Serializable
 {
 
@@ -47,7 +42,7 @@ public class StockBean implements Serializable
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
-	@ManagedProperty(value="#{session}")
+	@ManagedProperty(value="#{sessionBean}")
 	private SessionBean session;
 	
 	private int id_prod;
@@ -91,8 +86,6 @@ public class StockBean implements Serializable
 		
 	}
 	
-	
-	
 	@PostConstruct
 	public void init()
 	{
@@ -100,13 +93,11 @@ public class StockBean implements Serializable
 		stocks = stockService.listerProdDispo(session.getUser().getId_user());
 	}
 	
-	
 	public void onCarDrop(DragDropEvent ddEvent) 
 	{
         cons = ((Consommation) ddEvent.getData());
   
-        consoDrop.add(cons);
-       
+        consoDrop.add(cons);  
     }
 	
 	//cette méthode permet de déplacer un produit de mon stock dans la liste stockDrop (jeter produit)
