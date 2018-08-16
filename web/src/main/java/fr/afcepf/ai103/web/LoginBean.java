@@ -61,6 +61,8 @@ public class LoginBean implements Serializable
 	private Date dateDeNaissance;
 	private Date dateInscription = new Date();
 	private String portrait;
+	private int bat_param_e;
+	private int bat_param_p;
 	private String coordo = "48.8647522,2.378097300000036";
 
 	
@@ -122,6 +124,8 @@ public class LoginBean implements Serializable
 			sessionUtilisateur.setSexe(sexe);
 			sessionUtilisateur.setTelephone(telephone);
 			sessionUtilisateur.setPortrait(portrait);
+			sessionUtilisateur.setBat_param_e(4);
+			sessionUtilisateur.setBat_param_p(4);
 			utilisateurService.inscription(sessionUtilisateur);
 			suite = "archeVide.xhtml?faces-redirect=true";
 
@@ -147,10 +151,7 @@ public class LoginBean implements Serializable
 			String adresse = voirie+" "+codePostal+" "+ville;
 			String[] v = new String[2];
 			
-			try 
-			{
-				v = getLatLonAsString(adresse);
-			} 
+			try { v = getLatLonAsString(adresse); } 
 			catch (IOException e) {e.printStackTrace();}
 			
 			latitude = v[0];
@@ -192,22 +193,11 @@ public class LoginBean implements Serializable
 	    {
 	    	LatLng location = r.getGeometry().getLocation();
 		
-	    	if (location.getLat()!=null )
-	    	{
-	    		v[0]=""+location.getLat();
-	    	}
-	    	else
-	    	{
-	    		v[0]="0.0";
-	    	}
-	    	if (location.getLng()!=null )
-	    	{
-	    		v[1]=""+location.getLng();
-	    	}
-	    	else
-	    	{
-	    		v[1]="0.0";
-	    	}
+	    	if (location.getLat()!=null ) { v[0]=""+location.getLat(); }
+	    	else { v[0]="0.0"; }
+	    	
+	    	if (location.getLng()!=null ) { v[1]=""+location.getLng(); }
+	    	else { v[1]="0.0"; }
 	    }
 	    	return v;
 	}
@@ -247,7 +237,6 @@ public class LoginBean implements Serializable
 	{
 		sessionUtilisateur.setMail(mail);
 		return sessionUtilisateur = utilisateurService.update(sessionUtilisateur);
-
 	}
 	
 	
@@ -279,11 +268,9 @@ public class LoginBean implements Serializable
 		return passwordConfirm;
 	}
 
-
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-
 
 	public String getNom() {
 		return nom;
@@ -356,36 +343,29 @@ public class LoginBean implements Serializable
 		this.dateInscription = dateInscription;
 	}
 
-
 	public IAdresseService getAdresseService() {
 		return adresseService;
 	}
-
 
 	public void setAdresseService(IAdresseService adresseService) {
 		this.adresseService = adresseService;
 	}
 
-
 	public boolean isChckboxAdr_principale() {
 		return chckboxAdr_principale;
 	}
-
 
 	public void setChckboxAdr_principale(boolean chckboxAdr_principale) {
 		this.chckboxAdr_principale = chckboxAdr_principale;
 	}
 
-
 	public String getLongitude() {
 		return longitude;
 	}
 
-
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-
 
 	public String getLatitude() {
 		return latitude;
@@ -432,6 +412,22 @@ public class LoginBean implements Serializable
 
 	public void setCoordo(String coordo) {
 		this.coordo = coordo;
+	}
+
+	public int getBat_param_e() {
+		return bat_param_e;
+	}
+
+	public void setBat_param_e(int bat_param_e) {
+		this.bat_param_e = bat_param_e;
+	}
+
+	public int getBat_param_p() {
+		return bat_param_p;
+	}
+
+	public void setBat_param_p(int bat_param_p) {
+		this.bat_param_p = bat_param_p;
 	}
 	
 	

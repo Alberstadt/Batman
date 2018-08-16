@@ -86,6 +86,7 @@ public class StockBean implements Serializable
 	private String label;
 	private Unite unite;
 	private int id_unite;
+	private String progressBarColor;
 	
 	
 	public StockBean ()
@@ -104,22 +105,16 @@ public class StockBean implements Serializable
 	public String dureeProgressBar(int id_prod_stock)
 	{
 		String pourcentage;
-		
 		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
 		Date date2 = stockService.getStockById(id_prod_stock).getDate_ajout();
-		
 		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
 		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
 		
 		int pourcent = 100 * diffInDays / diffInDays2;
+		pourcent = 100 - pourcent;
+		if (pourcent > 100) { pourcent = 100; }
+		pourcentage = Integer.toString(pourcent);
 		
-		if (pourcent > 100)
-		{
-			pourcent = 100;
-		}
-		
-		pourcentage = pourcent+"%";
-		System.out.println("pourcentage : " + pourcent);
 		return pourcentage;
 		
 	}
@@ -128,27 +123,53 @@ public class StockBean implements Serializable
 	{
 		String label;
 		
-		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
-
-		int diffInDays = (int)( (new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24) );
+		int diffInDays = joursRestants(id_prod_stock);
 		
-		if (diffInDays <= 0)
-		{
-			label = "produit périmé";
+		if (diffInDays < 0) { label = "produit périmé"; }
+		else if (diffInDays >= 365)
+		{ 
+			int diffInYears = diffInDays/365;
+			if (diffInYears == 1) { label = "périme dans " + diffInYears + " an"; }
+			else { label = "périme dans " + diffInYears + " ans"; }
 		}
-		else
-		{
-			label = "périme dans " + diffInDays + " jours";
+		else if (diffInDays >= 30) 
+		{ 
+			int diffInMonth = diffInDays/30;
+			label = "périme dans " + diffInMonth + " mois";
 		}
+		else if (diffInDays == 1) { label = "périme demain"; }
+		else if (diffInDays == 0) { label = "périme aujourd'hui"; }
+		else { label = "périme dans " + diffInDays + " jours"; }
 		
 		return label;
+	}
+	
+	public int joursRestants(int id_prod_stock)
+	{
+		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+		int diffInDays = (int)((new Date().getTime() -  date.getTime()) / (1000 * 60 * 60 * 24) );		
+		diffInDays = -1*diffInDays;
+		return diffInDays;
+	}
+	
+	
+	public String couleurProgressBar(int id_prod_stock)
+	{
+		String couleur = "#007AFF";
+		int duree = joursRestants(id_prod_stock);
+		int pourcent = Integer.parseInt(dureeProgressBar(id_prod_stock));
+		
+		if (pourcent >= 40) { couleur ="#686CE8"; }
+		if (duree <= sessionMB.getBat_param_e()) { couleur ="#FF4A2E"; }
+		if (pourcent == 100) {couleur ="#696969"; }
+		
+		return couleur;	
 	}
 	
 	
 	public void onCarDrop(DragDropEvent ddEvent) 
 	{
         cons = ((Consommation) ddEvent.getData());
-  
         consoDrop.add(cons);  
     }
 	
@@ -599,4 +620,14 @@ public void ajouterProduit()
 	{
 		this.sessionMB = sessionMB;
 	}
+
+	public String getProgressBarColor() {
+		return progressBarColor;
+	}
+
+	public void setProgressBarColor(String progressBarColor) {
+		this.progressBarColor = progressBarColor;
+	}
+	
+	
 }

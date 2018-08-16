@@ -86,11 +86,14 @@
 				(nombre de jours avant alerte)
 			</b:row>
 		  	<b:row>
-		  		<b:slider min="0" max="15" value="4" label="Péremption" style="width:150px;margin-left:45px"/>
+		  		<b:slider min="0" max="15" value="#{gestionCompteBean.bat_param_p}" label="Péremption" style="width:150px;margin-left:45px"/>
 		  	</b:row>
 		  	<b:row>
-		  		<b:slider min="0" max="15" value="4" label="Extension" style="width:150px;margin-left:45px"/>
+		  		<b:slider min="0" max="15" value="#{gestionCompteBean.bat_param_e}" label="Extension" style="width:150px;margin-left:45px"/>
 		  	</b:row>
+		  	<b:row>
+				<b:button value="Mettre à jour" icon="cogs" iconAlign="right" onclick="#{gestionCompteBean.updateBatParam(bat_param_e ,bat_param_p ,sessionMB.getSessionUtilisateur())}"/>
+			</b:row>
 		</b:column>
 		<b:column span="3">
 			<b:row><br/></b:row>
