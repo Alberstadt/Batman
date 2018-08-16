@@ -50,7 +50,6 @@ public class StockBean implements Serializable
 	@ManagedProperty(value="#{sessionMB}")
 	private LoginBean sessionMB;
 	
-	
 	private int id_prod;
 	private String id_prod_stock;
 	private Produit produit;
@@ -94,7 +93,6 @@ public class StockBean implements Serializable
 		
 	}
 	
-		
 	@PostConstruct
 	public void init()
 	{
@@ -151,8 +149,7 @@ public class StockBean implements Serializable
 	{
         cons = ((Consommation) ddEvent.getData());
   
-        consoDrop.add(cons);
-       
+        consoDrop.add(cons);  
     }
 	
 	//cette méthode permet de déplacer un produit de mon stock dans la liste stockDrop (jeter produit)
@@ -555,25 +552,9 @@ public void ajouterProduit()
 		this.daoStock = daoStock;
 	}
 
-
-
-	public LoginBean getsessionMB() {
-		return sessionMB;
-	}
-
-
-
-	public void setsessionMB(LoginBean sessionMB) {
-		this.sessionMB = sessionMB;
-	}
-
-
-
 	public String getLabel() {
 		return label;
 	}
-
-
 
 	public void setLabel(String label) {
 		this.label = label;
@@ -608,6 +589,14 @@ public void ajouterProduit()
 	public void setId_unite(int id_unite) {
 		this.id_unite = id_unite;
 	}
-	
-		
+
+	public LoginBean getSessionMB()
+	{
+		return sessionMB;
+	}
+
+	public void setSessionMB(LoginBean sessionMB)
+	{
+		this.sessionMB = sessionMB;
+	}
 }

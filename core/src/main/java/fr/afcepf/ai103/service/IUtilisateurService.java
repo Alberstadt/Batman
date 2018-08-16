@@ -18,6 +18,4 @@ public interface IUtilisateurService {
 
 	List<Adresse> recupererAdresses(Integer id_user);
 
-	Utilisateur ajouterAdresse(Adresse newAdresse, Utilisateur sessionUtilisateur);
-
 }

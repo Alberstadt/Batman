@@ -57,7 +57,6 @@ public class StockService implements IStockService
 	private IDaoUtilisateur daoUtilisateur;
 	@EJB
 	private IDaoAdresse daoAdresse;
-	
 	@EJB
 	private IDaoUnite daoUnite;
 

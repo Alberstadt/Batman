@@ -16,6 +16,4 @@ public interface IDaoUtilisateur
 
 	Utilisateur update(Utilisateur sessionUtilisateur);
 
-	Utilisateur ajouterAdresse(Adresse adresse, Utilisateur utilisateur);
-
 }

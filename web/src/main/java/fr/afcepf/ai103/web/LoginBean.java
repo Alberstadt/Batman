@@ -175,7 +175,7 @@ public class LoginBean implements Serializable
 			newAdresse.setAdr_principale((short)0);
 			//create
 			System.out.println("BEAN boucle ajouter une adresse");
-			utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
+			//utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
 		}
 	}
 	
@@ -227,6 +227,7 @@ public class LoginBean implements Serializable
 			}
 		}
 		return null;
+
 	}
 
 

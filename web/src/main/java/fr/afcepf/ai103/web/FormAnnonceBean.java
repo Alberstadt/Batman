@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
@@ -18,7 +18,7 @@ import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FormAnnonceBean implements Serializable
 	{
 
