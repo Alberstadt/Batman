@@ -87,6 +87,15 @@ public class StockBean implements Serializable
 	private Unite unite;
 	private int id_unite;
 	private String progressBarColor;
+	List<Stock> listNbPerime;
+	List<Stock> listNbPerimeBientot;
+	private String booleanAlerteQuantitePerime;
+	private String booleanAlerteQuantitePerimeBientot;
+	private String labelNbProduit;
+	private String labelNbPerime;
+	private String labelNbPerimeBientot;
+
+
 	
 	
 	public StockBean ()
@@ -100,7 +109,82 @@ public class StockBean implements Serializable
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
 		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
+		listNbPerime = definirNbPerime(stocks);
+		listNbPerimeBientot = definirNbPerimeBientot(stocks);
+		construireLabelnbProd();
+		construireLabelNbPerimeBientot();
+		construireLabelNbPerime();
 	}
+	
+	
+	public void construireLabelnbProd()
+	{
+		try 
+		{
+			if (stocks.size() == 1) { labelNbProduit = "Bienvenue, vous avez " + stocks.size() + " produit dans votre stock Food2Eat"; }
+			else if (stocks.size() > 1) {labelNbProduit = "Bienvenue, vous avez " + stocks.size() + " produits dans votre stock Food2Eat";}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void construireLabelNbPerimeBientot()
+	{
+		try 
+		{
+			if (listNbPerimeBientot.size() == 1) { labelNbPerimeBientot = "Attention !! " + listNbPerimeBientot.size() + " produit se périme bientôt !"; }
+			else if (listNbPerimeBientot.size() > 1) { labelNbPerimeBientot = "Attention !! " + listNbPerimeBientot.size() + " produits se périment bientôt !";}
+		} catch (Exception e) { e.printStackTrace(); }
+		
+	}
+	
+	public void construireLabelNbPerime()
+	{
+		try 
+		{
+			if (listNbPerime.size() == 1) { labelNbPerime = "OUPS .. " + listNbPerime.size() + " produit est périmé :("; }
+			else if (listNbPerime.size() > 1) { labelNbPerime = "OUPS .. " + listNbPerime.size() + " produits sont périmés :(";}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public List<Stock> definirNbPerime(List<Stock> stocks)
+	{
+		listNbPerime = new ArrayList<Stock>();
+
+		for (Stock stock : stocks)
+		{
+			if (joursRestants(stock.getId_prod_stock()) <= 0)
+			{
+				listNbPerime.add(stock);
+			}
+		}
+		
+		if (listNbPerime.size() == 0) { booleanAlerteQuantitePerime = "false"; }
+		else { booleanAlerteQuantitePerime = "true"; }	
+		
+		return listNbPerime;
+	}
+	
+	
+	public List<Stock> definirNbPerimeBientot(List<Stock> stocks)
+	{
+		listNbPerimeBientot = new ArrayList<Stock>();
+		
+		for (Stock stock : stocks)
+		{
+			if (joursRestants(stock.getId_prod_stock()) <= sessionMB.getSessionUtilisateur().getBat_param_p())
+			{
+				if (joursRestants(stock.getId_prod_stock()) > 0)
+				{
+					listNbPerimeBientot.add(stock);
+				}
+			}
+		}
+		
+		if (listNbPerimeBientot.size() == 0) { booleanAlerteQuantitePerimeBientot = "false"; }
+		else { booleanAlerteQuantitePerimeBientot = "true"; }	
+		
+		return listNbPerimeBientot;
+	}
+	
 	
 	public String dureeProgressBar(int id_prod_stock)
 	{
@@ -628,6 +712,63 @@ public void ajouterProduit()
 	public void setProgressBarColor(String progressBarColor) {
 		this.progressBarColor = progressBarColor;
 	}
+
+	public List<Stock> getListNbPerime() {
+		return listNbPerime;
+	}
+
+	public void setListNbPerime(List<Stock> listNbPerime) {
+		this.listNbPerime = listNbPerime;
+	}
+
+	public List<Stock> getListNbPerimeBientot() {
+		return listNbPerimeBientot;
+	}
+
+	public void setListNbPerimeBientot(List<Stock> listNbPerimeBientot) {
+		this.listNbPerimeBientot = listNbPerimeBientot;
+	}
+
+	public String getBooleanAlerteQuantitePerime() {
+		return booleanAlerteQuantitePerime;
+	}
+
+	public void setBooleanAlerteQuantitePerime(String booleanAlerteQuantitePerime) {
+		this.booleanAlerteQuantitePerime = booleanAlerteQuantitePerime;
+	}
+
+	public String getBooleanAlerteQuantitePerimeBientot() {
+		return booleanAlerteQuantitePerimeBientot;
+	}
+
+	public void setBooleanAlerteQuantitePerimeBientot(String booleanAlerteQuantitePerimeBientot) {
+		this.booleanAlerteQuantitePerimeBientot = booleanAlerteQuantitePerimeBientot;
+	}
+
+	public String getLabelNbProduit() {
+		return labelNbProduit;
+	}
+
+	public void setLabelNbProduit(String labelNbProduit) {
+		this.labelNbProduit = labelNbProduit;
+	}
+
+	public String getLabelNbPerime() {
+		return labelNbPerime;
+	}
+
+	public void setLabelNbPerime(String labelNbPerime) {
+		this.labelNbPerime = labelNbPerime;
+	}
+
+	public String getLabelNbPerimeBientot() {
+		return labelNbPerimeBientot;
+	}
+
+	public void setLabelNbPerimeBientot(String labelNbPerimeBientot) {
+		this.labelNbPerimeBientot = labelNbPerimeBientot;
+	}
+
 	
 	
 }
