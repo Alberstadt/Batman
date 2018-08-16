@@ -1,5 +1,7 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,11 +37,11 @@ public class DaoUtilisateur implements IDaoUtilisateur
 		return u;
 	}
 	
-	@Override
+	/*@Override
 	public Utilisateur getUserById(Integer id_user)
 	{
 		return entityManager.find(Utilisateur.class, id_user);
-	}
+	}*/
 	
 	@Override
 	public Utilisateur create(Utilisateur u)
@@ -48,5 +50,11 @@ public class DaoUtilisateur implements IDaoUtilisateur
 
 		entityManager.persist(u);
 		return u;
+	}
+	
+	@Override
+	public List<Utilisateur> getAllUsers()
+	{
+		return entityManager.createQuery("Utilisateur.findAll", Utilisateur.class).getResultList();
 	}
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/common.xhtml">
+
+	<ui:define name="title">ajouter contact</ui:define>
+	<ui:define name="content">
+		<h:form>
+		
+		<p:commandButton value="Ajouter food-friend" type="button" onclick="PF('dlg2').show();"/>
+    
+    <div class="ui-fluid">
+    <p:dialog header="Ajouter Food-friend" styleClass="ui-priority-primary" widgetVar="dlg2" modal="true" resizable="true" responsive="true">
+    
+
+			<div class="form-group row">
+				<label for="description" class="control-label col-sm-4"></label>
+				<div class="col-sm-8">
+					<img src="resources/images/user.png"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="unite" class="control-label col-sm-4"> </label>
+				<div class="col-sm-8">
+					<h:outputText value="#{contactBean.pseudoFf}, vous a envoye une demande de food-friend"/>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="btn" class="control-label col-sm-4"></label>
+				<div class="col-sm-8">
+					<p:commandButton value="Accepter" id="idBtnAccepter" actionListener="#{contactBean.accepterDemandeDeFoodFriend}"/>
+				<p:commandButton value="Refuser" id="idBtnRefuser"  actionListener="#{contactBean.refuserDemandeDeFoodFriend}"/> 
+				</div>
+			</div>
+          </p:dialog>
+          </div>    	
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

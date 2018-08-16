@@ -1,5 +1,7 @@
 package fr.afcepf.ai103.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -29,4 +31,21 @@ public class UtilisateurService implements IUtilisateurService
 		return daoUtilisateur.create(u);
 	}
 	
+	@Override
+	public Utilisateur getUtilisateur1ByIdUser(int id_friend)
+	{
+		return daoUtilisateur.getUtilisateurByIDUser(id_friend);
+	}
+	
+	@Override
+	public Utilisateur getUtilisateur2ByIdUser(int id_user)
+	{
+		return daoUtilisateur.getUtilisateurByIDUser(id_user);
+	}
+	
+	@Override
+	public List<Utilisateur> getAllUsers()
+	{
+		return daoUtilisateur.getAllUsers();
+	}
 }

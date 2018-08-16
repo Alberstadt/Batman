@@ -124,11 +124,11 @@ public class StockBean implements Serializable
 	
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
-	{
-		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, 1);
-	}
+		{
+			stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, 1);
+		}
 	
-public void ajouterProduit()  
+    public void ajouterProduit()  
 	
 	{
 		 Stock stock = new Stock();
