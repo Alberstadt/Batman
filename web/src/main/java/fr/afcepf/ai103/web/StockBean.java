@@ -5,8 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
@@ -16,12 +19,8 @@ import fr.afcepf.ai103.service.IStockService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import fr.afcepf.ai103.dao.IDaoStock;
-import fr.afcepf.ai103.dao.IDaoUtilisateur;
-import fr.afcepf.ai103.data.Annonce;
+
 import fr.afcepf.ai103.data.Utilisateur;
 import javax.faces.event.ValueChangeEvent;
 
@@ -34,7 +33,7 @@ import fr.afcepf.ai103.data.Conservation;
 import fr.afcepf.ai103.data.Consommation;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StockBean implements Serializable
 {
 
@@ -102,6 +101,49 @@ public class StockBean implements Serializable
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
 		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
+	}
+	
+	public String dureeProgressBar(int id_prod_stock)
+	{
+		String pourcentage;
+		
+		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+		Date date2 = stockService.getStockById(id_prod_stock).getDate_ajout();
+		
+		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
+		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
+		
+		int pourcent = 100 * diffInDays / diffInDays2;
+		
+		if (pourcent > 100)
+		{
+			pourcent = 100;
+		}
+		
+		pourcentage = pourcent+"%";
+		System.out.println("pourcentage : " + pourcent);
+		return pourcentage;
+		
+	}
+	
+	public String dureePeremption(int id_prod_stock)
+	{
+		String label;
+		
+		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+
+		int diffInDays = (int)( (new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24) );
+		
+		if (diffInDays <= 0)
+		{
+			label = "produit périmé";
+		}
+		else
+		{
+			label = "périme dans " + diffInDays + " jours";
+		}
+		
+		return label;
 	}
 	
 	

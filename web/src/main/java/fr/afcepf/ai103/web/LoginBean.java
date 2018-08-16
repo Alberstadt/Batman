@@ -1,5 +1,6 @@
 package fr.afcepf.ai103.web;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.geocoder.model.LatLng;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Utilisateur;
@@ -53,8 +61,10 @@ public class LoginBean implements Serializable
 	private Date dateDeNaissance;
 	private Date dateInscription = new Date();
 	private String portrait;
+	private String coordo = "48.8647522,2.378097300000036";
 
-
+	
+	
 	public String deconnexion()
 	{
 		String suite = "/login.xhtml?faces-redirect=true";
@@ -72,8 +82,9 @@ public class LoginBean implements Serializable
 
 
 	public String verifPassword()
-	{
-		sessionUtilisateur = utilisateurService.verifierMotDePasse(pseudo,password);
+	{	
+		sessionUtilisateur = utilisateurService.verifierMotDePasse(pseudo,password);	
+		
 		String suite = null;
 		
 		if (sessionUtilisateur == null)
@@ -130,10 +141,24 @@ public class LoginBean implements Serializable
 			Adresse Adresse = getAdressePrincipale(sessionUtilisateur.getAdresses());
 			Adresse.setCode_postal(codePostal);
 			Adresse.setDate_ajout_adr(dateInscription);
-			Adresse.setLatitude(latitude);
-			Adresse.setLongitude(longitude);
 			Adresse.setVille(ville);
 			Adresse.setVoirie(voirie);
+			
+			String adresse = voirie+" "+codePostal+" "+ville;
+			String[] v = new String[2];
+			
+			try 
+			{
+				v = getLatLonAsString(adresse);
+			} 
+			catch (IOException e) {e.printStackTrace();}
+			
+			latitude = v[0];
+			longitude = v[1];
+			
+			Adresse.setLatitude(latitude);
+			Adresse.setLongitude(longitude);
+			
 			// update
 			System.out.println("BEAN boucle maj adresse");
 			adresseService.majAdresse(Adresse);
@@ -152,8 +177,43 @@ public class LoginBean implements Serializable
 			System.out.println("BEAN boucle ajouter une adresse");
 			utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
 		}
-
 	}
+	
+	
+	public String[] getLatLonAsString(String adresse) throws IOException 
+	{
+		final Geocoder geocoder = new Geocoder();
+	    String[] v = new String[2];
+	    GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adresse).setLanguage("fr").getGeocoderRequest();
+	    GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+	    List<GeocoderResult> results = geocoderResponse.getResults();
+
+	    for( GeocoderResult r : results ) 
+	    {
+	    	LatLng location = r.getGeometry().getLocation();
+		
+	    	if (location.getLat()!=null )
+	    	{
+	    		v[0]=""+location.getLat();
+	    	}
+	    	else
+	    	{
+	    		v[0]="0.0";
+	    	}
+	    	if (location.getLng()!=null )
+	    	{
+	    		v[1]=""+location.getLng();
+	    	}
+	    	else
+	    	{
+	    		v[1]="0.0";
+	    	}
+	    }
+	    	return v;
+	}
+
+	
+	
 	
 	public Adresse getAdressePrincipale(List<Adresse> list)
 	{
@@ -363,6 +423,14 @@ public class LoginBean implements Serializable
 
 	public void setVille(String ville) {
 		this.ville = ville;
+	}
+
+	public String getCoordo() {
+		return coordo;
+	}
+
+	public void setCoordo(String coordo) {
+		this.coordo = coordo;
 	}
 	
 	

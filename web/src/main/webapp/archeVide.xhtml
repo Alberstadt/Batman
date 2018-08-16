@@ -11,14 +11,23 @@
 <ui:composition template="/templates/common.xhtml">
 	<ui:define name="title">Accueil</ui:define>
 	
+	<style>
+		#gmap_canvas img
+		{
+			max-width:none!important;
+			background:none!important
+		}
+	</style>
 	
 	<ui:define name="content">
 	<b:alert severity="info" closable="true" style="color:#007AFF;text-decoration: none"><strong>Heads up!</strong> This alert needs your attention, but it's not super important. </b:alert>
 	<a href="#" style="text-decoration: none" ><b:alert severity="warning" closable="true" style="color:#FFC94D;"><strong>Prudence !</strong> Vous avez X produits bientôt périmés </b:alert></a>
 	<a href="#" style="text-decoration: none"><b:alert severity="danger" closable="true" ><strong>Oups !</strong> Vous avez X produits périmés </b:alert></a>
 	<p:panel>
-			<p:gmap center="36.890257,30.707417" zoom="13" type="TERRAIN" style="width:100%;height:400px" model="#{markersView.simpleModel}"/>
-	
+		<div style='overflow:hidden;height:300px;width:250px;'>
+			<div id='gmap_canvas' style='height:300px;width:300px;'>
+			</div>
+		</div>
 	</p:panel>
 		
 	</ui:define>
