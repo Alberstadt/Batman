@@ -63,7 +63,7 @@ public class Adresse implements Serializable {
 	public void setAdr_principale(short adr_principale) {
 		this.adr_principale = adr_principale;
 	}
-
+	
 	public String getCode_postal() {
 		return this.code_postal;
 	}

@@ -10,9 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.afcepf.ai103.dao.DaoAdresse;
 import fr.afcepf.ai103.dao.DaoReponse;
 import fr.afcepf.ai103.dao.DaoStock;
+import fr.afcepf.ai103.dao.DaoUtilisateur;
+import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.StockService;
 
 public class MainTest
@@ -39,6 +43,7 @@ public class MainTest
 	@After
 	public void closeTest()
 	{
+		em.getTransaction().commit();
 		em.close();
 		emf.close();
 	}

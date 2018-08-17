@@ -5,24 +5,89 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/common.xhtml">
 
-	<ui:define name="title">validation annonce</ui:define>
+	<ui:define name="title">Formulaire annonce</ui:define>
 	<ui:define name="content">
+
 		<h:form>
-				<h:outputText value="#{stockBean.libelle}"/><br/>
-				 Titre: <h:inputText  value="#{stockBean.titre}" required="true"></h:inputText> <br/>
-				 Quantité: <h:outputText value="#{stockBean.qte}"/><br/>
-				<table>
-		    		<tr>
-		    		  <td valign="top">Description :</td>
-		    		  <td><h:inputTextarea value="#{stockBean.description}" required="true" cols="30" rows="10" /></td>
-		    		</tr> 
-		    	</table>
-		    	<p:commandButton value="Enregistrer" id="idBtnEnregistrer" actionListener="#{stockBean.buttonAction}" styleClass="ui-priority-primary" />
-				<p:commandButton value="Annuler" id="idBtnAnnuler"  actionListener="#{stockBean.annulerValidationAnnonce}" styleClass="ui-priority-primary" /> 
+			<p:commandButton value="Partager" type="button"	onclick="PF('dlgAnnonce').show();" />
+
+			<div class="ui-fluid">
+				<p:dialog header="Partager un produit" widgetVar="dlgAnnonce" modal="true"
+					resizable="true" responsive="true">
+					<div class="form-group row">
+						<label for="titre" class="control-label col-sm-4">Titre: </label>
+						<div class="col-sm-8" id="titre">
+							<h:outputText value="#{formAnnonceBean.libelle}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="adresse" class="control-label col-sm-4">Adresse: </label>
+						<div class="col-sm-8" id="adresse">
+							<h:selectOneListbox size="1" value="#{formAnnonceBean.id_adresse}">
+								<f:selectItem itemLabel="Veuilez choisir une adresse" itemValue="0" />
+								<f:selectItems var="adr" value="#{formAnnonceBean.adresses}"
+								itemValue="#{adr.id_adresse}"
+								itemLabel="#{adr.voirie}, #{adr.ville}" />
+							</h:selectOneListbox>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="qteStock" class="control-label col-sm-4">Quantité en stock: </label>
+						<div class="col-sm-8" id="qteStock">
+							<h:outputText value="#{formAnnonceBean.qte_stock}" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="qteAnnonce" class="control-label col-sm-4">Quantité a partager: </label>
+						<div class="col-sm-8" id="qteAnnonce">
+							<p:spinner min="0" max="#{formAnnonceBean.qte_stock}" value="#{formAnnonceBean.qte_publi}" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="unite" class="control-label col-sm-4">Unité: </label>
+						<div class="col-sm-8" id="unite">
+							<h:outputText value="#{formAnnonceBean.unite}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="description" class="control-label col-sm-4">Description: </label>
+						<div class="col-sm-8" id="descritption">
+							<p:inputTextarea rows="5" cols="30"
+								value="#{formAnnonceBean.description}" counter="display"
+								maxlength="255" autoResize="false" />
+							<h:outputText id="display" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="control-label col-sm-4"></label>
+						<div class="col-sm-4">
+							<p:commandButton value="Enregistrer"
+							id="idBtnEnregistrer"
+							actionListener="#{formAnnonceBean.validerAnnonce}"
+							oncomplete="PF('dlgAnnonce').hide();"
+							styleClass="ui-priority-primary" />
+						</div>
+						<div class="col-sm-4">
+							<p:commandButton value="Annuler"
+							id="idBtnAnnuler"
+							onclick="PF('dlgAnnonce').hide();"
+							styleClass="ui-priority-primary">
+							</p:commandButton>
+						</div>
+					</div>
+				</p:dialog>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

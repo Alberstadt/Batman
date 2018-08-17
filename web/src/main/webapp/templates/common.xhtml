@@ -13,10 +13,13 @@
 	<title>
 		<ui:insert name="title">Food2Eat</ui:insert>
 	</title>
-	<h:outputStylesheet name="/resources/css/bootstrap.min.css" />
-	<h:outputScript name="/resources/js/bootstrap.min.js" target="body" />
-	<h:outputScript name="/resources/js/jquery-3.3.1.min.js" target="body" />
-</h:head>
+
+	<h:outputScript name="js/jquery-3.3.1.min.js" target="head" />
+	<h:outputStylesheet name="css/bootstrap.css" />
+	<h:outputScript name="js/bootstrap.js" target="body" />
+	<h:outputStylesheet name="css/style_matthieu.css" />
+
+  </h:head>
 
 <h:body>
 	<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />

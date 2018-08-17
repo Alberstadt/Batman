@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+import fr.afcepf.ai103.dao.IDaoAdresse;
 import fr.afcepf.ai103.dao.IDaoAnnonce;
 import fr.afcepf.ai103.dao.IDaoCategorie;
 import fr.afcepf.ai103.dao.IDaoConservation;
@@ -17,7 +18,9 @@ import fr.afcepf.ai103.dao.IDaoProduit;
 import fr.afcepf.ai103.dao.IDaoReponse;
 import fr.afcepf.ai103.dao.IDaoSousCategorie;
 import fr.afcepf.ai103.dao.IDaoStock;
+import fr.afcepf.ai103.dao.IDaoUnite;
 import fr.afcepf.ai103.dao.IDaoUtilisateur;
+import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Categorie;
 import fr.afcepf.ai103.data.Conservation;
@@ -25,6 +28,7 @@ import fr.afcepf.ai103.data.Consommation;
 import fr.afcepf.ai103.data.Produit;
 import fr.afcepf.ai103.data.SousCategorie;
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Unite;
 import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
@@ -51,7 +55,17 @@ public class StockService implements IStockService
 	private IDaoStock daoStock;
 	@EJB
 	private IDaoUtilisateur daoUtilisateur;
+	@EJB
+	private IDaoAdresse daoAdresse;
+	@EJB
+	private IDaoUnite daoUnite;
 
+	@Override
+	public Adresse recupererAdresseById(int id_adresse)
+	{
+		return daoAdresse.getAdresseById(id_adresse);
+	}
+	
 	@Override
 	public void ajouterProduit(Stock stock)
 	{
@@ -67,20 +81,6 @@ public class StockService implements IStockService
 	public void partagerProduit(Annonce annonce) 
 	{
 		daoAnnonce.create(annonce);
-	}
-	
-	@Override
-	public String recupererLibelle(Integer id_prod_stock)
-	{
-		Stock st = daoStock.getStockById(id_prod_stock);
-		return st.getProduit().getLibelle_prod();
-	}
-	
-	@Override
-	public Double recupererQuantite(Integer id_prod_stock) {
-		Stock st = daoStock.getStockById(id_prod_stock);
-		Double qte = st.getQte_initiale();
-		return qte;
 	}
 	
 	// méthode manger/jeter produit
@@ -170,14 +170,6 @@ public class StockService implements IStockService
 	}
 	
 	@Override
-	public Utilisateur getUtilisateurByIDUser (int id_user)
-	{
-		 
-		return daoUtilisateur.getUtilisateurByIDUser(id_user);
-		 	
-	}
-	
-	@Override
 	public List<Conservation> getAllConservation()
 	{
 		return daoConservation.getAllConservation();
@@ -188,6 +180,21 @@ public class StockService implements IStockService
 	{
 		return daoConservation.GetConservationByIDConservation(id_conserv);
 	}
+	
+	
+	@Override
+	public List<Unite> getAllUnite() {
+		
+		return daoUnite.getAllUnite();
+	}
+	
+	@Override
+	public Unite GetUniteByIDUnite(int id_unite)
+	{
+		
+		return daoUnite.GetUniteByIDUnite(id_unite);
+	}
+	
 	
 	@Override
 	public Double calculerQteReelle(Integer id_prod_stock)

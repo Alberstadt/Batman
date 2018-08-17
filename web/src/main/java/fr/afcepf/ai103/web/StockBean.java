@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import fr.afcepf.ai103.data.Stock;
+import fr.afcepf.ai103.data.Unite;
 import fr.afcepf.ai103.service.IStockService;
+import fr.afcepf.ai103.service.IUtilisateurService;
+
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import fr.afcepf.ai103.dao.IDaoStock;
-import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Utilisateur;
 import javax.faces.event.ValueChangeEvent;
 
@@ -30,25 +29,23 @@ import fr.afcepf.ai103.data.Conservation;
 import fr.afcepf.ai103.data.Consommation;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class StockBean implements Serializable
 {
-
-
 	@EJB
 	private IStockService stockService;
 	
 	@EJB
 	private IDaoStock daoStock;
 	
+	@EJB
+	private IUtilisateurService utilisateurService;
+	
 	@ManagedProperty(value="#{sessionMB}")
 	private LoginBean sessionMB;
 	
-	
-	
 	private int id_prod;
 	private String id_prod_stock;
-	private String libelle_prod;
 	private Produit produit;
 	private Produit prodConsomme;
 	private Stock stk;
@@ -59,9 +56,7 @@ public class StockBean implements Serializable
 	private List<Stock> stockDrop = new ArrayList<Stock>();
 //	private List<Consommation> consommations = new ArrayList<Consommation>();
 	private List<Consommation> consoDrop = new ArrayList<Consommation>();
-	private String libelle;
 	private String titre;
-	private Double qte;
 	private String description;
 	private Utilisateur user;
 	private Stock stock;
@@ -70,6 +65,7 @@ public class StockBean implements Serializable
 	private List<SousCategorie> sous_categories;
 	private List<Produit> produits;
 	private List<Conservation> conservations;
+	private List<Unite> unites;
 	private Date date_peremption;
 	private Integer duree_ext_stock ;
 	private Double prix;
@@ -82,32 +78,28 @@ public class StockBean implements Serializable
 	private Conservation conservation;
 	private int id_conserv;
 	private String label;
+	private Unite unite;
+	private int id_unite;
 	
 	
-
 	public StockBean ()
 	{
 		
 	}
 	
-	
-	
 	@PostConstruct
 	public void init()
 	{
-		libelle = stockService.recupererLibelle(1);
-		qte = stockService.recupererQuantite(1);
 		categories = stockService.getAllCategorie();
-		stocks = stockService.listerProdDispo(1);
+		unites = stockService.getAllUnite();
+		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
 	}
 	
-
 	public void onCarDrop(DragDropEvent ddEvent) 
 	{
         cons = ((Consommation) ddEvent.getData());
   
-        consoDrop.add(cons);
-       
+        consoDrop.add(cons);  
     }
 	
 	//cette méthode permet de déplacer un produit de mon stock dans la liste stockDrop (jeter produit)
@@ -117,24 +109,24 @@ public class StockBean implements Serializable
   
         stockDrop.add(stk);
         stocks.remove(stk);
-        consommerProduit(stk.getId_prod_stock());
-        System.out.println("coucou consommé");        
-       
+        consommerProduit(stk.getId_prod_stock());       
     }
 	
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
-		{
-			stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, 1);
-		}
+	{
+		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, sessionMB.getSessionUtilisateur().getId_user());
+	}
+
 	
     public void ajouterProduit()  
-	
-	{
+	  {
 		 Stock stock = new Stock();
+		 unite = stockService.GetUniteByIDUnite(id_unite);
+		 stock.setUnite(unite);
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
-		 utilisateur = stockService.getUtilisateurByIDUser(1);
+		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
 		 stock.setUtilisateur(utilisateur);
 		 produit = stockService.GetProduitbyIDProduit(id_prod);
 		 stock.setProduit(produit);
@@ -145,8 +137,7 @@ public class StockBean implements Serializable
 		 stock.setDate_ajout(new Date()); 
 		 
 		 stockService.ajouterProduit(stock);
-		 		 					 
-	}
+	  }
 	
 	public void chargementSousCategories (ValueChangeEvent e)
 	
@@ -173,7 +164,6 @@ public class StockBean implements Serializable
 	public void chargementLibelle (ValueChangeEvent e)
 	
 	{
-	
 		id_sous_cat = (int) e.getNewValue();
 		produits = stockService.GetProduitbyIDSousCategorie(id_sous_cat);
 		
@@ -182,7 +172,6 @@ public class StockBean implements Serializable
 		{
 			conservations.clear();
 		}
-	
 	}
 	
 	
@@ -194,41 +183,6 @@ public class StockBean implements Serializable
 		conservations = stockService.getAllConservation();
 
 	}
-	
-	
-	
-	
-	
-	public void buttonAction(ActionEvent actionEvent) {
-        validerAnnonce("Votre annonce a bien été enregistrée!!", "");
-    }
-	
-	
-	public void validerAnnonce(String msg, String summary)
-	{
-		Annonce annonce = new Annonce();
-		annonce.setStock(daoStock.getStockById(1));
-		annonce.setUtilisateur(daoStock.getStockById(1).getUtilisateur());
-		annonce.setTitre(this.titre);
-		annonce.setDescription(this.description);
-		annonce.setQte_publi(qte);
-		annonce.setDate_publication(new Date());
-		annonce.setMotifRetrait(null);
-		annonce.setDate_retrait(null);
-		
-		//System.out.println("nom user dans annonce" + annonce.getUtilisateur().getNom());
-		stockService.partagerProduit(annonce);
-		
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-	
-	public void annulerValidationAnnonce()
-	{
-		
-		
-	}
-	
 	
 	public Stock recupDonneesProduit()
 	{
@@ -253,7 +207,7 @@ public class StockBean implements Serializable
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, 1);
+		stockService.consommerProduitStock(1, 1, date , 50.00, sessionMB.getSessionUtilisateur().getId_user());
 	}
 
 	public Stock getStock() {
@@ -271,14 +225,6 @@ public class StockBean implements Serializable
 	public void setQuantite(String quantite) {
 		this.quantite = quantite;
 	}
-	  
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
 
 	public String getTitre() {
 		return titre;
@@ -287,15 +233,7 @@ public class StockBean implements Serializable
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-
-	public Double getQte() {
-		return qte;
-	}
-
-	public void setQte(Double qte) {
-		this.qte = qte;
-	}
-
+	
 	public String getDescription() {
 		return description;
 	}
@@ -472,14 +410,6 @@ public class StockBean implements Serializable
 		this.stockService = serviceStock;
 	}
 
-	public String getLibelle_prod() {
-		return libelle_prod;
-	}
-
-	public void setLibelle_prod(String libelle_prod) {
-		this.libelle_prod = libelle_prod;
-	}
-
 	public List<Stock> getStocks() {
 		return stocks;
 	}
@@ -569,29 +499,51 @@ public class StockBean implements Serializable
 		this.daoStock = daoStock;
 	}
 
-
-
-	public LoginBean getsessionMB() {
-		return sessionMB;
-	}
-
-
-
-	public void setsessionMB(LoginBean sessionMB) {
-		this.sessionMB = sessionMB;
-	}
-
-
-
 	public String getLabel() {
 		return label;
 	}
 
-
-
 	public void setLabel(String label) {
 		this.label = label;
 	}
-	
-	
+
+
+	public List<Unite> getUnites() {
+		return unites;
+	}
+
+
+	public void setUnites(List<Unite> unites) {
+		this.unites = unites;
+	}
+
+
+	public Unite getUnite() {
+		return unite;
+	}
+
+
+	public void setUnite(Unite unite) {
+		this.unite = unite;
+	}
+
+
+	public int getId_unite() {
+		return id_unite;
+	}
+
+
+	public void setId_unite(int id_unite) {
+		this.id_unite = id_unite;
+	}
+
+	public LoginBean getSessionMB()
+	{
+		return sessionMB;
+	}
+
+	public void setSessionMB(LoginBean sessionMB)
+	{
+		this.sessionMB = sessionMB;
+	}
 }

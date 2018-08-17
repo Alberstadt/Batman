@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Contact;
@@ -17,7 +18,7 @@ import fr.afcepf.ai103.service.IContactService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ContactBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -35,7 +36,10 @@ public class ContactBean implements Serializable{
 	private String pseudoFf;
 	private Adresse adress;
 	private Date dateInvitation;
-    List<Contact> listeFoodF = new ArrayList<Contact>();
+	List<Contact> listeFoodF = new ArrayList<Contact>();
+    List<Contact> listeFoodFE = new ArrayList<Contact>();
+    List<Contact> listeFoodFR = new ArrayList<Contact>();
+    List<Utilisateur> listeUtilisateurs;
 	
 
 	public ContactBean() 
@@ -45,18 +49,19 @@ public class ContactBean implements Serializable{
 	@PostConstruct
 	public void init()
 	{
-		pseudoFf = utilisateurService.getUtilisateur1ByIdUser(4).getLogin();
-		photoFf =utilisateurService.getUtilisateur1ByIdUser(4).getPortrait();
-	
+		//pseudoFf = utilisateurService.getUserById(id_user).getLogin();
+		//photoFf =utilisateurService.getUtilisateur1ByIdUser(4).getPortrait();
+		listeUtilisateurs = utilisateurService.getAllUsers();
 		//adress = stockService.recupererAdresseById(1);	
 	}
 	
-	public List<Utilisateur> afficherListeUtilisateurs()
+	/*public List<Utilisateur> afficherListeUtilisateurs()
 	{
 		List<Utilisateur> listeUtilisateurs = utilisateurService.getAllUsers();
 		
 		return listeUtilisateurs;
 	}
+	*/
 	
 	public void envoyerDemandeDeFoodFriend(int id_friend, int id_user)
 	{
@@ -130,10 +135,8 @@ public class ContactBean implements Serializable{
 	  public List<Contact> afficherMaListeDeDemandesDeFoodFriendsRecues(int id_friend)
 	   {	
 		  //List<Contact> contacts1 = utilisateur1.getContacts1();
-		  
-		
 		  List<Contact> contacts = contactService.recupererListeDeMesFoodF(id_friend);
-//		  
+		  
 		  for(Contact contact : contacts )
 		    { 
 		  if( contact.getDate_invitation()!= null
@@ -148,7 +151,8 @@ public class ContactBean implements Serializable{
 	  }
 	  
 	  public List<Contact> afficherMaListeDeDemandesDeFoodFriendsEnvoyees(int id_user)
-	  {   // List<Contact> contacts2 = utilisateur2.getContacts2();
+	  {   
+		  // List<Contact> contacts2 = utilisateur2.getContacts2();
 		  
 		  List<Contact> contacts = contactService.recupererListeDeMesFoodF(id_user);
 		  
@@ -244,5 +248,38 @@ public class ContactBean implements Serializable{
 	public void setDateInvitation(Date dateInvitation) {
 		this.dateInvitation = dateInvitation;
 	}
+
+	public List<Contact> getListeFoodF() {
+		return listeFoodF;
+	}
+
+	public void setListeFoodF(List<Contact> listeFoodF) {
+		this.listeFoodF = listeFoodF;
+	}
+
+	public List<Utilisateur> getListeUtilisateurs() {
+		return listeUtilisateurs;
+	}
+
+	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
+		this.listeUtilisateurs = listeUtilisateurs;
+	}
+
+	public List<Contact> getListeFoodFE() {
+		return listeFoodFE;
+	}
+
+	public void setListeFoodFE(List<Contact> listeFoodFE) {
+		this.listeFoodFE = listeFoodFE;
+	}
+
+	public List<Contact> getListeFoodFR() {
+		return listeFoodFR;
+	}
+
+	public void setListeFoodFR(List<Contact> listeFoodFR) {
+		this.listeFoodFR = listeFoodFR;
+	}
 	  
+	
 }
