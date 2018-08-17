@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.ejb.EJB;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -17,6 +20,7 @@ import fr.afcepf.ai103.service.IUtilisateurService;
 
 import javax.annotation.PostConstruct;
 import fr.afcepf.ai103.dao.IDaoStock;
+
 import fr.afcepf.ai103.data.Utilisateur;
 import javax.faces.event.ValueChangeEvent;
 
@@ -80,6 +84,16 @@ public class StockBean implements Serializable
 	private String label;
 	private Unite unite;
 	private int id_unite;
+	private String progressBarColor;
+	List<Stock> listNbPerime;
+	List<Stock> listNbPerimeBientot;
+	private String booleanAlerteQuantitePerime;
+	private String booleanAlerteQuantitePerimeBientot;
+	private String labelNbProduit;
+	private String labelNbPerime;
+	private String labelNbPerimeBientot;
+
+
 	
 	
 	public StockBean ()
@@ -93,12 +107,151 @@ public class StockBean implements Serializable
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
 		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
+		listNbPerime = definirNbPerime(stocks);
+		listNbPerimeBientot = definirNbPerimeBientot(stocks);
+		construireLabelnbProd();
+		construireLabelNbPerimeBientot();
+		construireLabelNbPerime();
 	}
+	
+	
+	public void construireLabelnbProd()
+	{
+		try 
+		{
+			if (stocks.size() == 1) { labelNbProduit = "Bienvenue, vous avez " + stocks.size() + " produit dans votre stock Food2Eat"; }
+			else if (stocks.size() > 1) {labelNbProduit = "Bienvenue, vous avez " + stocks.size() + " produits dans votre stock Food2Eat";}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void construireLabelNbPerimeBientot()
+	{
+		try 
+		{
+			if (listNbPerimeBientot.size() == 1) { labelNbPerimeBientot = "Attention !! " + listNbPerimeBientot.size() + " produit se périme bientôt !"; }
+			else if (listNbPerimeBientot.size() > 1) { labelNbPerimeBientot = "Attention !! " + listNbPerimeBientot.size() + " produits se périment bientôt !";}
+		} catch (Exception e) { e.printStackTrace(); }
+		
+	}
+	
+	public void construireLabelNbPerime()
+	{
+		try 
+		{
+			if (listNbPerime.size() == 1) { labelNbPerime = "OUPS .. " + listNbPerime.size() + " produit est périmé :("; }
+			else if (listNbPerime.size() > 1) { labelNbPerime = "OUPS .. " + listNbPerime.size() + " produits sont périmés :(";}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public List<Stock> definirNbPerime(List<Stock> stocks)
+	{
+		listNbPerime = new ArrayList<Stock>();
+
+		for (Stock stock : stocks)
+		{
+			if (joursRestants(stock.getId_prod_stock()) <= 0)
+			{
+				listNbPerime.add(stock);
+			}
+		}
+		
+		if (listNbPerime.size() == 0) { booleanAlerteQuantitePerime = "false"; }
+		else { booleanAlerteQuantitePerime = "true"; }	
+		
+		return listNbPerime;
+	}
+	
+	
+	public List<Stock> definirNbPerimeBientot(List<Stock> stocks)
+	{
+		listNbPerimeBientot = new ArrayList<Stock>();
+		
+		for (Stock stock : stocks)
+		{
+			if (joursRestants(stock.getId_prod_stock()) <= sessionMB.getSessionUtilisateur().getBat_param_p())
+			{
+				if (joursRestants(stock.getId_prod_stock()) > 0)
+				{
+					listNbPerimeBientot.add(stock);
+				}
+			}
+		}
+		
+		if (listNbPerimeBientot.size() == 0) { booleanAlerteQuantitePerimeBientot = "false"; }
+		else { booleanAlerteQuantitePerimeBientot = "true"; }	
+		
+		return listNbPerimeBientot;
+	}
+	
+	
+	public String dureeProgressBar(int id_prod_stock)
+	{
+		String pourcentage;
+		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+		Date date2 = stockService.getStockById(id_prod_stock).getDate_ajout();
+		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
+		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
+		
+		int pourcent = 100 * diffInDays / diffInDays2;
+		pourcent = 100 - pourcent;
+		if (pourcent > 100) { pourcent = 100; }
+		pourcentage = Integer.toString(pourcent);
+		
+		return pourcentage;
+		
+	}
+	
+	public String dureePeremption(int id_prod_stock)
+	{
+		String label;
+		
+		int diffInDays = joursRestants(id_prod_stock);
+		
+		if (diffInDays < 0) { label = "produit périmé"; }
+		else if (diffInDays >= 365)
+		{ 
+			int diffInYears = diffInDays/365;
+			if (diffInYears == 1) { label = "périme dans " + diffInYears + " an"; }
+			else { label = "périme dans " + diffInYears + " ans"; }
+		}
+		else if (diffInDays >= 30) 
+		{ 
+			int diffInMonth = diffInDays/30;
+			label = "périme dans " + diffInMonth + " mois";
+		}
+		else if (diffInDays == 1) { label = "périme demain"; }
+		else if (diffInDays == 0) { label = "périme aujourd'hui"; }
+		else { label = "périme dans " + diffInDays + " jours"; }
+		
+		return label;
+	}
+	
+	public int joursRestants(int id_prod_stock)
+	{
+		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+		int diffInDays = (int)((new Date().getTime() -  date.getTime()) / (1000 * 60 * 60 * 24) );		
+		diffInDays = -1*diffInDays;
+		return diffInDays;
+	}
+	
+	
+	public String couleurProgressBar(int id_prod_stock)
+	{
+		String couleur = "#007AFF";
+		int duree = joursRestants(id_prod_stock);
+		int pourcent = Integer.parseInt(dureeProgressBar(id_prod_stock));
+		
+		if (pourcent >= 40) { couleur ="#686CE8"; }
+		if (duree <= sessionMB.getBat_param_e()) { couleur ="#FF4A2E"; }
+		if (pourcent == 100) {couleur ="#696969"; }
+		
+		return couleur;	
+	}
+	
 	
 	public void onCarDrop(DragDropEvent ddEvent) 
 	{
         cons = ((Consommation) ddEvent.getData());
-  
         consoDrop.add(cons);  
     }
 	
@@ -546,4 +699,71 @@ public class StockBean implements Serializable
 	{
 		this.sessionMB = sessionMB;
 	}
+
+	public String getProgressBarColor() {
+		return progressBarColor;
+	}
+
+	public void setProgressBarColor(String progressBarColor) {
+		this.progressBarColor = progressBarColor;
+	}
+
+	public List<Stock> getListNbPerime() {
+		return listNbPerime;
+	}
+
+	public void setListNbPerime(List<Stock> listNbPerime) {
+		this.listNbPerime = listNbPerime;
+	}
+
+	public List<Stock> getListNbPerimeBientot() {
+		return listNbPerimeBientot;
+	}
+
+	public void setListNbPerimeBientot(List<Stock> listNbPerimeBientot) {
+		this.listNbPerimeBientot = listNbPerimeBientot;
+	}
+
+	public String getBooleanAlerteQuantitePerime() {
+		return booleanAlerteQuantitePerime;
+	}
+
+	public void setBooleanAlerteQuantitePerime(String booleanAlerteQuantitePerime) {
+		this.booleanAlerteQuantitePerime = booleanAlerteQuantitePerime;
+	}
+
+	public String getBooleanAlerteQuantitePerimeBientot() {
+		return booleanAlerteQuantitePerimeBientot;
+	}
+
+	public void setBooleanAlerteQuantitePerimeBientot(String booleanAlerteQuantitePerimeBientot) {
+		this.booleanAlerteQuantitePerimeBientot = booleanAlerteQuantitePerimeBientot;
+	}
+
+	public String getLabelNbProduit() {
+		return labelNbProduit;
+	}
+
+	public void setLabelNbProduit(String labelNbProduit) {
+		this.labelNbProduit = labelNbProduit;
+	}
+
+	public String getLabelNbPerime() {
+		return labelNbPerime;
+	}
+
+	public void setLabelNbPerime(String labelNbPerime) {
+		this.labelNbPerime = labelNbPerime;
+	}
+
+	public String getLabelNbPerimeBientot() {
+		return labelNbPerimeBientot;
+	}
+
+	public void setLabelNbPerimeBientot(String labelNbPerimeBientot) {
+		this.labelNbPerimeBientot = labelNbPerimeBientot;
+	}
+
+	
+	
 }

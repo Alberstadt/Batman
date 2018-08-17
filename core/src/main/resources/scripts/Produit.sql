@@ -3,7 +3,7 @@ insert into Produit values (2,13,  'aiguillette canard' ,'123456789', '/resource
 insert into Produit values (3,14,  'Gesier confits','123456789', '/resources/produits/images/gesierconfit.jpg');
 insert into Produit values (4,14,  'Gesier de volaille','123456789', '/resources/produits/images/gesiervolaille.jpg');
 insert into Produit values (5,13,  'Gigot d agneau','123456789', '/resources/produits/images/gigotagneau.jpg');
-Insert into Produit values (6,16,  'Bar','123456789', '/resources/produits/images/bar.jpg');
+insert into Produit values (6,16,  'Bar','123456789', '/resources/produits/images/bar.jpg');
 insert into Produit values (7,16,  'Barbue' ,'123456789', '/resources/produits/images/barbue.jpg');
 insert into Produit values (8,16,  'Brochet' ,'123456789', '/resources/produits/images/brochet.jpg');
 insert into Produit values (9,16,  'Coquille St Jacques' ,'123456789', '/resources/produits/images/saintjacques.jpg');

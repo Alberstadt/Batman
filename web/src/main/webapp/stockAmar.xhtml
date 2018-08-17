@@ -180,8 +180,9 @@
 					</div>
 					<p></p>
 					<div class="bar">
-						<div class="percentage has-tip" style="width: 60%"
-							data-perc="perime dans 2 jours"></div>
+						<div class="percentage has-tip" 
+						style="width: #{stockBean.dureeProgressBar(idStock.id_prod_stock)}%;background : #{stockBean.couleurProgressBar(idStock.id_prod_stock)}; "
+							data-perc="#{stockBean.dureePeremption(idStock.id_prod_stock)}"></div>
 					</div>
 
 				</p:panel>
