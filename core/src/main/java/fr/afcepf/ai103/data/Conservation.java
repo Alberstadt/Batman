@@ -10,6 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="conservation")
 @NamedQuery(name="Conservation.findAll", query="SELECT c FROM Conservation c")
 public class Conservation implements Serializable {
 	private static final long serialVersionUID = 1L;

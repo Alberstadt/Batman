@@ -10,6 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="unite")
 @NamedQuery(name="Unite.findAll", query="SELECT u FROM Unite u")
 public class Unite implements Serializable {
 	private static final long serialVersionUID = 1L;
