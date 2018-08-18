@@ -94,6 +94,7 @@ public class StockBean implements Serializable
 	private String labelNbProduit;
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
+	private List<Stock> listFiltree = new ArrayList<Stock>();
 
 
 	
@@ -114,8 +115,28 @@ public class StockBean implements Serializable
 		construireLabelnbProd();
 		construireLabelNbPerimeBientot();
 		construireLabelNbPerime();
+
 	}
 	
+	
+	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
+	{
+		String suite = null;
+		if (numeroDeFiltre == 1)
+		{
+			listFiltree = stocks;
+		}
+		else if (numeroDeFiltre == 2)
+		{
+			listFiltree = listNbPerime;
+		}
+		else if (numeroDeFiltre == 3)
+		{
+			listFiltree = listNbPerimeBientot;
+		}
+		suite = "/archeVide.xhtml?faces-redirect=true";
+		return suite;
+	}
 	
 	public void construireLabelnbProd()
 	{
@@ -767,6 +788,14 @@ public void ajouterProduit()
 
 	public void setLabelNbPerimeBientot(String labelNbPerimeBientot) {
 		this.labelNbPerimeBientot = labelNbPerimeBientot;
+	}
+
+	public List<Stock> getListFiltree() {
+		return listFiltree;
+	}
+
+	public void setListFiltree(List<Stock> listFiltree) {
+		this.listFiltree = listFiltree;
 	}
 
 	

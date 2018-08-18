@@ -26,6 +26,12 @@
 			<!-- Formulaire Ajouter-->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#PopUpAjouter">Ajouter</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				onclick="#{stockBean.choisirFiltreAfficheDansStock(1)};document.open(this.href);self.location.reload();return false();">Enlever Filtres</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				onclick="#{stockBean.choisirFiltreAfficheDansStock(2)};document.open(this.href);self.location.reload();return false();">Filtrer Périmé</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				onclick="#{stockBean.choisirFiltreAfficheDansStock(3)};document.open(this.href);self.location.reload();return false();">Filtrer Périme bientot</button>
 
 			<div class="modal fade" id="PopUpAjouter" tabindex="-1" role="dialog"
 				aria-hidden="true">
@@ -158,7 +164,7 @@
 			<br />
 
 			<!-- remplir le datagrid a partir de la liste consommations -->
-			<p:dataGrid id="idStock" var="idStock" value="#{stockBean.stocks}"
+			<p:dataGrid id="idStock" var="idStock" value="#{stockBean.listFiltree}"
 				columns="4" layout="grid" rows="130" paginator="false"
 				style="margin-top:2em;text-align:center;border:none">
 				<p:panel id="pnl" classe="monStock"
