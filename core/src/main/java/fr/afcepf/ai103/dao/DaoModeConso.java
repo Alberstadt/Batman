@@ -40,7 +40,7 @@ public class DaoModeConso implements IDaoModeConso
 	@Override
 	public ModeConso getModeConsoById(Integer id)
 	{
-		return em.createQuery("SELECT m FROM ModeConso m WHERE m.id_mode= :id", ModeConso.class).setParameter("id", id).getSingleResult();
+		return em.createQuery("SELECT m FROM ModeConso m WHERE m.idMode= :id", ModeConso.class).setParameter("id", id).getSingleResult();
 	}
 
 	@Override

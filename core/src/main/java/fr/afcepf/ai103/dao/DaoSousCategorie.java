@@ -28,7 +28,7 @@ public class DaoSousCategorie implements IDaoSousCategorie {
 	@Override
 	public List<SousCategorie> getSousCategoriebyIDCategorie(int id_cat)
 	{
-		return entityManager.createQuery("select souscat from SousCategorie souscat where souscat.categorie.id_cat = :id_cat",SousCategorie.class)
+		return entityManager.createQuery("select souscat from SousCategorie souscat where souscat.categorie.idCat = :id_cat",SousCategorie.class)
 				.setParameter("id_cat", id_cat)
 				.getResultList(); 
 	}

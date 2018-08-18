@@ -16,4 +16,6 @@ public interface IDaoUtilisateur
 
 	Utilisateur update(Utilisateur sessionUtilisateur);
 
+	List<Utilisateur> GetUsersByDescOrder();
+
 }

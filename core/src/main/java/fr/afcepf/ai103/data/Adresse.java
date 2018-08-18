@@ -17,17 +17,22 @@ public class Adresse implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_adresse;
+	@Column(name="id_adresse")
+	private int idAdresse;
 
-	private short adr_principale;
+	@Column(name="adr_principale")
+	private short adrPrincipale;
 
-	private String code_postal;
+	@Column(name="code_postal")
+	private String codePostal;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_ajout_adr;
+	@Column(name="date_ajout_adr")
+	private Date dateAjoutAdr;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_retrait_adr;
+	@Column(name="date_retrait_adr")
+	private Date dateRetraitAdr;
 
 	private String latitude;
 
@@ -48,44 +53,44 @@ public class Adresse implements Serializable {
 	public Adresse() {
 	}
 
-	public int getId_adresse() {
-		return this.id_adresse;
+	public int getIdAdresse() {
+		return this.idAdresse;
 	}
 
-	public void setId_adresse(int id_adresse) {
-		this.id_adresse = id_adresse;
+	public void setIdAdresse(int idAdresse) {
+		this.idAdresse = idAdresse;
 	}
 
-	public short getAdr_principale() {
-		return this.adr_principale;
+	public short getAdrPrincipale() {
+		return this.adrPrincipale;
 	}
 
-	public void setAdr_principale(short adr_principale) {
-		this.adr_principale = adr_principale;
-	}
-	
-	public String getCode_postal() {
-		return this.code_postal;
+	public void setAdrPrincipale(short adrPrincipale) {
+		this.adrPrincipale = adrPrincipale;
 	}
 
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public String getCodePostal() {
+		return this.codePostal;
 	}
 
-	public Date getDate_ajout_adr() {
-		return this.date_ajout_adr;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
-	public void setDate_ajout_adr(Date date_ajout_adr) {
-		this.date_ajout_adr = date_ajout_adr;
+	public Date getDateAjoutAdr() {
+		return this.dateAjoutAdr;
 	}
 
-	public Date getDate_retrait_adr() {
-		return this.date_retrait_adr;
+	public void setDateAjoutAdr(Date dateAjoutAdr) {
+		this.dateAjoutAdr = dateAjoutAdr;
 	}
 
-	public void setDate_retrait_adr(Date date_retrait_adr) {
-		this.date_retrait_adr = date_retrait_adr;
+	public Date getDateRetraitAdr() {
+		return this.dateRetraitAdr;
+	}
+
+	public void setDateRetraitAdr(Date dateRetraitAdr) {
+		this.dateRetraitAdr = dateRetraitAdr;
 	}
 
 	public String getLatitude() {

@@ -17,7 +17,7 @@ import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.IAdresseService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
-@ManagedBean(name="sessionMB")
+@ManagedBean
 @SessionScoped
 public class LoginBean implements Serializable
 {
@@ -101,8 +101,8 @@ public class LoginBean implements Serializable
 		{
 			sessionUtilisateur = new Utilisateur();
 			sessionUtilisateur.setPassword(password);
-			sessionUtilisateur.setDate_inscription(dateInscription);
-			sessionUtilisateur.setDate_naissance(dateDeNaissance);
+			sessionUtilisateur.setDateInscription(dateInscription);
+			sessionUtilisateur.setDateNaissance(dateDeNaissance);
 			sessionUtilisateur.setLogin(pseudo);
 			sessionUtilisateur.setMail(mail);
 			sessionUtilisateur.setNom(nom);
@@ -128,8 +128,8 @@ public class LoginBean implements Serializable
 		if(chckboxAdr_principale)
 		{
 			Adresse Adresse = getAdressePrincipale(sessionUtilisateur.getAdresses());
-			Adresse.setCode_postal(codePostal);
-			Adresse.setDate_ajout_adr(dateInscription);
+			Adresse.setCodePostal(codePostal);
+			Adresse.setDateAjoutAdr(dateInscription);
 			Adresse.setLatitude(latitude);
 			Adresse.setLongitude(longitude);
 			Adresse.setVille(ville);
@@ -141,13 +141,13 @@ public class LoginBean implements Serializable
 		else
 		{
 			Adresse newAdresse = new Adresse();
-			newAdresse.setCode_postal(codePostal);
-			newAdresse.setDate_ajout_adr(dateInscription);
+			newAdresse.setCodePostal(codePostal);
+			newAdresse.setDateAjoutAdr(dateInscription);
 			newAdresse.setLatitude(latitude);
 			newAdresse.setLongitude(longitude);
 			newAdresse.setVille(ville);
 			newAdresse.setVoirie(voirie);
-			newAdresse.setAdr_principale((short)0);
+			newAdresse.setAdrPrincipale((short)0);
 			//create
 			System.out.println("BEAN boucle ajouter une adresse");
 			//utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
@@ -161,7 +161,7 @@ public class LoginBean implements Serializable
 		
 		for (Adresse adresse : list)
 		{
-			if (adresse.getAdr_principale() == 1)
+			if (adresse.getAdrPrincipale() == 1)
 			{
 				return adresse;
 			}

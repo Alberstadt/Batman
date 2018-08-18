@@ -16,17 +16,19 @@ public class Produit implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_prod;
+	@Column(name="id_prod")
+	private int idProd;
 
 	private String code;
 
 	private String image;
 
-	private String libelle_prod;
+	@Column(name="libelle_prod")
+	private String libelleProd;
 
 	//bi-directional many-to-one association to SousCategorie
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_sous_cat")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_sous_cat")
 	private SousCategorie sousCategorie;
 
 	//bi-directional many-to-one association to Stock
@@ -36,12 +38,12 @@ public class Produit implements Serializable {
 	public Produit() {
 	}
 
-	public int getId_prod() {
-		return this.id_prod;
+	public int getIdProd() {
+		return this.idProd;
 	}
 
-	public void setId_prod(int id_prod) {
-		this.id_prod = id_prod;
+	public void setIdProd(int idProd) {
+		this.idProd = idProd;
 	}
 
 	public String getCode() {
@@ -60,12 +62,12 @@ public class Produit implements Serializable {
 		this.image = image;
 	}
 
-	public String getLibelle_prod() {
-		return this.libelle_prod;
+	public String getLibelleProd() {
+		return this.libelleProd;
 	}
 
-	public void setLibelle_prod(String libelle_prod) {
-		this.libelle_prod = libelle_prod;
+	public void setLibelleProd(String libelleProd) {
+		this.libelleProd = libelleProd;
 	}
 
 	public SousCategorie getSousCategorie() {

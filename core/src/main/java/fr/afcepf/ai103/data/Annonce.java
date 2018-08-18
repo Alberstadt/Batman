@@ -17,38 +17,42 @@ public class Annonce implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_publi;
+	@Column(name="id_publi")
+	private int idPubli;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_publication;
+	@Column(name="date_publication")
+	private Date datePublication;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_retrait;
+	@Column(name="date_retrait")
+	private Date dateRetrait;
 
 	private String description;
 
-	private double qte_publi;
+	@Column(name="qte_publi")
+	private double qtePubli;
 
 	private String titre;
 
 	//bi-directional many-to-one association to Adresse
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_adresse")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_adresse")
 	private Adresse adresse;
 
 	//bi-directional many-to-one association to MotifRetrait
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_motif_retrait")
+	@JoinColumn(name="id_motif_retrait")
 	private MotifRetrait motifRetrait;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_prod_stock")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_prod_stock")
 	private Stock stock;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_user")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur;
 
 	//bi-directional many-to-one association to Reponse
@@ -58,28 +62,28 @@ public class Annonce implements Serializable {
 	public Annonce() {
 	}
 
-	public int getId_publi() {
-		return this.id_publi;
+	public int getIdPubli() {
+		return this.idPubli;
 	}
 
-	public void setId_publi(int id_publi) {
-		this.id_publi = id_publi;
+	public void setIdPubli(int idPubli) {
+		this.idPubli = idPubli;
 	}
 
-	public Date getDate_publication() {
-		return this.date_publication;
+	public Date getDatePublication() {
+		return this.datePublication;
 	}
 
-	public void setDate_publication(Date date_publication) {
-		this.date_publication = date_publication;
+	public void setDatePublication(Date datePublication) {
+		this.datePublication = datePublication;
 	}
 
-	public Date getDate_retrait() {
-		return this.date_retrait;
+	public Date getDateRetrait() {
+		return this.dateRetrait;
 	}
 
-	public void setDate_retrait(Date date_retrait) {
-		this.date_retrait = date_retrait;
+	public void setDateRetrait(Date dateRetrait) {
+		this.dateRetrait = dateRetrait;
 	}
 
 	public String getDescription() {
@@ -90,12 +94,12 @@ public class Annonce implements Serializable {
 		this.description = description;
 	}
 
-	public double getQte_publi() {
-		return this.qte_publi;
+	public double getQtePubli() {
+		return this.qtePubli;
 	}
 
-	public void setQte_publi(double qte_publi) {
-		this.qte_publi = qte_publi;
+	public void setQtePubli(double qtePubli) {
+		this.qtePubli = qtePubli;
 	}
 
 	public String getTitre() {

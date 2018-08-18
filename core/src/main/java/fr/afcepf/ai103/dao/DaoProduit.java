@@ -32,7 +32,7 @@ public class DaoProduit implements IDaoProduit {
 	public List<Produit> GetProduitbyIDSousCategorie (int id_sous_cat)
 	{
 		
-		return entityManager.createQuery("select pdt from Produit pdt where pdt.sousCategorie.id_sous_cat = :id_sous_cat",Produit.class)
+		return entityManager.createQuery("select pdt from Produit pdt where pdt.sousCategorie.idSousCat = :id_sous_cat",Produit.class)
 				.setParameter("id_sous_cat", id_sous_cat)
 				.getResultList();
 		 	
@@ -49,7 +49,7 @@ public class DaoProduit implements IDaoProduit {
 	@Override
 	public List<Produit> listeProduitByIdUtilisateur(int id_user) {
 		
-		return entityManager.createQuery("select pr from Stock st, Produit pr where pr.id_prod = st.produit.id_prod and st.utilisateur.id_user = :id_user" , Produit.class )
+		return entityManager.createQuery("select pr from Stock st, Produit pr where pr.idProd = st.produit.idProd and st.utilisateur.idUser = :id_user" , Produit.class )
 				.setParameter("id_user", id_user)
 				.getResultList();
 		}
@@ -57,7 +57,7 @@ public class DaoProduit implements IDaoProduit {
 	@Override
 	public Produit getImageProduitById(int id_prod_stock) {
 		
-		return entityManager.createQuery("select p from Produit s where p.id_prod_stock = :id_prod_stock" , Produit.class )
+		return entityManager.createQuery("select p from Produit s where p.idProdStock = :id_prod_stock" , Produit.class )
 				.setParameter("id_prod_stock", id_prod_stock)
 				.getSingleResult();
 		}

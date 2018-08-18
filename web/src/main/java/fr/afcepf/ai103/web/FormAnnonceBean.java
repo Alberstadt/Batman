@@ -1,6 +1,5 @@
 package fr.afcepf.ai103.web;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
@@ -19,19 +19,13 @@ import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean
 @ViewScoped
-public class FormAnnonceBean implements Serializable
-	{
-
-		private static final long serialVersionUID = 1L;
-		
+public class FormAnnonceBean
+	{	
 		@EJB
 		private IStockService stockService;
 		
 		@EJB
 		private IUtilisateurService utilisateurService;
-		
-		@ManagedProperty(value="#{sessionMB}")
-		private LoginBean sessionMB;
 		
 		private String libelle;
 		private Double qte_stock;
@@ -39,7 +33,7 @@ public class FormAnnonceBean implements Serializable
 		private String description;
 		private String unite;
 		private Stock stock;
-		private Utilisateur user;
+		private Utilisateur user = (Utilisateur) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 		private Integer id_prod_stock = 3;
 		private Integer id_adresse;
 		private List<Adresse> adresses;
@@ -50,12 +44,11 @@ public class FormAnnonceBean implements Serializable
 		@PostConstruct
 		public void init()
 		{
-			this.user = this.sessionMB.getSessionUtilisateur();
 			this.stock = stockService.getStockById(id_prod_stock);
-			this.libelle = stock.getProduit().getLibelle_prod();
+			this.libelle = stock.getProduit().getLibelleProd();
 			this.qte_stock = stockService.calculerQteReelle(id_prod_stock);
-			this.unite = stock.getUnite().getLibelle_unite();
-			this.adresses = utilisateurService.recupererAdresses(user.getId_user());	
+			this.unite = stock.getUnite().getLibelleUnite();
+			this.adresses = utilisateurService.recupererAdresses(user.getIdUser());	
 		}
 				
 		public void validerAnnonce()
@@ -69,10 +62,10 @@ public class FormAnnonceBean implements Serializable
 			annonce.setAdresse(adresse);
 			annonce.setTitre(this.libelle);
 			annonce.setDescription(this.description);
-			annonce.setQte_publi(this.qte_publi);
-			annonce.setDate_publication(new Date());
+			annonce.setQtePubli(this.qte_publi);
+			annonce.setDatePublication(new Date());
 			annonce.setMotifRetrait(null);
-			annonce.setDate_retrait(null);
+			annonce.setDateRetrait(null);
 			
 			stockService.partagerProduit(annonce);
 		}
@@ -115,16 +108,6 @@ public class FormAnnonceBean implements Serializable
 		public void setStock(Stock stock)
 		{
 			this.stock = stock;
-		}
-
-		public Utilisateur getUser()
-		{
-			return user;
-		}
-
-		public void setUser(Utilisateur user)
-		{
-			this.user = user;
 		}
 
 		public Integer getId_prod_stock()
@@ -175,15 +158,5 @@ public class FormAnnonceBean implements Serializable
 		public void setQte_publi(Double qte_publi)
 		{
 			this.qte_publi = qte_publi;
-		}
-
-		public LoginBean getSessionMB()
-		{
-			return sessionMB;
-		}
-
-		public void setSessionMB(LoginBean sessionMB)
-		{
-			this.sessionMB = sessionMB;
 		}
 }

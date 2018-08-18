@@ -17,9 +17,11 @@ public class ModeConso implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_mode;
+	@Column(name="id_mode")
+	private int idMode;
 
-	private String libelle_mode;
+	@Column(name="libelle_mode")
+	private String libelleMode;
 
 	//bi-directional many-to-one association to Consommation
 	@OneToMany(mappedBy="modeConso")
@@ -28,20 +30,20 @@ public class ModeConso implements Serializable {
 	public ModeConso() {
 	}
 
-	public int getId_mode() {
-		return this.id_mode;
+	public int getIdMode() {
+		return this.idMode;
 	}
 
-	public void setId_mode(int id_mode) {
-		this.id_mode = id_mode;
+	public void setIdMode(int idMode) {
+		this.idMode = idMode;
 	}
 
-	public String getLibelle_mode() {
-		return this.libelle_mode;
+	public String getLibelleMode() {
+		return this.libelleMode;
 	}
 
-	public void setLibelle_mode(String libelle_mode) {
-		this.libelle_mode = libelle_mode;
+	public void setLibelleMode(String libelleMode) {
+		this.libelleMode = libelleMode;
 	}
 
 	public List<Consommation> getConsommations() {

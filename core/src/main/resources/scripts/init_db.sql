@@ -1,14 +1,14 @@
 source crebas.sql;
-source Adresse.sql;
-source Utilisateur.sql;
-source Resider.sql;
-source Categorie.sql;
-source Sous_categorie.sql;
-source Mode_conso.sql;
-source Conservation.sql;
-source Unite.sql;
-source Produit.sql;
-source Stock.sql;
-source Consommation.sql;
-source Annonce.sql;
+source adresse.sql;
+source utilisateur.sql;
+source resider.sql;
+source categorie.sql;
+source sous_categorie.sql;
+source mode_conso.sql;
+source conservation.sql;
+source unite.sql;
+source produit.sql;
+source stock.sql;
+source consommation.sql;
+source annonce.sql;
 

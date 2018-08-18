@@ -16,48 +16,51 @@ public class Consommation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_conso;
+	@Column(name="id_conso")
+	private int idConso;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_conso;
+	@Column(name="date_conso")
+	private Date dateConso;
 
-	private double qte_conso;
+	@Column(name="qte_conso")
+	private double qteConso;
 
 	//bi-directional many-to-one association to ModeConso
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_mode")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_mode")
 	private ModeConso modeConso;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_prod_stock")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_prod_stock")
 	private Stock stock;
 
 	public Consommation() {
 	}
 
-	public int getId_conso() {
-		return this.id_conso;
+	public int getIdConso() {
+		return this.idConso;
 	}
 
-	public void setId_conso(int id_conso) {
-		this.id_conso = id_conso;
+	public void setIdConso(int idConso) {
+		this.idConso = idConso;
 	}
 
-	public Date getDate_conso() {
-		return this.date_conso;
+	public Date getDateConso() {
+		return this.dateConso;
 	}
 
-	public void setDate_conso(Date date_conso) {
-		this.date_conso = date_conso;
+	public void setDateConso(Date dateConso) {
+		this.dateConso = dateConso;
 	}
 
-	public double getQte_conso() {
-		return this.qte_conso;
+	public double getQteConso() {
+		return this.qteConso;
 	}
 
-	public void setQte_conso(double qte_conso) {
-		this.qte_conso = qte_conso;
+	public void setQteConso(double qteConso) {
+		this.qteConso = qteConso;
 	}
 
 	public ModeConso getModeConso() {

@@ -17,9 +17,11 @@ public class MotifAnnulation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_motif_annul;
+	@Column(name="id_motif_annul")
+	private int idMotifAnnul;
 
-	private String libelle_annul;
+	@Column(name="libelle_annul")
+	private String libelleAnnul;
 
 	//bi-directional many-to-one association to Reponse
 	@OneToMany(mappedBy="motifAnnulation")
@@ -28,20 +30,20 @@ public class MotifAnnulation implements Serializable {
 	public MotifAnnulation() {
 	}
 
-	public int getId_motif_annul() {
-		return this.id_motif_annul;
+	public int getIdMotifAnnul() {
+		return this.idMotifAnnul;
 	}
 
-	public void setId_motif_annul(int id_motif_annul) {
-		this.id_motif_annul = id_motif_annul;
+	public void setIdMotifAnnul(int idMotifAnnul) {
+		this.idMotifAnnul = idMotifAnnul;
 	}
 
-	public String getLibelle_annul() {
-		return this.libelle_annul;
+	public String getLibelleAnnul() {
+		return this.libelleAnnul;
 	}
 
-	public void setLibelle_annul(String libelle_annul) {
-		this.libelle_annul = libelle_annul;
+	public void setLibelleAnnul(String libelleAnnul) {
+		this.libelleAnnul = libelleAnnul;
 	}
 
 	public List<Reponse> getReponses() {

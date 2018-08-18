@@ -22,7 +22,7 @@ public class DaoReponse implements IDaoReponse
 	@Override
 	public List<Date> getDateTransByStockId(Integer id_prod_stock)
 	{
-		return entityManager.createQuery("SELECT rep.date_transaction FROM Reponse rep WHERE rep.date_transaction IS NOT NULL AND rep.annonce.stock.id_prod_stock = :id_prod_stock", Date.class)
+		return entityManager.createQuery("SELECT rep.dateTransaction FROM Reponse rep WHERE rep.dateTransaction IS NOT NULL AND rep.annonce.stock.idProdStock = :id_prod_stock", Date.class)
 				.setParameter("id_prod_stock", id_prod_stock)
 				.getResultList();
 	}

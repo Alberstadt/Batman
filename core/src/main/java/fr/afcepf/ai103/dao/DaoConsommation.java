@@ -25,7 +25,7 @@ public class DaoConsommation implements IDaoConsommation
 	public List<Consommation> listeProduitConsommerByIdUtilisateur(int id_user)
 	{
 
-		return em.createQuery("select conso from Consommation conso where conso.stock.utilisateur.id_user = :id_user ",
+		return em.createQuery("select conso from Consommation conso where conso.stock.utilisateur.idUser = :id_user ",
 				Consommation.class).setParameter("id_user", id_user).getResultList();
 	}
 
@@ -42,7 +42,7 @@ public class DaoConsommation implements IDaoConsommation
 		List<Consommation> list;
 		try
 		{
-			list = em.createQuery("SELECT c FROM Consommation c WHERE stock.id_prod_stock = :id_prod_stock",
+			list = em.createQuery("SELECT c FROM Consommation c WHERE stock.idProdStock = :id_prod_stock",
 					Consommation.class).setParameter("id_prod_stock", id_prod_stock).getResultList();
 		} catch (Exception e)
 		{
@@ -57,7 +57,7 @@ public class DaoConsommation implements IDaoConsommation
 		{
 			for (Consommation conso : list)
 			{
-				quantiteConsommee = quantiteConsommee + (Double) conso.getQte_conso();
+				quantiteConsommee = quantiteConsommee + (Double) conso.getQteConso();
 
 			}
 		}

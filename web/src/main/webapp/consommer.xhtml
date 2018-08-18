@@ -23,9 +23,9 @@
 			<!-- remplir le datagrid a partir de la liste consommations -->
 			<p:fieldset id="idListeCons" legend="Produits consommés">
       			  <p:dataGrid id="idCons" var="idCons" value="#{stockBean.stockDrop}" columns="3">
-           				 <p:panel id="pnl" header="#{idCons.id_prod_stock}" style="text-align:center">
+           				 <p:panel id="pnl" header="#{idCons.idProdStock}" style="text-align:center">
               	 			 <h:panelGrid columns="1" style="width:100%">
-                  	 			 <h:outputText value="libele : #{idCons.produit.libelle_prod}  "></h:outputText>
+                  	 			 <h:outputText value="libelle : #{idCons.produit.libelleProd}  "></h:outputText>
                   	 			 
                				 </h:panelGrid>
           				  </p:panel>

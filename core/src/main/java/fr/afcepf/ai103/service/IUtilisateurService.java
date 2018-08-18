@@ -18,4 +18,6 @@ public interface IUtilisateurService {
 
 	List<Adresse> recupererAdresses(Integer id_user);
 
+	Utilisateur GetLastUser();
+
 }

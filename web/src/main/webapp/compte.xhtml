@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
-<ui:composition template="/templates/common.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:b="http://bootsfaces.net/ui"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="/templates/common.xhtml">
 	<ui:define name="title">Compte utilisateur</ui:define>
 	<style>
 		.alerte
@@ -23,56 +22,56 @@
 			<b:row>
 			  	<b:form>
 			   		<b:alert class="alert" span="2" title="IDENTITE : " />
-			    	<b:label span="2" severity="none" value="#{sessionMB.sessionUtilisateur.getPrenom()}" style="margin-top:20px;color:black"/>
-			    	<b:label span="2" severity="none" value="#{sessionMB.sessionUtilisateur.getNom()}" style="margin-top:20px;color:black"/>
+			    	<b:label span="2" severity="none" value="#{user.prenom}" style="margin-top:20px;color:black"/>
+			    	<b:label span="2" severity="none" value="#{user.nom}" style="margin-top:20px;color:black"/>
 			 	 	<b:alert class="alert" span="2" title="DATE D'INSCRIPTION : " />
-    				<b:label span="2" severity="none" value="#{sessionMB.sessionUtilisateur.getDate_inscription()}" style="margin-top:20px;color:black"/>
+    				<b:label span="2" severity="none" value="#{user.dateInscription}" style="margin-top:20px;color:black"/>
 			 	 </b:form>
 			</b:row>
 			<b:row>
 				<b:form>
     				<b:alert class="alert" span="2" title="COORDONNEES : " style="margin-top:10px"/>
-    				<b:label span="2" severity="none" value="#{sessionMB.getAdressePrincipale(sessionMB.sessionUtilisateur.getAdresses()).getVoirie()}" style="margin-top:10px;color:black"/>
-    				<b:label span="2" severity="none" value="#{sessionMB.getAdressePrincipale(sessionMB.sessionUtilisateur.getAdresses()).getCode_postal()}" style="margin-top:10px;color:black"/>
-    				<b:label span="2" severity="none" value="#{sessionMB.getAdressePrincipale(sessionMB.sessionUtilisateur.getAdresses()).getVille()}" style="margin-top:10px;color:black"/>
+    				<b:label span="2" severity="none" value="#{compteBean.adrPrincipale.voirie}" style="margin-top:10px;color:black"/>
+    				<b:label span="2" severity="none" value="#{compteBean.adrPrincipale.codePostal}" style="margin-top:10px;color:black"/>
+    				<b:label span="2" severity="none" value="#{compteBean.adrPrincipale.ville}" style="margin-top:10px;color:black"/>
    				</b:form>
    			</b:row>
    			<b:row>
 				<b:form>
-				<b:alert class="alert" span="2" title="MAIL : " />
-			    	<b:label span="2" severity="none" value="#{sessionMB.sessionUtilisateur.getMail()}" style="margin-top:20px;color:black"/>
+					<b:alert class="alert" span="2" title="MAIL : " />
+			    	<b:label span="2" severity="none" value="#{user.mail}" style="margin-top:20px;color:black"/>
 			    	<b:alert class="alert" span="2" title="TELEPHONE : " />
-			    	<b:label span="2" severity="none" value="#{sessionMB.sessionUtilisateur.getTelephone()}" style="margin-top:20px;color:black" />
-    				</b:form>
+			    	<b:label span="2" severity="none" value="#{user.telephone}" style="margin-top:20px;color:black" />
+    			</b:form>
 			</b:row>
 		</b:panel>
 		<b:panel id="panel2" title="Données optionnelles">
 			<b:row>
 			  	<b:form>
 			   		<b:alert class="alert" span="2" title="MAIL : " />
-			    	<b:inputText span="2" value="#{sessionMB.mail}" placeholder="#{sessionMB.sessionUtilisateur.getMail()}" style="margin-top:10px"/>
-			    	<b:commandButton span="2" value="Modifier" action="#{sessionMB.updateMail()}" style="margin-top:10px"/>
+			    	<b:inputText span="2" value="#{user.mail}" placeholder="#{user.mail}" style="margin-top:10px"/>
+			    	<b:commandButton span="2" value="Modifier" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
 			    	<b:alert class="alert" span="2" title="TELEPHONE : " />
-			    	<b:inputText span="2" value="#{sessionMB.telephone}" placeholder="#{sessionMB.sessionUtilisateur.getTelephone()}" style="margin-top:10px" />
-			    	<b:commandButton span="2" value="Modifier" action="#{sessionMB.updateTelephone()}" style="margin-top:10px"/>
+			    	<b:inputText span="2" value="#{user.telephone}" placeholder="#{user.telephone}" style="margin-top:10px" />
+			    	<b:commandButton span="2" value="Modifier" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
 			 	 </b:form>
 			</b:row>
 			<b:row>
 				<b:form>
     				<b:alert class="alert" span="2" title="DATE DE NAISSANCE : " />
-    				<b:datepicker span="2" value="#{sessionMB.dateDeNaissance}" placeholder="#{sessionMB.sessionUtilisateur.getDate_naissance()}" style="margin-top:10px"/>
-					<b:commandButton span="2" value="Ajouter" action="#{sessionMB.updateDateNaissance()}" style="margin-top:10px"/>
+    				<b:datepicker span="2" value="#{user.dateNaissance}" placeholder="#{user.dateNaissance}" style="margin-top:10px"/>
+					<b:commandButton span="2" value="Ajouter" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
    				</b:form>
 			</b:row>
 			<b:row>
 				<b:form>
     				<b:alert class="alert" span="3" title="AJOUTER UNE ADRESSE : " >
-    				<b:selectBooleanCheckbox value="#{sessionMB.chckboxAdr_principale}" caption="Nouvelle adresse principale" />
+    				<b:selectBooleanCheckbox value="#{compteBean.chkBoxAdrPrinc}" caption="Nouvelle adresse principale" />
     				</b:alert>
-    				<b:inputText span="2" value="#{sessionMB.voirie}" style="margin-top:10px"/>
-    				<b:inputText span="1" value="#{sessionMB.codePostal}" style="margin-top:10px"/>
-    				<b:inputText span="2" value="#{sessionMB.ville}" style="margin-top:10px"/>
-    				<b:commandButton span="2" value="Ajouter" action="#{sessionMB.ajouterAdresse()}" style="margin-top:10px"/>
+    				<b:inputText span="2" value="#{compteBean.voirie}" style="margin-top:10px"/>
+    				<b:inputText span="1" value="#{compteBean.codePostal}" style="margin-top:10px"/>
+    				<b:inputText span="2" value="#{compteBean.ville}" style="margin-top:10px"/>
+    				<b:commandButton span="2" value="Ajouter" action="#{compteBean.ajouterAdresse}" style="margin-top:10px"/>
     				
    				</b:form>
    			</b:row>
@@ -95,7 +94,7 @@
 		<b:column span="3">
 			<b:row><br/></b:row>
 	  		<b:row>
-	  			<img src="sessionMB.sessionUtilisateur.getPortrait()" style="border: 1px solid #ddd;border-radius: 4px;padding: 5px;"></img>
+	  			<img src="user.portrait" style="border: 1px solid #ddd;border-radius: 4px;padding: 5px;"></img>
 	  		</b:row>
 	  		<b:row><br/></b:row>
 	  		<b:row>
@@ -107,4 +106,3 @@
       
 	</ui:define>
 </ui:composition>
-</html> 

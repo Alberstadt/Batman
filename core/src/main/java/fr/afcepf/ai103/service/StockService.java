@@ -89,19 +89,19 @@ public class StockService implements IStockService
 	public void consommerProduitStock(Integer id_prod_stock, Integer id_mode, Date date, Double quantite, Integer id_user)
 	{
 		Consommation conso = new Consommation();
-		conso.setDate_conso(date);
+		conso.setDateConso(date);
 		conso.setStock(daoStock.getStockById(id_prod_stock));
 		
 		if (id_mode == 1)
 		{
 			conso.setModeConso(daoModeConso.getModeConsoById(id_mode));
-			conso.setQte_conso(quantite);
+			conso.setQteConso(quantite);
 		}
 		else if (id_mode == 2)
 		{
 			Double quantiteInitiale = daoStock.getQuantiteById(id_prod_stock, id_user);
 			conso.setModeConso(daoModeConso.getModeConsoById(id_mode));
-			conso.setQte_conso(quantiteInitiale);
+			conso.setQteConso(quantiteInitiale);
 		}
 		daoConsommation.create(conso);
 	}
@@ -116,7 +116,7 @@ public class StockService implements IStockService
 	@Override
 	public Double quantiteRestante(Integer id_prod_stock, Integer id_user)
 	{
-		Double quantiteInitiale = daoStock.getStockById(id_prod_stock).getQte_initiale();
+		Double quantiteInitiale = daoStock.getStockById(id_prod_stock).getQteInitiale();
 		Double quantiteConsommee = daoConsommation.getQuantiteConsoById(id_prod_stock);
 		
 		//System.out.println("STOCKBEAN - quantité initiale : " + quantiteInitiale);
@@ -210,7 +210,7 @@ public class StockService implements IStockService
 		{
 			for (Consommation conso : listeConso)
 			{
-				qteConso += conso.getQte_conso();
+				qteConso += conso.getQteConso();
 			}
 		}
 		
@@ -218,14 +218,14 @@ public class StockService implements IStockService
 		{
 			for (Annonce annonce : listeAnnonce)
 			{
-				if(annonce.getDate_retrait() == null)
+				if(annonce.getDateRetrait() == null)
 				{
-					qteAnnonce += annonce.getQte_publi();
+					qteAnnonce += annonce.getQtePubli();
 				}
 			}
 		}
 		
-		qteReelle = st.getQte_initiale() - qteConso - qteAnnonce;
+		qteReelle = st.getQteInitiale() - qteConso - qteAnnonce;
 		
 		return qteReelle;
 	}
@@ -238,7 +238,7 @@ public class StockService implements IStockService
 		
 		for (Stock stock : listeStock)
 		{
-			Double qteReelle = calculerQteReelle(stock.getId_prod_stock());
+			Double qteReelle = calculerQteReelle(stock.getIdProdStock());
 			
 			if(qteReelle > 0.0)
 			{
@@ -247,7 +247,7 @@ public class StockService implements IStockService
 			
 			else if(qteReelle == 0.0)
 			{
-				if(daoReponse.getDateTransByStockId(stock.getId_prod_stock()).size() == 0)
+				if(daoReponse.getDateTransByStockId(stock.getIdProdStock()).size() == 0)
 				{
 					prodDispo.add(stock);
 				}

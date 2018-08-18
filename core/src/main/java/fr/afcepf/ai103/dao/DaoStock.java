@@ -26,7 +26,7 @@ public class DaoStock implements IDaoStock
 	@Override
 	public List<Stock> listeStockTotalByIdUtilisateur(int id_user)
 	{
-		return entityManager.createQuery("select st from Stock st where st.utilisateur.id_user = :id_user ", Stock.class)
+		return entityManager.createQuery("select st from Stock st where st.utilisateur.idUser = :id_user ", Stock.class)
 				.setParameter("id_user", id_user).getResultList();
 	}
 
@@ -47,9 +47,9 @@ public class DaoStock implements IDaoStock
 	public String recupererProduit(Integer id_prod)
 	{
 		return entityManager
-				.createQuery("SELECT prod FROM Produit prod INNER JOIN prod.stock st WHERE prod.id_prod = :id_prod",
+				.createQuery("SELECT prod FROM Produit prod INNER JOIN prod.stock st WHERE prod.idProd = :id_prod",
 						Produit.class)
-				.setParameter("id_prod", id_prod).getSingleResult().getLibelle_prod();
+				.setParameter("id_prod", id_prod).getSingleResult().getLibelleProd();
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class DaoStock implements IDaoStock
 	@Override
 	public List<Stock> getStockByUserId(Integer id_user)
 	{
-		return entityManager.createQuery("SELECT st FROM Stock st WHERE st.utilisateur.id_user = :id_user", Stock.class)
+		return entityManager.createQuery("SELECT st FROM Stock st WHERE st.utilisateur.idUser = :id_user", Stock.class)
 				.setParameter("id_user", id_user).getResultList();
 	}
 
@@ -75,8 +75,8 @@ public class DaoStock implements IDaoStock
 	public Double getQuantiteById(Integer id_prod_stock, Integer id_user)
 	{
 		Stock prod = entityManager
-				.createQuery("SELECT s FROM Stock s WHERE s.id_prod_stock = :id_prod_stock", Stock.class)
+				.createQuery("SELECT s FROM Stock s WHERE s.idProdStock = :id_prod_stock", Stock.class)
 				.setParameter("id_prod_stock", id_prod_stock).getSingleResult();
-		return prod.getQte_initiale();
+		return prod.getQteInitiale();
 	}
 }

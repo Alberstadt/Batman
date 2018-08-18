@@ -16,9 +16,11 @@ public class Categorie implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_cat;
+	@Column(name="id_cat")
+	private int idCat;
 
-	private String libelle_cat;
+	@Column(name="libelle_cat")
+	private String libelleCat;
 
 	//bi-directional many-to-one association to SousCategorie
 	@OneToMany(mappedBy="categorie")
@@ -27,20 +29,20 @@ public class Categorie implements Serializable {
 	public Categorie() {
 	}
 
-	public int getId_cat() {
-		return this.id_cat;
+	public int getIdCat() {
+		return this.idCat;
 	}
 
-	public void setId_cat(int id_cat) {
-		this.id_cat = id_cat;
+	public void setIdCat(int idCat) {
+		this.idCat = idCat;
 	}
 
-	public String getLibelle_cat() {
-		return this.libelle_cat;
+	public String getLibelleCat() {
+		return this.libelleCat;
 	}
 
-	public void setLibelle_cat(String libelle_cat) {
-		this.libelle_cat = libelle_cat;
+	public void setLibelleCat(String libelleCat) {
+		this.libelleCat = libelleCat;
 	}
 
 	public List<SousCategorie> getSousCategories() {

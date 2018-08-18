@@ -16,9 +16,11 @@ public class Conservation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_conserv;
+	@Column(name="id_conserv")
+	private int idConserv;
 
-	private int duree_ext_conserv;
+	@Column(name="duree_ext_conserv")
+	private int dureeExtConserv;
 
 	private String type;
 
@@ -29,20 +31,20 @@ public class Conservation implements Serializable {
 	public Conservation() {
 	}
 
-	public int getId_conserv() {
-		return this.id_conserv;
+	public int getIdConserv() {
+		return this.idConserv;
 	}
 
-	public void setId_conserv(int id_conserv) {
-		this.id_conserv = id_conserv;
+	public void setIdConserv(int idConserv) {
+		this.idConserv = idConserv;
 	}
 
-	public int getDuree_ext_conserv() {
-		return this.duree_ext_conserv;
+	public int getDureeExtConserv() {
+		return this.dureeExtConserv;
 	}
 
-	public void setDuree_ext_conserv(int duree_ext_conserv) {
-		this.duree_ext_conserv = duree_ext_conserv;
+	public void setDureeExtConserv(int dureeExtConserv) {
+		this.dureeExtConserv = dureeExtConserv;
 	}
 
 	public String getType() {
