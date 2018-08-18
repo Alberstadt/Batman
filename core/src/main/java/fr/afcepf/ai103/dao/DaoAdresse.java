@@ -19,7 +19,7 @@ public class DaoAdresse implements IDaoAdresse
 	public DaoAdresse(){}
 
 	@Override
-	public Adresse create(Adresse adresse, int id_user)
+	public Adresse create(Adresse adresse, int idUser)
 	{
 		entityManager.persist(adresse);
 		entityManager.merge(adresse);
@@ -40,9 +40,9 @@ public class DaoAdresse implements IDaoAdresse
 	}
 
 	@Override
-	public Adresse getAdresseById(Integer id_adresse)
+	public Adresse getAdresseById(Integer idAdresse)
 	{
-		return entityManager.find(Adresse.class, id_adresse);
+		return entityManager.find(Adresse.class, idAdresse);
 	}
 }
 

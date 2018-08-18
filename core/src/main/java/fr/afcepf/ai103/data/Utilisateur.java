@@ -11,26 +11,33 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="utilisateur")
 @NamedQuery(name="Utilisateur.findAll", query="SELECT u FROM Utilisateur u")
 public class Utilisateur implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_user;
+	@Column(name="id_user")
+	private int idUser;
 
-	private int bat_param_e;
+	@Column(name="bat_param_e")
+	private int batParamE;
 
-	private int bat_param_p;
-
-	@Temporal(TemporalType.DATE)
-	private Date date_desinscription;
-
-	@Temporal(TemporalType.DATE)
-	private Date date_inscription;
+	@Column(name="bat_param_p")
+	private int batParamP;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_naissance;
+	@Column(name="date_desinscription")
+	private Date dateDesinscription;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="date_inscription")
+	private Date dateInscription;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="date_naissance")
+	private Date dateNaissance;
 
 	private String login;
 
@@ -51,11 +58,15 @@ public class Utilisateur implements Serializable {
 	//bi-directional many-to-one association to Annonce
 	@OneToMany(mappedBy="utilisateur")
 	private List<Annonce> annonces;
-
+	
+	//utilisateur1 envoie des invitations a sa liste (contacts1)
+	//demandes envoyees
 	//bi-directional many-to-one association to Contact
 	@OneToMany(mappedBy="utilisateur1")
 	private List<Contact> contacts1;
-
+	
+	//Utilisateur2 recoit des invitations d'une liste de contacts
+	//demandes recues
 	//bi-directional many-to-one association to Contact
 	@OneToMany(mappedBy="utilisateur2")
 	private List<Contact> contacts2;
@@ -77,10 +88,10 @@ public class Utilisateur implements Serializable {
 	@JoinTable(
 		name="resider"
 		, joinColumns={
-			@JoinColumn(name="Id_user")
+			@JoinColumn(name="id_user")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="Id_adresse")
+			@JoinColumn(name="id_adresse")
 			}
 		)
 	private List<Adresse> adresses;
@@ -88,52 +99,52 @@ public class Utilisateur implements Serializable {
 	public Utilisateur() {
 	}
 
-	public int getId_user() {
-		return this.id_user;
+	public int getIdUser() {
+		return this.idUser;
 	}
 
-	public void setId_user(int id_user) {
-		this.id_user = id_user;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
-	public int getBat_param_e() {
-		return this.bat_param_e;
+	public int getBatParamE() {
+		return this.batParamE;
 	}
 
-	public void setBat_param_e(int bat_param_e) {
-		this.bat_param_e = bat_param_e;
+	public void setBatParamE(int batParamE) {
+		this.batParamE = batParamE;
 	}
 
-	public int getBat_param_p() {
-		return this.bat_param_p;
+	public int getBatParamP() {
+		return this.batParamP;
 	}
 
-	public void setBat_param_p(int bat_param_p) {
-		this.bat_param_p = bat_param_p;
+	public void setBatParamP(int batParamP) {
+		this.batParamP = batParamP;
 	}
 
-	public Date getDate_desinscription() {
-		return this.date_desinscription;
+	public Date getDateDesinscription() {
+		return this.dateDesinscription;
 	}
 
-	public void setDate_desinscription(Date date_desinscription) {
-		this.date_desinscription = date_desinscription;
+	public void setDateDesinscription(Date dateDesinscription) {
+		this.dateDesinscription = dateDesinscription;
 	}
 
-	public Date getDate_inscription() {
-		return this.date_inscription;
+	public Date getDateInscription() {
+		return this.dateInscription;
 	}
 
-	public void setDate_inscription(Date date_inscription) {
-		this.date_inscription = date_inscription;
+	public void setDateInscription(Date dateInscription) {
+		this.dateInscription = dateInscription;
 	}
 
-	public Date getDate_naissance() {
-		return this.date_naissance;
+	public Date getDateNaissance() {
+		return this.dateNaissance;
 	}
 
-	public void setDate_naissance(Date date_naissance) {
-		this.date_naissance = date_naissance;
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
 
 	public String getLogin() {

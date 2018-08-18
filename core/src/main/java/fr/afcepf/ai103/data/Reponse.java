@@ -11,25 +11,31 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="reponse")
 @NamedQuery(name="Reponse.findAll", query="SELECT r FROM Reponse r")
 public class Reponse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_reponse;
+	@Column(name="id_reponse")
+	private int idReponse;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_annulation;
+	@Column(name="date_annulation")
+	private Date dateAnnulation;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_demande;
+	@Column(name="date_demande")
+	private Date dateDemande;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_selection;
+	@Column(name="date_selection")
+	private Date dateSelection;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_transaction;
+	@Column(name="date_transaction")
+	private Date dateTransaction;
 
 	//bi-directional many-to-one association to Evaluation
 	@OneToMany(mappedBy="reponse")
@@ -37,60 +43,60 @@ public class Reponse implements Serializable {
 
 	//bi-directional many-to-one association to Annonce
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_publi")
+	@JoinColumn(name="id_publi")
 	private Annonce annonce;
 
 	//bi-directional many-to-one association to MotifAnnulation
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_motif_annul")
+	@JoinColumn(name="id_motif_annul")
 	private MotifAnnulation motifAnnulation;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_user")
+	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur;
 
 	public Reponse() {
 	}
 
-	public int getId_reponse() {
-		return this.id_reponse;
+	public int getIdReponse() {
+		return this.idReponse;
 	}
 
-	public void setId_reponse(int id_reponse) {
-		this.id_reponse = id_reponse;
+	public void setIdReponse(int idReponse) {
+		this.idReponse = idReponse;
 	}
 
-	public Date getDate_annulation() {
-		return this.date_annulation;
+	public Date getDateAnnulation() {
+		return this.dateAnnulation;
 	}
 
-	public void setDate_annulation(Date date_annulation) {
-		this.date_annulation = date_annulation;
+	public void setDateAnnulation(Date dateAnnulation) {
+		this.dateAnnulation = dateAnnulation;
 	}
 
-	public Date getDate_demande() {
-		return this.date_demande;
+	public Date getDateDemande() {
+		return this.dateDemande;
 	}
 
-	public void setDate_demande(Date date_demande) {
-		this.date_demande = date_demande;
+	public void setDateDemande(Date dateDemande) {
+		this.dateDemande = dateDemande;
 	}
 
-	public Date getDate_selection() {
-		return this.date_selection;
+	public Date getDateSelection() {
+		return this.dateSelection;
 	}
 
-	public void setDate_selection(Date date_selection) {
-		this.date_selection = date_selection;
+	public void setDateSelection(Date dateSelection) {
+		this.dateSelection = dateSelection;
 	}
 
-	public Date getDate_transaction() {
-		return this.date_transaction;
+	public Date getDateTransaction() {
+		return this.dateTransaction;
 	}
 
-	public void setDate_transaction(Date date_transaction) {
-		this.date_transaction = date_transaction;
+	public void setDateTransaction(Date dateTransaction) {
+		this.dateTransaction = dateTransaction;
 	}
 
 	public List<Evaluation> getEvaluations() {

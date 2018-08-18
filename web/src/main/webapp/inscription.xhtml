@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui"
@@ -29,25 +30,26 @@
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
             <br/>
-                <b:inputText id="nom" placeholder="Nom" value="#{sessionMB.nom}">
+                <b:inputText id="nom" placeholder="Nom" value="#{inscriptionBean.nom}" required="true">
                 </b:inputText>
-                <b:inputText id="prenom" placeholder="Prénom" value="#{sessionMB.prenom}">
+                <b:inputText id="prenom" placeholder="PrÃ©nom" value="#{inscriptionBean.prenom}" required="true">
                 </b:inputText>
-                <b:inputText id="pseudo" placeholder="Pseudo" value="#{sessionMB.pseudo}">
+                <b:inputText id="pseudo" placeholder="Pseudo" value="#{inscriptionBean.pseudo}" required="true">
                 </b:inputText>
-                <b:inputText id="password" placeholder="Password" type="password" value="#{sessionMB.password}">
+                <b:inputSecret id="password" placeholder="Password" value="#{inscriptionBean.password}" required="true">
+                </b:inputSecret>
+                <b:inputSecret id="passVerif" placeholder="Verification password" value="#{inscriptionBean.passVerif}" required="true">
+                </b:inputSecret>
+                <b:inputText id="adresse" placeholder="Adresse" value="#{inscriptionBean.voirie}" required="true">
                 </b:inputText>
-                <b:inputText id="confirmpassword" placeholder="Confirmer Password" type="password" value="#{sessionMB.passwordConfirm}">
+                <b:inputText id="codepostal" placeholder="Code Postal" value="#{inscriptionBean.codePostal}" required="true">
                 </b:inputText>
-                <b:inputText id="codepostal" placeholder="Code Postal" value="#{sessionMB.codePostal}">
+                <b:inputText id="ville" placeholder="Ville" value="#{inscriptionBean.ville}" required="true">
                 </b:inputText>
-                 <b:inputText id="ville" placeholder="Ville" value="#{sessionMB.ville}">
+                <b:inputText id="mail" placeholder="Adresse mail" value="#{inscriptionBean.mail}" required="true">
                 </b:inputText>
-                <b:inputText id="mail" placeholder="Adresse mail" value="#{sessionMB.mail}">
-                </b:inputText>
-                <b:commandButton action="#{sessionMB.inscription()}" look="primary btn-block" id="btnInscription" value="S'inscrire" icon="log-in" size="lg" back-color=""/>
+                <b:commandButton action="#{inscriptionBean.enregistrer}" look="primary btn-block" id="btnInscription" value="S'inscrire" icon="log-in" size="lg" back-color=""/>
             </h:form>
         </b:container>
-</h:body>
-
+	</h:body>
 </html>

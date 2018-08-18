@@ -17,9 +17,11 @@ public class MotifRetrait implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_motif_retrait;
+	@Column(name="id_motif_retrait")
+	private int idMotifRetrait;
 
-	private String libelle_retrait;
+	@Column(name="libelle_retrait")
+	private String libelleRetrait;
 
 	//bi-directional many-to-one association to Annonce
 	@OneToMany(mappedBy="motifRetrait")
@@ -28,20 +30,20 @@ public class MotifRetrait implements Serializable {
 	public MotifRetrait() {
 	}
 
-	public int getId_motif_retrait() {
-		return this.id_motif_retrait;
+	public int getIdMotifRetrait() {
+		return this.idMotifRetrait;
 	}
 
-	public void setId_motif_retrait(int id_motif_retrait) {
-		this.id_motif_retrait = id_motif_retrait;
+	public void setIdMotifRetrait(int idMotifRetrait) {
+		this.idMotifRetrait = idMotifRetrait;
 	}
 
-	public String getLibelle_retrait() {
-		return this.libelle_retrait;
+	public String getLibelleRetrait() {
+		return this.libelleRetrait;
 	}
 
-	public void setLibelle_retrait(String libelle_retrait) {
-		this.libelle_retrait = libelle_retrait;
+	public void setLibelleRetrait(String libelleRetrait) {
+		this.libelleRetrait = libelleRetrait;
 	}
 
 	public List<Annonce> getAnnonces() {

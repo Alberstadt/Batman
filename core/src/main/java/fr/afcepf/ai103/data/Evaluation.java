@@ -9,55 +9,59 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="evaluation")
 @NamedQuery(name="Evaluation.findAll", query="SELECT e FROM Evaluation e")
 public class Evaluation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_eval;
+	@Column(name="id_eval")
+	private int idEval;
 
-	private short auteur_eval;
+	@Column(name="auteur_eval")
+	private short auteurEval;
 
-	private String com_eval;
+	@Column(name="com_eval")
+	private String comEval;
 
 	private int note;
 
 	//bi-directional many-to-one association to Reponse
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_reponse")
+	@JoinColumn(name="id_reponse")
 	private Reponse reponse;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_user")
+	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur;
 
 	public Evaluation() {
 	}
 
-	public int getId_eval() {
-		return this.id_eval;
+	public int getIdEval() {
+		return this.idEval;
 	}
 
-	public void setId_eval(int id_eval) {
-		this.id_eval = id_eval;
+	public void setIdEval(int idEval) {
+		this.idEval = idEval;
 	}
 
-	public short getAuteur_eval() {
-		return this.auteur_eval;
+	public short getAuteurEval() {
+		return this.auteurEval;
 	}
 
-	public void setAuteur_eval(short auteur_eval) {
-		this.auteur_eval = auteur_eval;
+	public void setAuteurEval(short auteurEval) {
+		this.auteurEval = auteurEval;
 	}
 
-	public String getCom_eval() {
-		return this.com_eval;
+	public String getComEval() {
+		return this.comEval;
 	}
 
-	public void setCom_eval(String com_eval) {
-		this.com_eval = com_eval;
+	public void setComEval(String comEval) {
+		this.comEval = comEval;
 	}
 
 	public int getNote() {

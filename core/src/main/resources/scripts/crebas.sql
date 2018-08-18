@@ -1,6 +1,6 @@
 ﻿/*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  2018/08/15 19:33:27                      */
+/* Date de création :  2018/08/18 7:35:57                       */
 /*==============================================================*/
 
 drop database food_db;
@@ -10,294 +10,294 @@ create database food_db;
 use food_db;
 
 /*==============================================================*/
-/* Table : Adresse                                              */
+/* Table : adresse                                              */
 /*==============================================================*/
-create table Adresse
+create table adresse
 (
-   Id_adresse           int not null AUTO_INCREMENT,
-   Voirie               varchar(255),
-   Code_postal          varchar(255),
-   Ville                varchar(255),
-   Latitude             varchar(255),
-   Longitude            varchar(255),
-   Adr_principale       smallint,
-   Date_ajout_adr       date,
-   Date_retrait_adr     date,
-   primary key (Id_adresse)
+   id_adresse           int not null auto_increment,
+   voirie               varchar(255),
+   code_postal          varchar(255),
+   ville                varchar(255),
+   latitude             varchar(255),
+   longitude            varchar(255),
+   adr_principale       smallint,
+   date_ajout_adr       date,
+   date_retrait_adr     date,
+   primary key (id_adresse)
 );
 
 /*==============================================================*/
-/* Table : Annonce                                              */
+/* Table : annonce                                              */
 /*==============================================================*/
-create table Annonce
+create table annonce
 (
-   Id_publi             int not null AUTO_INCREMENT,
-   Id_user              int not null,
-   Id_motif_retrait     int,
-   Id_prod_stock        int not null,
-   Id_adresse           int not null,
-   Titre                varchar(255),
-   Description          varchar(255),
-   Qte_publi            double,
-   Date_publication     date,
-   Date_retrait         date,
-   primary key (Id_publi)
+   id_publi             int not null auto_increment,
+   id_user              int not null,
+   id_motif_retrait     int,
+   id_prod_stock        int not null,
+   id_adresse           int not null,
+   titre                varchar(255),
+   description          varchar(255),
+   qte_publi            double,
+   date_publication     date,
+   date_retrait         date,
+   primary key (id_publi)
 );
 
 /*==============================================================*/
-/* Table : Categorie                                            */
+/* Table : categorie                                            */
 /*==============================================================*/
-create table Categorie
+create table categorie
 (
-   Id_cat               int not null AUTO_INCREMENT,
-   Libelle_cat          varchar(255),
-   primary key (Id_cat)
+   id_cat               int not null auto_increment,
+   libelle_cat          varchar(255),
+   primary key (id_cat)
 );
 
 /*==============================================================*/
-/* Table : Conservation                                         */
+/* Table : conservation                                         */
 /*==============================================================*/
-create table Conservation
+create table conservation
 (
-   Id_conserv           int not null AUTO_INCREMENT,
-   Type                 varchar(255),
-   Duree_ext_conserv    int,
-   primary key (Id_conserv)
+   id_conserv           int not null auto_increment,
+   type                 varchar(255),
+   duree_ext_conserv    int,
+   primary key (id_conserv)
 );
 
 /*==============================================================*/
-/* Table : Consommation                                         */
+/* Table : consommation                                         */
 /*==============================================================*/
-create table Consommation
+create table consommation
 (
-   Id_conso             int not null AUTO_INCREMENT,
-   Id_prod_stock        int not null,
-   Id_mode              int not null,
-   Date_conso           date,
-   Qte_conso            double,
-   primary key (Id_conso)
+   id_conso             int not null auto_increment,
+   id_prod_stock        int not null,
+   id_mode              int not null,
+   date_conso           date,
+   qte_conso            double,
+   primary key (id_conso)
 );
 
 /*==============================================================*/
-/* Table : Contact                                              */
+/* Table : contact                                              */
 /*==============================================================*/
-create table Contact
+create table contact
 (
-   Id_contact           int not null AUTO_INCREMENT,
-   Id_user              int not null,
-   Id_friend            int not null,
-   Date_invitation      date,
-   Date_refus           date,
-   Date_acceptation     date,
-   Date_suppression     date,
-   primary key (Id_contact)
+   id_contact           int not null auto_increment,
+   id_user              int not null,
+   id_friend            int not null,
+   date_invitation      date,
+   date_refus           date,
+   date_acceptation     date,
+   date_suppression     date,
+   primary key (id_contact)
 );
 
 /*==============================================================*/
-/* Table : Evaluation                                           */
+/* Table : evaluation                                           */
 /*==============================================================*/
-create table Evaluation
+create table evaluation
 (
-   Id_eval              int not null AUTO_INCREMENT,
-   Id_user              int not null,
-   Id_reponse           int not null,
-   Note                 int,
-   Com_eval             varchar(255),
-   Auteur_eval          smallint,
-   primary key (Id_eval)
+   id_eval              int not null auto_increment,
+   id_user              int not null,
+   id_reponse           int not null,
+   note                 int,
+   com_eval             varchar(255),
+   auteur_eval          smallint,
+   primary key (id_eval)
 );
 
 /*==============================================================*/
-/* Table : Mode_conso                                           */
+/* Table : mode_conso                                           */
 /*==============================================================*/
-create table Mode_conso
+create table mode_conso
 (
-   Id_mode              int not null AUTO_INCREMENT,
-   Libelle_mode         varchar(255),
-   primary key (Id_mode)
+   id_mode              int not null auto_increment,
+   libelle_mode         varchar(255),
+   primary key (id_mode)
 );
 
 /*==============================================================*/
-/* Table : Motif_annulation                                     */
+/* Table : motif_annulation                                     */
 /*==============================================================*/
-create table Motif_annulation
+create table motif_annulation
 (
-   Id_motif_annul       int not null AUTO_INCREMENT,
-   Libelle_annul        varchar(255),
-   primary key (Id_motif_annul)
+   id_motif_annul       int not null auto_increment,
+   libelle_annul        varchar(255),
+   primary key (id_motif_annul)
 );
 
 /*==============================================================*/
-/* Table : Motif_retrait                                        */
+/* Table : motif_retrait                                        */
 /*==============================================================*/
-create table Motif_retrait
+create table motif_retrait
 (
-   Id_motif_retrait     int not null AUTO_INCREMENT,
-   Libelle_retrait      varchar(255),
-   primary key (Id_motif_retrait)
+   id_motif_retrait     int not null auto_increment,
+   libelle_retrait      varchar(255),
+   primary key (id_motif_retrait)
 );
 
 /*==============================================================*/
-/* Table : Produit                                              */
+/* Table : produit                                              */
 /*==============================================================*/
-create table Produit
+create table produit
 (
-   Id_prod              int not null AUTO_INCREMENT,
-   Id_sous_cat          int not null,
-   Libelle_prod         varchar(255),
-   Code                 varchar(255),
-   Image                varchar(255),
-   primary key (Id_prod)
+   id_prod              int not null auto_increment,
+   id_sous_cat          int not null,
+   libelle_prod         varchar(255),
+   code                 varchar(255),
+   image                varchar(255),
+   primary key (id_prod)
 );
 
 /*==============================================================*/
-/* Table : Reponse                                              */
+/* Table : reponse                                              */
 /*==============================================================*/
-create table Reponse
+create table reponse
 (
-   Id_reponse           int not null AUTO_INCREMENT,
-   Id_user              int not null,
-   Id_motif_annul       int,
-   Id_publi             int not null,
-   Date_demande         date,
-   Date_selection       date,
-   Date_annulation      date,
-   Date_transaction     date,
-   primary key (Id_reponse)
+   id_reponse           int not null auto_increment,
+   id_user              int not null,
+   id_motif_annul       int,
+   id_publi             int not null,
+   date_demande         date,
+   date_selection       date,
+   date_annulation      date,
+   date_transaction     date,
+   primary key (id_reponse)
 );
 
 /*==============================================================*/
-/* Table : Resider                                              */
+/* Table : resider                                              */
 /*==============================================================*/
-create table Resider
+create table resider
 (
-   Id_user              int not null,
-   Id_adresse           int not null,
-   primary key (Id_user, Id_adresse)
+   id_user              int not null,
+   id_adresse           int not null,
+   primary key (id_user, id_adresse)
 );
 
 /*==============================================================*/
-/* Table : Sous_categorie                                       */
+/* Table : sous_categorie                                       */
 /*==============================================================*/
-create table Sous_categorie
+create table sous_categorie
 (
-   Id_sous_cat          int not null AUTO_INCREMENT,
-   Id_cat               int not null,
-   Libelle_sous_cat     varchar(255),
-   Duree_ext_scat       int,
-   primary key (Id_sous_cat)
+   id_sous_cat          int not null auto_increment,
+   id_cat               int not null,
+   libelle_sous_cat     varchar(255),
+   duree_ext_scat       int,
+   primary key (id_sous_cat)
 );
 
 /*==============================================================*/
-/* Table : Stock                                                */
+/* Table : stock                                                */
 /*==============================================================*/
-create table Stock
+create table stock
 (
-   Id_prod_stock        int not null AUTO_INCREMENT,
-   Id_unite             int not null,
-   Id_conserv           int not null,
-   Id_user              int not null,
-   Id_prod              int not null,
-   Date_peremption      date,
-   Duree_ext_stock      int,
-   Prix                 double,
-   Qte_initiale         double,
-   Date_ajout           date,
-   primary key (Id_prod_stock)
+   id_prod_stock        int not null auto_increment,
+   id_unite             int not null,
+   id_conserv           int not null,
+   id_user              int not null,
+   id_prod              int not null,
+   date_peremption      date,
+   duree_ext_stock      int,
+   prix                 double,
+   qte_initiale         double,
+   date_ajout           date,
+   primary key (id_prod_stock)
 );
 
 /*==============================================================*/
-/* Table : Unite                                                */
+/* Table : unite                                                */
 /*==============================================================*/
-create table Unite
+create table unite
 (
-   Id_unite             int not null AUTO_INCREMENT,
-   Libelle_unite        varchar(255),
-   primary key (Id_unite)
+   id_unite             int not null auto_increment,
+   libelle_unite        varchar(255),
+   primary key (id_unite)
 );
 
 /*==============================================================*/
-/* Table : Utilisateur                                          */
+/* Table : utilisateur                                          */
 /*==============================================================*/
-create table Utilisateur
+create table utilisateur
 (
-   Id_user              int not null AUTO_INCREMENT,
-   Date_naissance       date,
-   Sexe                 smallint,
-   Nom                  varchar(255),
-   Prenom               varchar(255),
-   Login                varchar(255),
-   Password             varchar(255),
-   Telephone            varchar(255),
-   Mail                 varchar(255),
-   Portrait             varchar(255),
-   Date_inscription     date,
-   Date_desinscription  date,
-   Bat_param_p          int,
-   Bat_param_e          int,
-   primary key (Id_user)
+   id_user              int not null auto_increment,
+   date_naissance       date,
+   sexe                 smallint,
+   nom                  varchar(255),
+   prenom               varchar(255),
+   login                varchar(255),
+   password             varchar(255),
+   telephone            varchar(255),
+   mail                 varchar(255),
+   portrait             varchar(255),
+   date_inscription     date,
+   date_desinscription  date,
+   bat_param_p          int,
+   bat_param_e          int,
+   primary key (id_user)
 );
 
-alter table Annonce add constraint FK_Donner foreign key (Id_motif_retrait)
-      references Motif_retrait (Id_motif_retrait) on delete restrict on update restrict;
+alter table annonce add constraint FK_Donner foreign key (id_motif_retrait)
+      references motif_retrait (id_motif_retrait) on delete restrict on update restrict;
 
-alter table Annonce add constraint FK_Partager foreign key (Id_prod_stock)
-      references Stock (Id_prod_stock) on delete restrict on update restrict;
+alter table annonce add constraint FK_partager foreign key (id_prod_stock)
+      references stock (id_prod_stock) on delete restrict on update restrict;
 
-alter table Annonce add constraint FK_Publier foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table annonce add constraint FK_publier foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Annonce add constraint FK_Selectionner foreign key (Id_adresse)
-      references Adresse (Id_adresse) on delete restrict on update restrict;
+alter table annonce add constraint FK_selectionner foreign key (id_adresse)
+      references adresse (id_adresse) on delete restrict on update restrict;
 
-alter table Consommation add constraint FK_Consommer foreign key (Id_prod_stock)
-      references Stock (Id_prod_stock) on delete restrict on update restrict;
+alter table consommation add constraint FK_consommer foreign key (id_prod_stock)
+      references stock (id_prod_stock) on delete restrict on update restrict;
 
-alter table Consommation add constraint FK_Preciser foreign key (Id_mode)
-      references Mode_conso (Id_mode) on delete restrict on update restrict;
+alter table consommation add constraint FK_preciser foreign key (id_mode)
+      references mode_conso (id_mode) on delete restrict on update restrict;
 
-alter table Contact add constraint FK_Inviter foreign key (Id_friend)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table contact add constraint FK_inviter foreign key (id_friend)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Contact add constraint FK_Socialiser foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table contact add constraint FK_socialiser foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Evaluation add constraint FK_Evaluer foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table evaluation add constraint FK_evaluer foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Evaluation add constraint FK_Noter foreign key (Id_reponse)
-      references Reponse (Id_reponse) on delete restrict on update restrict;
+alter table evaluation add constraint FK_noter foreign key (id_reponse)
+      references reponse (id_reponse) on delete restrict on update restrict;
 
-alter table Produit add constraint FK_Classer foreign key (Id_sous_cat)
-      references Sous_categorie (Id_sous_cat) on delete restrict on update restrict;
+alter table produit add constraint FK_classer foreign key (id_sous_cat)
+      references sous_categorie (id_sous_cat) on delete restrict on update restrict;
 
-alter table Reponse add constraint FK_Contenir foreign key (Id_publi)
-      references Annonce (Id_publi) on delete restrict on update restrict;
+alter table reponse add constraint FK_contenir foreign key (id_publi)
+      references annonce (id_publi) on delete restrict on update restrict;
 
-alter table Reponse add constraint FK_Justifier foreign key (Id_motif_annul)
-      references Motif_annulation (Id_motif_annul) on delete restrict on update restrict;
+alter table reponse add constraint FK_justifier foreign key (id_motif_annul)
+      references motif_annulation (id_motif_annul) on delete restrict on update restrict;
 
-alter table Reponse add constraint FK_Repondre foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table reponse add constraint FK_repondre foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Resider add constraint FK_Resider foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table resider add constraint FK_resider foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Resider add constraint FK_Resider2 foreign key (Id_adresse)
-      references Adresse (Id_adresse) on delete restrict on update restrict;
+alter table resider add constraint FK_resider2 foreign key (id_adresse)
+      references adresse (id_adresse) on delete restrict on update restrict;
 
-alter table Sous_categorie add constraint FK_Categoriser foreign key (Id_cat)
-      references Categorie (Id_cat) on delete restrict on update restrict;
+alter table sous_categorie add constraint FK_categoriser foreign key (id_cat)
+      references categorie (id_cat) on delete restrict on update restrict;
 
-alter table Stock add constraint FK_Ajouter foreign key (Id_user)
-      references Utilisateur (Id_user) on delete restrict on update restrict;
+alter table stock add constraint FK_ajouter foreign key (id_user)
+      references utilisateur (id_user) on delete restrict on update restrict;
 
-alter table Stock add constraint FK_Conserver foreign key (Id_conserv)
-      references Conservation (Id_conserv) on delete restrict on update restrict;
+alter table stock add constraint FK_conserver foreign key (id_conserv)
+      references conservation (id_conserv) on delete restrict on update restrict;
 
-alter table Stock add constraint FK_Mesurer foreign key (Id_unite)
-      references Unite (Id_unite) on delete restrict on update restrict;
+alter table stock add constraint FK_mesurer foreign key (id_unite)
+      references unite (id_unite) on delete restrict on update restrict;
 
-alter table Stock add constraint FK_Referencer foreign key (Id_prod)
-      references Produit (Id_prod) on delete restrict on update restrict;
+alter table stock add constraint FK_referencer foreign key (id_prod)
+      references produit (id_prod) on delete restrict on update restrict;
 

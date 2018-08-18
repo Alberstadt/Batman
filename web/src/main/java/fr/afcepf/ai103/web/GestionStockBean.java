@@ -35,7 +35,7 @@ public class GestionStockBean implements Serializable
 	@PostConstruct
 	public void init() 
 	{
-		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());		
+		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getIdUser());		
 	}
 	
 	private Stock stk;

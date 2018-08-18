@@ -18,9 +18,9 @@ public class UtilisateurService implements IUtilisateurService
 	
 	
 	@Override
-	public Utilisateur verifierMotDePasse(String Pseudo, String password)
+	public Utilisateur verifierMotDePasse(String pseudo, String password)
 	{
-		return daoUtilisateur.verifierMotDePasse(Pseudo, password);
+		return daoUtilisateur.verifierMotDePasse(pseudo, password);
 	}
 	
 	@Override
@@ -30,18 +30,36 @@ public class UtilisateurService implements IUtilisateurService
 	}
 	
 	@Override
+	public Utilisateur getUtilisateur1ByIdUser(int id_friend)
+	{
+		return daoUtilisateur.getUserById(id_friend);
+	}
+	
+	@Override
+	public Utilisateur getUtilisateur2ByIdUser(int id_user)
+	{
+		return daoUtilisateur.getUserById(id_user);
+	}
+	
+	@Override
+	public List<Utilisateur> getAllUsers()
+	{
+		return daoUtilisateur.getAllUsers();
+	}	
+		
+	@Override
 	public Utilisateur getUserById(Integer id_user)
 	{
 		return daoUtilisateur.getUserById(id_user);
 	}
 
 	@Override
-	public Utilisateur update(Utilisateur sessionUtilisateur) 
+	public Utilisateur update(Utilisateur user) 
 	{
-		return daoUtilisateur.update(sessionUtilisateur);
+		return daoUtilisateur.update(user);
 	}
 	
-
+	@Override
 	public List<Adresse> recupererAdresses(Integer id_user)
 	{
 		Utilisateur user = daoUtilisateur.getUserById(id_user);
@@ -50,5 +68,14 @@ public class UtilisateurService implements IUtilisateurService
 		adresses.size();
 		
 		return adresses;
+
 	}
+	
+	@Override
+	public Utilisateur GetLastUser()
+	{
+		List<Utilisateur> users = daoUtilisateur.GetUsersByDescOrder();
+		return users.get(0);
+	}
+	
 }

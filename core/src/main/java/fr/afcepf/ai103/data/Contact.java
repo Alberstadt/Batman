@@ -10,77 +10,83 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="contact")
 @NamedQuery(name="Contact.findAll", query="SELECT c FROM Contact c")
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_contact;
+	@Column(name="id_contact")
+	private int idContact;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_acceptation;
+	@Column(name="date_acceptation")
+	private Date dateAcceptation;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_invitation;
+	@Column(name="date_invitation")
+	private Date dateInvitation;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_refus;
+	@Column(name="date_refus")
+	private Date dateRefus;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_suppression;
+	@Column(name="date_suppression")
+	private Date dateSuppression;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_friend")
+	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur1;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_user")
+	@JoinColumn(name="id_friend")
 	private Utilisateur utilisateur2;
 
 	public Contact() {
 	}
 
-	public int getId_contact() {
-		return this.id_contact;
+	public int getIdContact() {
+		return this.idContact;
 	}
 
-	public void setId_contact(int id_contact) {
-		this.id_contact = id_contact;
+	public void setIdContact(int idContact) {
+		this.idContact = idContact;
 	}
 
-	public Date getDate_acceptation() {
-		return this.date_acceptation;
+	public Date getDateAcceptation() {
+		return this.dateAcceptation;
 	}
 
-	public void setDate_acceptation(Date date_acceptation) {
-		this.date_acceptation = date_acceptation;
+	public void setDateAcceptation(Date dateAcceptation) {
+		this.dateAcceptation = dateAcceptation;
 	}
 
-	public Date getDate_invitation() {
-		return this.date_invitation;
+	public Date getDateInvitation() {
+		return this.dateInvitation;
 	}
 
-	public void setDate_invitation(Date date_invitation) {
-		this.date_invitation = date_invitation;
+	public void setDateInvitation(Date dateInvitation) {
+		this.dateInvitation = dateInvitation;
 	}
 
-	public Date getDate_refus() {
-		return this.date_refus;
+	public Date getDateRefus() {
+		return this.dateRefus;
 	}
 
-	public void setDate_refus(Date date_refus) {
-		this.date_refus = date_refus;
+	public void setDateRefus(Date dateRefus) {
+		this.dateRefus = dateRefus;
 	}
 
-	public Date getDate_suppression() {
-		return this.date_suppression;
+	public Date getDateSuppression() {
+		return this.dateSuppression;
 	}
 
-	public void setDate_suppression(Date date_suppression) {
-		this.date_suppression = date_suppression;
+	public void setDateSuppression(Date dateSuppression) {
+		this.dateSuppression = dateSuppression;
 	}
 
 	public Utilisateur getUtilisateur1() {

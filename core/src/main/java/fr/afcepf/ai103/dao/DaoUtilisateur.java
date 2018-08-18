@@ -21,13 +21,13 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	public DaoUtilisateur(){}
 
 	@Override
-	public Utilisateur verifierMotDePasse (String Pseudo, String password)
+	public Utilisateur verifierMotDePasse (String pseudo, String password)
 	{
 		Utilisateur u = null;
 		try 
 		{
-			u = entityManager.createQuery("SELECT p FROM Utilisateur p WHERE p.login = :Pseudo AND p.password = :password", Utilisateur.class)
-					.setParameter("Pseudo", Pseudo)
+			u = entityManager.createQuery("SELECT p FROM Utilisateur p WHERE p.login = :pseudo AND p.password = :password", Utilisateur.class)
+					.setParameter("pseudo", pseudo)
 					.setParameter("password", password)
 					.getSingleResult();
 		} 
@@ -52,9 +52,29 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	}
 	
 	@Override
-	public Utilisateur update(Utilisateur sessionUtilisateur)
+	public List<Utilisateur> getAllUsers()
 	{
-		return entityManager.merge(sessionUtilisateur);
+		return entityManager.createNamedQuery("Utilisateur.findAll", Utilisateur.class).getResultList();
 	}
 
+	@Override
+	public Utilisateur update(Utilisateur user)
+	{
+		return entityManager.merge(user);
+	}
+	
+	@Override
+	public List<Utilisateur> GetUsersByDescOrder()
+	{
+		return entityManager.createQuery("SELECT u FROM Utilisateur u ORDER BY u.idUser DESC", Utilisateur.class).getResultList();
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
 }

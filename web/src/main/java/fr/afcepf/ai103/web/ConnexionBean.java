@@ -13,8 +13,6 @@ import fr.afcepf.ai103.service.IUtilisateurService;
 @RequestScoped
 public class ConnexionBean
 {
-	//@ManagedProperty(value="#{sessionBean}")
-	//private SessionBean session;
 	
 	@EJB
 	private IUtilisateurService utilisateurService;
@@ -35,14 +33,13 @@ public class ConnexionBean
 		
 		if (user == null)
 		{
-            context.addMessage(null, new FacesMessage("Erreur d'identifiant et/ou de mot de passe"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", " Mauvais identifiant et/ou mot de passe"));
             pseudo = null;
             password = null;
             return null;
 		}
 		else
 		{
-			//session.setUser(user);
 			context.getExternalContext().getSessionMap().put("user", user);
 			return "/archeVide.xhtml?faces-redirect=true";
 		}

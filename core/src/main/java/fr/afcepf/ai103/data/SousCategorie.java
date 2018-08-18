@@ -17,11 +17,14 @@ public class SousCategorie implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_sous_cat;
+	@Column(name="id_sous_cat")
+	private int idSousCat;
 
-	private int duree_ext_scat;
+	@Column(name="duree_ext_scat")
+	private int dureeExtScat;
 
-	private String libelle_sous_cat;
+	@Column(name="libelle_sous_cat")
+	private String libelleSousCat;
 
 	//bi-directional many-to-one association to Produit
 	@OneToMany(mappedBy="sousCategorie")
@@ -29,34 +32,34 @@ public class SousCategorie implements Serializable {
 
 	//bi-directional many-to-one association to Categorie
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_cat")
+	@JoinColumn(name="id_cat")
 	private Categorie categorie;
 
 	public SousCategorie() {
 	}
 
-	public int getId_sous_cat() {
-		return this.id_sous_cat;
+	public int getIdSousCat() {
+		return this.idSousCat;
 	}
 
-	public void setId_sous_cat(int id_sous_cat) {
-		this.id_sous_cat = id_sous_cat;
+	public void setIdSousCat(int idSousCat) {
+		this.idSousCat = idSousCat;
 	}
 
-	public int getDuree_ext_scat() {
-		return this.duree_ext_scat;
+	public int getDureeExtScat() {
+		return this.dureeExtScat;
 	}
 
-	public void setDuree_ext_scat(int duree_ext_scat) {
-		this.duree_ext_scat = duree_ext_scat;
+	public void setDureeExtScat(int dureeExtScat) {
+		this.dureeExtScat = dureeExtScat;
 	}
 
-	public String getLibelle_sous_cat() {
-		return this.libelle_sous_cat;
+	public String getLibelleSousCat() {
+		return this.libelleSousCat;
 	}
 
-	public void setLibelle_sous_cat(String libelle_sous_cat) {
-		this.libelle_sous_cat = libelle_sous_cat;
+	public void setLibelleSousCat(String libelleSousCat) {
+		this.libelleSousCat = libelleSousCat;
 	}
 
 	public List<Produit> getProduits() {

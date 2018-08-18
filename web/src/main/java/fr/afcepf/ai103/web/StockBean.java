@@ -1,7 +1,5 @@
 package fr.afcepf.ai103.web;
 
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 
 import fr.afcepf.ai103.data.Stock;
 import fr.afcepf.ai103.data.Unite;
@@ -34,10 +32,8 @@ import fr.afcepf.ai103.data.Consommation;
 
 @ManagedBean
 @ViewScoped
-public class StockBean implements Serializable
+public class StockBean
 {
-
-
 	@EJB
 	private IStockService stockService;
 	
@@ -47,9 +43,6 @@ public class StockBean implements Serializable
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
-	@ManagedProperty(value="#{sessionMB}")
-	private LoginBean sessionMB;
-	
 	private int id_prod;
 	private String id_prod_stock;
 	private Produit produit;
@@ -58,13 +51,11 @@ public class StockBean implements Serializable
 	private Consommation cons;
 	private List<Produit> prodConsommes;
 	private List<Stock> stocks;
-	//private List<Stock> stocksConsommer;
 	private List<Stock> stockDrop = new ArrayList<Stock>();
-//	private List<Consommation> consommations = new ArrayList<Consommation>();
 	private List<Consommation> consoDrop = new ArrayList<Consommation>();
 	private String titre;
 	private String description;
-	private Utilisateur user;
+	private Utilisateur user = (Utilisateur) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 	private Stock stock;
 	private String quantite;
 	private List<Categorie> categories;
@@ -80,7 +71,6 @@ public class StockBean implements Serializable
 	private String libelle_cat;
 	private int id_sous_cat;
 	private String libelle_sous_cat;
-	private Utilisateur utilisateur;
 	private Conservation conservation;
 	private int id_conserv;
 	private String label;
@@ -95,9 +85,6 @@ public class StockBean implements Serializable
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
 	private List<Stock> listFiltree = new ArrayList<Stock>();
-
-
-	
 	
 	public StockBean ()
 	{
@@ -109,7 +96,7 @@ public class StockBean implements Serializable
 	{
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
-		stocks = stockService.listerProdDispo(sessionMB.getSessionUtilisateur().getId_user());
+		stocks = stockService.listerProdDispo(user.getIdUser());
 		listNbPerime = definirNbPerime(stocks);
 		listNbPerimeBientot = definirNbPerimeBientot(stocks);
 		construireLabelnbProd();
@@ -172,7 +159,7 @@ public class StockBean implements Serializable
 
 		for (Stock stock : stocks)
 		{
-			if (joursRestants(stock.getId_prod_stock()) <= 0)
+			if (joursRestants(stock.getIdProdStock()) <= 0)
 			{
 				listNbPerime.add(stock);
 			}
@@ -191,9 +178,9 @@ public class StockBean implements Serializable
 		
 		for (Stock stock : stocks)
 		{
-			if (joursRestants(stock.getId_prod_stock()) <= sessionMB.getSessionUtilisateur().getBat_param_p())
+			if (joursRestants(stock.getIdProdStock()) <= user.getBatParamP())
 			{
-				if (joursRestants(stock.getId_prod_stock()) > 0)
+				if (joursRestants(stock.getIdProdStock()) > 0)
 				{
 					listNbPerimeBientot.add(stock);
 				}
@@ -210,8 +197,8 @@ public class StockBean implements Serializable
 	public String dureeProgressBar(int id_prod_stock)
 	{
 		String pourcentage;
-		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
-		Date date2 = stockService.getStockById(id_prod_stock).getDate_ajout();
+		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
+		Date date2 = stockService.getStockById(id_prod_stock).getDateAjout();
 		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
 		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
 		
@@ -251,7 +238,7 @@ public class StockBean implements Serializable
 	
 	public int joursRestants(int id_prod_stock)
 	{
-		Date date = stockService.getStockById(id_prod_stock).getDate_peremption();
+		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
 		int diffInDays = (int)((new Date().getTime() -  date.getTime()) / (1000 * 60 * 60 * 24) );		
 		diffInDays = -1*diffInDays;
 		return diffInDays;
@@ -265,7 +252,7 @@ public class StockBean implements Serializable
 		int pourcent = Integer.parseInt(dureeProgressBar(id_prod_stock));
 		
 		if (pourcent >= 40) { couleur ="#686CE8"; }
-		if (duree <= sessionMB.getBat_param_e()) { couleur ="#FF4A2E"; }
+		if (duree <= user.getBatParamE()) { couleur ="#FF4A2E"; }
 		if (pourcent == 100) {couleur ="#696969"; }
 		
 		return couleur;	
@@ -285,36 +272,34 @@ public class StockBean implements Serializable
   
         stockDrop.add(stk);
         stocks.remove(stk);
-        consommerProduit(stk.getId_prod_stock());       
+        consommerProduit(stk.getIdProdStock());       
     }
 	
 	//methode permet d'ajouter un produit dans la table consommation
 	public void consommerProduit(Integer id_prod_stock)
 	{
-		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, sessionMB.getSessionUtilisateur().getId_user());
+		stockService.consommerProduitStock(id_prod_stock, 2, new Date(), 1.0, user.getIdUser());
 	}
+
 	
-public void ajouterProduit()  
-	
-	{
+    public void ajouterProduit()  
+	  {
 		 Stock stock = new Stock();
 		 unite = stockService.GetUniteByIDUnite(id_unite);
 		 stock.setUnite(unite);
 		 conservation = stockService.GetConservationByIDConservation(id_conserv);
 		 stock.setConservation(conservation);
-		 utilisateur = utilisateurService.getUserById(sessionMB.getSessionUtilisateur().getId_user());
-		 stock.setUtilisateur(utilisateur);
+		 stock.setUtilisateur(user);
 		 produit = stockService.GetProduitbyIDProduit(id_prod);
 		 stock.setProduit(produit);
-		 stock.setDate_peremption(date_peremption);
-		 stock.setDuree_ext_stock(duree_ext_stock);
+		 stock.setDatePeremption(date_peremption);
+		 stock.setDureeExtStock(duree_ext_stock);
 		 stock.setPrix(prix);
-		 stock.setQte_initiale(qte_initiale);
-		 stock.setDate_ajout(new Date()); 
+		 stock.setQteInitiale(qte_initiale);
+		 stock.setDateAjout(new Date()); 
 		 
 		 stockService.ajouterProduit(stock);
-		 		 					 
-	}
+	  }
 	
 	public void chargementSousCategories (ValueChangeEvent e)
 	
@@ -341,7 +326,6 @@ public void ajouterProduit()
 	public void chargementLibelle (ValueChangeEvent e)
 	
 	{
-	
 		id_sous_cat = (int) e.getNewValue();
 		produits = stockService.GetProduitbyIDSousCategorie(id_sous_cat);
 		
@@ -350,7 +334,6 @@ public void ajouterProduit()
 		{
 			conservations.clear();
 		}
-	
 	}
 	
 	
@@ -386,7 +369,7 @@ public void ajouterProduit()
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, sessionMB.getSessionUtilisateur().getId_user());
+		stockService.consommerProduitStock(1, 1, date , 50.00, user.getIdUser());
 	}
 
 	public Stock getStock() {
@@ -541,14 +524,6 @@ public void ajouterProduit()
 		this.id_prod = id_prod;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
-
 	public Produit getProduit() {
 		return produit;
 	}
@@ -665,9 +640,6 @@ public void ajouterProduit()
 		this.cons = cons;
 	}
 	
-	private static final long serialVersionUID = 1L;
-	
-	
 	public IDaoStock getDaoStock() {
 		return daoStock;
 	}
@@ -714,16 +686,6 @@ public void ajouterProduit()
 
 	public void setId_unite(int id_unite) {
 		this.id_unite = id_unite;
-	}
-
-	public LoginBean getSessionMB()
-	{
-		return sessionMB;
-	}
-
-	public void setSessionMB(LoginBean sessionMB)
-	{
-		this.sessionMB = sessionMB;
 	}
 
 	public String getProgressBarColor() {
@@ -798,6 +760,5 @@ public void ajouterProduit()
 		this.listFiltree = listFiltree;
 	}
 
-	
 	
 }

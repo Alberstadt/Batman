@@ -1,25 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>
-		<ui:insert name="title">Food2Eat</ui:insert>
-	</title>
-
-	<h:outputScript name="js/jquery-3.3.1.min.js" target="head" />
-	<h:outputStylesheet name="css/bootstrap.css" />
-	<h:outputScript name="js/bootstrap.js" target="body" />
-	<!--<h:outputScript name="js/gmap.js" target="body" />-->
-	<h:outputStylesheet name="css/style_matthieu.css" />
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCunMGLZL8MpqE7SNki88sbJFEMEs-HDjE&amp;callback=initMap" type="text/javascript"></script>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			<ui:insert name="title">Food2Eat</ui:insert>
+		</title>
+		<h:outputScript name="js/jquery-3.3.1.min.js" target="head" />
+		<h:outputStylesheet name="css/style_matthieu.css" />
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCunMGLZL8MpqE7SNki88sbJFEMEs-HDjE&amp;callback=initMap" type="text/javascript"></script>
 		<script type='text/javascript'>
 		function init_map()
 		{
@@ -36,33 +32,32 @@
 			
 		}
 			google.maps.event.addDomListener(window, 'load', init_map);
-	</script>
-  </h:head>
+		</script>
+  	</h:head>
 
-<h:body>
-	<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
-
-	<div id="header">
-		<ui:insert name="header">
-			<ui:include src="header.xhtml" />
-		</ui:insert>
-	</div>
-
-
-	<div id="content">
-		<ui:insert name="content">
-			<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
-			<!-- <div> -->
-			<!-- <ui:include src="content.xhtml"/> -->
-			<!-- </div> -->
-		</ui:insert>
-	</div>
-
-	<div id="footer">
-		<ui:insert name="footer">
-			<ui:include src="footer.xhtml" />
-		</ui:insert>
-	</div>
-</h:body>
-
+	<h:body id="mainBody">
+		<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
+	
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+			</ui:insert>
+		</div>
+	
+	
+		<div id="content">
+			<ui:insert name="content">
+				<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+				<!-- <div> -->
+				<!-- <ui:include src="content.xhtml"/> -->
+				<!-- </div> -->
+			</ui:insert>
+		</div>
+	
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:body>
 </html>

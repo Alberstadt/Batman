@@ -11,25 +11,31 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="stock")
 @NamedQuery(name="Stock.findAll", query="SELECT s FROM Stock s")
 public class Stock implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id_prod_stock;
+	@Column(name="id_prod_stock")
+	private int idProdStock;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_ajout;
+	@Column(name="date_ajout")
+	private Date dateAjout;
 
 	@Temporal(TemporalType.DATE)
-	private Date date_peremption;
+	@Column(name="date_peremption")
+	private Date datePeremption;
 
-	private int duree_ext_stock;
+	@Column(name="duree_ext_stock")
+	private int dureeExtStock;
 
 	private double prix;
 
-	private double qte_initiale;
+	@Column(name="qte_initiale")
+	private double qteInitiale;
 
 	//bi-directional many-to-one association to Annonce
 	@OneToMany(mappedBy="stock")
@@ -41,57 +47,57 @@ public class Stock implements Serializable {
 
 	//bi-directional many-to-one association to Conservation
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_conserv")
+	@JoinColumn(name="id_conserv")
 	private Conservation conservation;
 
 	//bi-directional many-to-one association to Produit
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_prod")
+	@JoinColumn(name="id_prod")
 	private Produit produit;
 
 	//bi-directional many-to-one association to Unite
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_unite")
+	@JoinColumn(name="id_unite")
 	private Unite unite;
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="Id_user")
+	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur;
 
 	public Stock() {
 	}
 
-	public int getId_prod_stock() {
-		return this.id_prod_stock;
+	public int getIdProdStock() {
+		return this.idProdStock;
 	}
 
-	public void setId_prod_stock(int id_prod_stock) {
-		this.id_prod_stock = id_prod_stock;
+	public void setIdProdStock(int idProdStock) {
+		this.idProdStock = idProdStock;
 	}
 
-	public Date getDate_ajout() {
-		return this.date_ajout;
+	public Date getDateAjout() {
+		return this.dateAjout;
 	}
 
-	public void setDate_ajout(Date date_ajout) {
-		this.date_ajout = date_ajout;
+	public void setDateAjout(Date dateAjout) {
+		this.dateAjout = dateAjout;
 	}
 
-	public Date getDate_peremption() {
-		return this.date_peremption;
+	public Date getDatePeremption() {
+		return this.datePeremption;
 	}
 
-	public void setDate_peremption(Date date_peremption) {
-		this.date_peremption = date_peremption;
+	public void setDatePeremption(Date datePeremption) {
+		this.datePeremption = datePeremption;
 	}
 
-	public int getDuree_ext_stock() {
-		return this.duree_ext_stock;
+	public int getDureeExtStock() {
+		return this.dureeExtStock;
 	}
 
-	public void setDuree_ext_stock(int duree_ext_stock) {
-		this.duree_ext_stock = duree_ext_stock;
+	public void setDureeExtStock(int dureeExtStock) {
+		this.dureeExtStock = dureeExtStock;
 	}
 
 	public double getPrix() {
@@ -102,12 +108,12 @@ public class Stock implements Serializable {
 		this.prix = prix;
 	}
 
-	public double getQte_initiale() {
-		return this.qte_initiale;
+	public double getQteInitiale() {
+		return this.qteInitiale;
 	}
 
-	public void setQte_initiale(double qte_initiale) {
-		this.qte_initiale = qte_initiale;
+	public void setQteInitiale(double qteInitiale) {
+		this.qteInitiale = qteInitiale;
 	}
 
 	public List<Annonce> getAnnonces() {

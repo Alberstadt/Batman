@@ -25,9 +25,9 @@
              paginated="false"
              info="false"
              style="max-width:800px">
-			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Produit" value="#{varStock.produit.libelle_prod}" />
+			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Produit" value="#{varStock.produit.libelleProd}" />
 			 <b:dataTableColumn content-style="height:50px;text-align:center" orderable="false" label="Image" ><b:image value="#{varStock.produit.image}"/></b:dataTableColumn>
-			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Quantité" value="#{varStock.qte_initiale} #{varStock.unite.libelle_unite}" />
+			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Quantité" value="#{varStock.qte_initiale} #{varStock.unite.libelleUnite}" />
 			 <b:dataTableColumn content-style="height:50px;width:150px;text-align:center" label="Peremption" value="#{car.year}" >
 			 	<div class="bar">
 					<div class="percentage has-tip"  style="width: 60%" data-perc="perime dans 2 jours"></div>

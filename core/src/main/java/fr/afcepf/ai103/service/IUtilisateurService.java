@@ -12,10 +12,18 @@ public interface IUtilisateurService {
 	Utilisateur inscription(Utilisateur u);
 
 
+	Utilisateur getUtilisateur1ByIdUser(int id_friend);
+	
+	Utilisateur getUtilisateur2ByIdUser(int id_user);
+
+	List<Utilisateur> getAllUsers();
+
 	Utilisateur getUserById(Integer id_user);
 
 	Utilisateur update(Utilisateur sessionUtilisateur);
 
 	List<Adresse> recupererAdresses(Integer id_user);
 
+	Utilisateur GetLastUser();
+	
 }

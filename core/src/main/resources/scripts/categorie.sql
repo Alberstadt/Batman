@@ -1,0 +1,18 @@
+insert into categorie values (1, 'Fruits');
+insert into categorie values (2, 'Legumes');
+insert into categorie values (3, 'Cereales');
+insert into categorie values (4, 'Pains');
+insert into categorie values (5, 'Biscuits');
+insert into categorie values (6, 'Pates');
+insert into categorie values (7, 'Viandes');
+insert into categorie values (8, 'Poissons');
+insert into categorie values (9, 'Oeufs');
+insert into categorie values (10, 'Produits laitiers');
+insert into categorie values (11, 'Huiles');
+insert into categorie values (12, 'Desserts');
+insert into categorie values (13, 'Boissons');
+insert into categorie values (14, 'Condiments');
+insert into categorie values (15, 'Aperitifs');
+insert into categorie values (16, 'Plats prepares');
+insert into categorie values (17, 'Autres');
+commit;

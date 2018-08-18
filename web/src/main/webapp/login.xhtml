@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui"
@@ -28,23 +29,22 @@
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
             <br/>
-                <b:inputText id="login" placeholder="login" value="#{sessionMB.pseudo}">
+                <b:inputText id="login" placeholder="login" value="#{connexion.pseudo}">
                     <f:facet name="prepend">
                         <b:icon name="user" />
                     </f:facet>
                 </b:inputText>
-                <b:inputText id="password" placeholder="Password" type="password" value="#{sessionMB.password}">
+                <b:inputText id="password" placeholder="Password" type="password" value="#{connexion.password}">
                     <f:facet name="prepend">
                         <b:iconAwesome name="key" />
                     </f:facet>
                 </b:inputText>
                 <br/>
                  <br/>
-                <b:commandButton look="primary btn-block" value="Login" icon="log-in" size="lg" action="#{sessionMB.verifPassword()}" />
+                <b:commandButton look="primary btn-block" value="Login" icon="log-in" size="lg" action="#{connexion.login}" />
                  <b:selectBooleanCheckbox value="true" caption="se rappeler de moi"/>
                  <div style="text-align:center"><a href="inscription.jsf"><b:label id="inscription" text="S'inscrire" severity="non"/></a></div>
             </h:form>
         </b:container>
-</h:body>
-
+	</h:body>
 </html>

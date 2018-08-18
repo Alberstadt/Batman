@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -17,8 +16,7 @@
 			<p:commandButton value="Partager" type="button"	onclick="PF('dlgAnnonce').show();" />
 
 			<div class="ui-fluid">
-				<p:dialog header="Partager un produit" widgetVar="dlgAnnonce" modal="true"
-					resizable="true" responsive="true">
+				<p:dialog header="Partager un produit" widgetVar="dlgAnnonce" modal="true" resizable="true" responsive="true">
 					<div class="form-group row">
 						<label for="titre" class="control-label col-sm-4">Titre: </label>
 						<div class="col-sm-8" id="titre">
@@ -32,7 +30,7 @@
 							<h:selectOneListbox size="1" value="#{formAnnonceBean.id_adresse}">
 								<f:selectItem itemLabel="Veuilez choisir une adresse" itemValue="0" />
 								<f:selectItems var="adr" value="#{formAnnonceBean.adresses}"
-								itemValue="#{adr.id_adresse}"
+								itemValue="#{adr.idAdresse}"
 								itemLabel="#{adr.voirie}, #{adr.ville}" />
 							</h:selectOneListbox>
 						</div>
@@ -79,10 +77,9 @@
 							styleClass="ui-priority-primary" />
 						</div>
 						<div class="col-sm-4">
-							<p:commandButton value="Annuler"
-							id="idBtnAnnuler"
-							onclick="PF('dlgAnnonce').hide();"
-							styleClass="ui-priority-primary">
+							<p:commandButton value="Annuler" id="idBtnAnnuler"
+											onclick="PF('dlgAnnonce').hide();"
+											styleClass="ui-priority-primary">
 							</p:commandButton>
 						</div>
 					</div>
