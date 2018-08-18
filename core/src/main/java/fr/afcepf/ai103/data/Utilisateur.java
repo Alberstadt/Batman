@@ -57,11 +57,15 @@ public class Utilisateur implements Serializable {
 	//bi-directional many-to-one association to Annonce
 	@OneToMany(mappedBy="utilisateur")
 	private List<Annonce> annonces;
-
+	
+	//utilisateur1 envoie des invitations a sa liste (contacts1)
+	//demandes envoyees
 	//bi-directional many-to-one association to Contact
 	@OneToMany(mappedBy="utilisateur1")
 	private List<Contact> contacts1;
-
+	
+	//Utilisateur2 recoit des invitations d'une liste de contacts
+	//demandes recues
 	//bi-directional many-to-one association to Contact
 	@OneToMany(mappedBy="utilisateur2")
 	private List<Contact> contacts2;

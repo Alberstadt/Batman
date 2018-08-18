@@ -42,7 +42,7 @@ public class Contact implements Serializable {
 
 	//bi-directional many-to-one association to Utilisateur
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="Id_friend")
+	@JoinColumn(name="id_friend")
 	private Utilisateur utilisateur2;
 
 	public Contact() {

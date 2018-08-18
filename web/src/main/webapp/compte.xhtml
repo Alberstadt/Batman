@@ -29,7 +29,7 @@
 			 	 </b:form>
 			</b:row>
 			<b:row>
-				<b:form>
+				<b:form id="coordonnees">
     				<b:alert class="alert" span="2" title="COORDONNEES : " style="margin-top:10px"/>
     				<b:label span="2" severity="none" value="#{compteBean.adrPrincipale.voirie}" style="margin-top:10px;color:black"/>
     				<b:label span="2" severity="none" value="#{compteBean.adrPrincipale.codePostal}" style="margin-top:10px;color:black"/>
@@ -53,26 +53,25 @@
 			    	<b:commandButton span="2" value="Modifier" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
 			    	<b:alert class="alert" span="2" title="TELEPHONE : " />
 			    	<b:inputText span="2" value="#{user.telephone}" placeholder="#{user.telephone}" style="margin-top:10px" />
-			    	<b:commandButton span="2" value="Modifier" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
+			    	<b:commandButton span="2" value="Modifier" action="#{compteBean.enregistrer}" style="margin-top:10px" ajax="true" />
 			 	 </b:form>
 			</b:row>
 			<b:row>
 				<b:form>
     				<b:alert class="alert" span="2" title="DATE DE NAISSANCE : " />
     				<b:datepicker span="2" value="#{user.dateNaissance}" placeholder="#{user.dateNaissance}" style="margin-top:10px"/>
-					<b:commandButton span="2" value="Ajouter" action="#{compteBean.enregistrer}" style="margin-top:10px"/>
+					<b:commandButton span="2" value="Ajouter" action="#{compteBean.enregistrer}" style="margin-top:10px" ajax="true" />
    				</b:form>
 			</b:row>
 			<b:row>
 				<b:form>
     				<b:alert class="alert" span="3" title="AJOUTER UNE ADRESSE : " >
-    				<b:selectBooleanCheckbox value="#{compteBean.chkBoxAdrPrinc}" caption="Nouvelle adresse principale" />
+    				<b:selectBooleanCheckbox value="#{compteBean.chkBoxAdrPrinc}" caption="Nouvelle adresse principale" auto-update="true" />
     				</b:alert>
-    				<b:inputText span="2" value="#{compteBean.voirie}" style="margin-top:10px"/>
-    				<b:inputText span="1" value="#{compteBean.codePostal}" style="margin-top:10px"/>
-    				<b:inputText span="2" value="#{compteBean.ville}" style="margin-top:10px"/>
-    				<b:commandButton span="2" value="Ajouter" action="#{compteBean.ajouterAdresse}" style="margin-top:10px"/>
-    				
+    				<b:inputText span="2" value="#{compteBean.voirie}" style="margin-top:10px" placeholder="Adresse" auto-update="true" />
+    				<b:inputText span="1" value="#{compteBean.codePostal}" style="margin-top:10px" placeholder="Code Postal" auto-update="true" />
+    				<b:inputText span="2" value="#{compteBean.ville}" style="margin-top:10px" placeholder="Ville" auto-update="true" />
+    				<b:commandButton span="2" value="Ajouter" action="#{compteBean.ajouterAdresse}" style="margin-top:10px" ajax="true" update="coordonnees" />
    				</b:form>
    			</b:row>
 		</b:panel>
@@ -81,15 +80,20 @@
 			<b:alert class="alert" span="3" title="ALERTES ET IMAGE: "></b:alert>
 		</b:row>
 		<b:column span="3">
-			<b:row>
-				(nombre de jours avant alerte)
-			</b:row>
-		  	<b:row>
-		  		<b:slider min="0" max="15" value="4" label="Péremption" style="width:150px;margin-left:45px"/>
-		  	</b:row>
-		  	<b:row>
-		  		<b:slider min="0" max="15" value="4" label="Extension" style="width:150px;margin-left:45px"/>
-		  	</b:row>
+			<h:form>
+				<b:row>
+					(nombre de jours avant alerte)
+				</b:row>
+			  	<b:row>
+			  		<b:slider min="0" max="15" value="#{user.batParamP}" label="Péremption" style="width:150px;margin-left:45px" />
+			  	</b:row>
+			  	<b:row>
+			  		<b:slider min="0" max="15" value="#{user.batParamE}" label="Extension" style="width:150px;margin-left:45px" />
+			  	</b:row>
+			  	<b:row>
+					<b:commandButton value="Mettre à jour" icon="cogs" iconAlign="right" action="#{compteBean.enregistrer}" ajax="true" />
+				</b:row>
+			</h:form>
 		</b:column>
 		<b:column span="3">
 			<b:row><br/></b:row>

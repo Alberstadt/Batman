@@ -45,7 +45,7 @@ public class Stock implements Serializable {
 	private List<Consommation> consommations;
 
 	//bi-directional many-to-one association to Conservation
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_conserv")
 	private Conservation conservation;
 
@@ -60,7 +60,7 @@ public class Stock implements Serializable {
 	private Unite unite;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur;
 

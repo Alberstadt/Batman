@@ -85,7 +85,7 @@ create table contact
 (
    id_contact           int not null auto_increment,
    id_user              int not null,
-   Id_friend            int not null,
+   id_friend            int not null,
    date_invitation      date,
    date_refus           date,
    date_acceptation     date,
@@ -256,7 +256,7 @@ alter table consommation add constraint FK_consommer foreign key (id_prod_stock)
 alter table consommation add constraint FK_preciser foreign key (id_mode)
       references mode_conso (id_mode) on delete restrict on update restrict;
 
-alter table contact add constraint FK_inviter foreign key (Id_friend)
+alter table contact add constraint FK_inviter foreign key (id_friend)
       references utilisateur (id_user) on delete restrict on update restrict;
 
 alter table contact add constraint FK_socialiser foreign key (id_user)

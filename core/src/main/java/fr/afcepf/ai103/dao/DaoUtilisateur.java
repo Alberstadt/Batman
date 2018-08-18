@@ -52,9 +52,15 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	}
 	
 	@Override
-	public Utilisateur update(Utilisateur sessionUtilisateur)
+	public List<Utilisateur> getAllUsers()
 	{
-		return entityManager.merge(sessionUtilisateur);
+		return entityManager.createNamedQuery("Utilisateur.findAll", Utilisateur.class).getResultList();
+	}
+
+	@Override
+	public Utilisateur update(Utilisateur user)
+	{
+		return entityManager.merge(user);
 	}
 	
 	@Override
@@ -63,4 +69,12 @@ public class DaoUtilisateur implements IDaoUtilisateur
 		return entityManager.createQuery("SELECT u FROM Utilisateur u ORDER BY u.idUser DESC", Utilisateur.class).getResultList();
 	}
 
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+	
 }

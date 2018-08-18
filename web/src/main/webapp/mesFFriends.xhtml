@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="content">
+		<h2>Mes Food-friends </h2>
+		<h:form>
+		
+		        <!-- Affiche la liste de mes food friends -->
+					<h:outputText value="#{contactBean.listeFoodF}"/>
+					<img src="resources/images/user.png"/><br/>
+                  	  <h:outputText value="Pseudo : "></h:outputText><br/>
+					 <p:commandButton value="Details" id="idBtnDetails"
+							onclick="PF('dlgDetails').show();"
+							styleClass="ui-priority-primary">
+							</p:commandButton>
+			
+			<!--Pop up qui affiche Le detail d' un food friend -->				
+			<div class="ui-fluid">
+    <p:dialog header="Details Food-friend" styleClass="ui-priority-primary" widgetVar="dlgDetails" modal="true" 
+     resizable="true" responsive="true">
+     <img src="resources/images/user.png"/><br/>
+     <h:outputText value="Pseudo : "></h:outputText><br/>
+     <h:outputText value="Adresse : "></h:outputText><br/>
+     <p:commandButton value="Retirer" id="idBtnRetirer" />
+				
+		 </p:dialog>
+		  </div>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
+</html>

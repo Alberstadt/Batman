@@ -44,12 +44,12 @@
         	<p:outputPanel id="dropArea">
             	<h:outputText value="ajouter ici !!!" rendered="#{empty stockBean.consoDrop}" style="font-size:24px;" />
            			 <p:dataTable id="selectedCarsTable" var="idCons" value="#{stockBean.consoDrop}" rendered="#{not empty stockBean.consoDrop}">
-			                <p:column headerText="#{idCons.id_conso}">
-			                    <h:outputText value="#{idCons.id_conso}" />
+			                <p:column headerText="#{idCons.idConso}">
+			                    <h:outputText value="#{idCons.idConso}" />
 			                </p:column>
 			 
-			                <p:column headerText="#{idCons.stock.produit.libelle_prod}">
-			                    <h:outputText value="#{idCons.stock.produit.libelle_prod}" />
+			                <p:column headerText="#{idCons.stock.produit.libelleProd}">
+			                    <h:outputText value="#{idCons.stock.produit.libelleProd}" />
 			                </p:column>
 			                
 			                <p:column headerText="#{idCons.stock.conservation.type}">

@@ -30,15 +30,33 @@ public class UtilisateurService implements IUtilisateurService
 	}
 	
 	@Override
+	public Utilisateur getUtilisateur1ByIdUser(int id_friend)
+	{
+		return daoUtilisateur.getUserById(id_friend);
+	}
+	
+	@Override
+	public Utilisateur getUtilisateur2ByIdUser(int id_user)
+	{
+		return daoUtilisateur.getUserById(id_user);
+	}
+	
+	@Override
+	public List<Utilisateur> getAllUsers()
+	{
+		return daoUtilisateur.getAllUsers();
+	}	
+		
+	@Override
 	public Utilisateur getUserById(Integer id_user)
 	{
 		return daoUtilisateur.getUserById(id_user);
 	}
 
 	@Override
-	public Utilisateur update(Utilisateur sessionUtilisateur) 
+	public Utilisateur update(Utilisateur user) 
 	{
-		return daoUtilisateur.update(sessionUtilisateur);
+		return daoUtilisateur.update(user);
 	}
 	
 	@Override
@@ -50,6 +68,7 @@ public class UtilisateurService implements IUtilisateurService
 		adresses.size();
 		
 		return adresses;
+
 	}
 	
 	@Override
