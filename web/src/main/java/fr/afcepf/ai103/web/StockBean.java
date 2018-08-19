@@ -51,6 +51,7 @@ public class StockBean
 	private Consommation cons;
 	private List<Produit> prodConsommes;
 	private List<Stock> stocks;
+	private List<Stock> SaveStocks;
 	private List<Stock> stockDrop = new ArrayList<Stock>();
 	private List<Consommation> consoDrop = new ArrayList<Consommation>();
 	private String titre;
@@ -96,7 +97,7 @@ public class StockBean
 	{
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
-		stocks = stockService.listerProdDispo(user.getIdUser());
+		SaveStocks = stocks = stockService.listerProdDispo(user.getIdUser());
 		listNbPerime = definirNbPerime(stocks);
 		listNbPerimeBientot = definirNbPerimeBientot(stocks);
 		construireLabelnbProd();
@@ -106,23 +107,23 @@ public class StockBean
 	}
 	
 	
-	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
+	public void choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{
-		String suite = null;
+		//String suite = null;
 		if (numeroDeFiltre == 1)
 		{
-			listFiltree = stocks;
+			stocks = SaveStocks;
 		}
 		else if (numeroDeFiltre == 2)
 		{
-			listFiltree = listNbPerime;
+			stocks = listNbPerime;
 		}
 		else if (numeroDeFiltre == 3)
 		{
-			listFiltree = listNbPerimeBientot;
+			stocks = listNbPerimeBientot;
 		}
-		suite = "/archeVide.xhtml?faces-redirect=true";
-		return suite;
+
+		//return suite;
 	}
 	
 	public void construireLabelnbProd()

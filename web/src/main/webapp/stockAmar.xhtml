@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-				xmlns:b="http://bootsfaces.net/ui"
-				xmlns:h="http://xmlns.jcp.org/jsf/html"
-				xmlns:f="http://xmlns.jcp.org/jsf/core"
-				xmlns:p="http://primefaces.org/ui"
-				template="/templates/common.xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/common.xhtml">
 	<ui:define name="title">Stock</ui:define>
 
 	<ui:define name="content">
@@ -21,19 +21,15 @@
   			 	}
 			</script>
 
-		
-			<h:form>
-			<!-- Formulaire Ajouter-->
+		<h:form id="Id">
 
+			<!-- Formulaire Ajouter-->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#PopUpAjouter">Ajouter</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				onclick="#{stockBean.choisirFiltreAfficheDansStock(1)};document.open(this.href);self.location.reload();return false();">Enlever Filtres</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				onclick="#{stockBean.choisirFiltreAfficheDansStock(2)};document.open(this.href);self.location.reload();return false();">Filtrer Périmé</button>
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				onclick="#{stockBean.choisirFiltreAfficheDansStock(3)};document.open(this.href);self.location.reload();return false();">Filtrer Périme bientot</button>
-
+			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(1)}" value="Enlever Filtres"/>
+			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(2)}" value="Produits périmés"/>
+			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(3)}" value="Produits qui périment bientot"/>
+			
 			<div class="modal fade" id="PopUpAjouter" tabindex="-1" role="dialog"
 				aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -49,7 +45,7 @@
 									<f:selectItem itemLabel="Veuilez choisir une catégorie"
 										itemValue="0" />
 									<f:selectItems var="ctg" value="#{stockBean.categories}"
-										itemValue="#{ctg.id_cat}" itemLabel="#{ctg.libelle_cat}" />
+										itemValue="#{ctg.idCat}" itemLabel="#{ctg.libelleCat}" />
 									<f:ajax event="change"
 										render="idSousCategorie idLibelleProduit idConservation " />
 								</h:selectOneListbox>
@@ -114,8 +110,8 @@
 									<f:selectItem itemLabel="Veuilez choisir une unité"
 										itemValue="0" />
 									<f:selectItems var="unite" value="#{stockBean.unites}"
-										itemValue="#{unite.id_unite}"
-										itemLabel="#{unite.libelle_unite}" />
+										itemValue="#{unite.idUnite}"
+										itemLabel="#{unite.libelleUnite}" />
 								</h:selectOneListbox>
 							</div>
 							<div class="form-group row margin-right-0">
@@ -147,133 +143,13 @@
 									class="boutonValider" />
 								<button type="button" class="btn btn-secondary boutonAnnuler"
 									data-dismiss="modal">Annuler</button>
-			
-			<p:commandButton value="Ajouter" type="button"	onclick="PF('dlgAjout').show();" class="btn btn-primary"/>
-				<div class="ui-fluid" id="PopUpAjouter" tabindex="-1" role="dialog" aria-hidden="true">
-				<p:dialog header="Ajouter un produit" widgetVar="dlgAjout" modal="true" resizable="true" responsive="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-body couleurmodal">
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idCategorie"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Catégorie :</h:outputLabel>
-									<h:selectOneListbox id="idCategorie"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 combobox" size="1"
-										value="#{stockBean.id_cat}"
-										valueChangeListener="#{stockBean.chargementSousCategories}">
-										<f:selectItem itemLabel="Veuilez choisir une catégorie"
-											itemValue="0" />
-										<f:selectItems var="ctg" value="#{stockBean.categories}"
-											itemValue="#{ctg.idCat}" itemLabel="#{ctg.libelleCat}" />
-										<f:ajax event="change"
-											render="idSousCategorie idLibelleProduit idConservation " />
-									</h:selectOneListbox>
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idSousCategorie"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Sous-catégorie :</h:outputLabel>
-									<h:selectOneListbox id="idSousCategorie"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 combobox" size="1"
-										value="#{stockBean.id_sous_cat}"
-										valueChangeListener="#{stockBean.chargementLibelle}">
-										<f:selectItem itemLabel="Veuilez choisir une sous-catégorie"
-											itemValue="0" />
-										<f:selectItems var="ssctg" value="#{stockBean.sous_categories}"
-											itemValue="#{ssctg.idSousCat}"
-											itemLabel="#{ssctg.libelleSousCat}" />
-										<f:ajax event="change" render="idLibelleProduit idConservation" />
-									</h:selectOneListbox>
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idLibelleProduit"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Libelle :</h:outputLabel>
-									<h:selectOneListbox id="idLibelleProduit"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 combobox" size="1"
-										value="#{stockBean.id_prod}"
-										valueChangeListener="#{stockBean.chargementTypeConservation}">
-										<f:selectItem itemLabel="Veuilez choisir un libelle"
-											itemValue="0" />
-										<f:selectItems var="pdt" value="#{stockBean.produits}"
-											itemValue="#{pdt.idProd}" itemLabel="#{pdt.libelleProd}" />
-										<f:ajax event="change" render="idConservation" />
-									</h:selectOneListbox>
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idConservation"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Type de conservation :</h:outputLabel>
-									<h:selectOneListbox id="idConservation"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 combobox" size="1"
-										value="#{stockBean.id_conserv}">
-										<f:selectItem
-											itemLabel="Veuilez choisir un type de conservation"
-											itemValue="0" />
-										<f:selectItems var="conservation"
-											value="#{stockBean.conservations}"
-											itemValue="#{conservation.idConserv}"
-											itemLabel="#{conservation.type}" />
-									</h:selectOneListbox>
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
-										for="idExtensibilite">Quantité initiale :</h:outputLabel>
-									<h:inputText id="idQuantiteInitiale"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 margin-right-0"
-										value="#{stockBean.qte_initiale}" />
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idUnite"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Unité :</h:outputLabel>
-									<h:selectOneListbox id="idUnite"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 combobox" size="1"
-										value="#{stockBean.id_unite}">
-										<f:selectItem itemLabel="Veuilez choisir une unité"
-											itemValue="0" />
-										<f:selectItems var="unite" value="#{stockBean.unites}"
-											itemValue="#{unite.idUnite}"
-											itemLabel="#{unite.libelleUnite}" />
-									</h:selectOneListbox>
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel for="idDatePeremption"
-										class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
-										style="transform: translateY(+25%);">Date de péremption :</h:outputLabel>
-									<b:dateTimePicker id="idDatePeremption"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8" mode="popup-icon"
-										placeholder="Veuillez selectionner une date"
-										value="#{stockBean.date_peremption}" />
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
-										for="idExtensibilite">Durée d'extensibilité (j) :</h:outputLabel>
-									<h:inputText id="idExtensibilite"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 margin-right-0"
-										value="#{stockBean.duree_ext_stock}" />
-								</div>
-								<div class="form-group row margin-right-0">
-									<h:outputLabel class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
-										for="idPrix"> Prix (Euro) :</h:outputLabel>
-									<h:inputText id="idPrix"
-										class="col-xs-8 col-sm-8 col-md-8 col-lg-8 margin-right-0"
-										value="#{stockBean.prix}" />
-								</div>
-								<div class="modal-footer">
-									<b:commandButton value="Valider"
-										action="#{stockBean.ajouterProduit}" look="success"
-										class="boutonValider" />
-									
-									<b:commandButton value="Annuler" id="idBtnAnnuler"
-										onclick="PF('dlgAjout').hide();"
-										look="danger" />
-								</div>
->>>>>>> 2c30ad7102c0c3b2a8b471746941d5e3943c3072
 							</div>
 						</div>
 					</div>
-				</p:dialog>
 				</div>
-			
-			</h:form>
-			<h:form id="Id">
+			</div>
+
+
 			<!-- Poubelle pour les produits jeter-->
 			<p:fieldset id="idProdConsommer"
 				style=" margin-top:10px; width:90px; height:90px;text-align: center">
@@ -285,7 +161,7 @@
 			<br />
 
 			<!-- remplir le datagrid a partir de la liste consommations -->
-			<p:dataGrid id="idStock" var="idStock" value="#{stockBean.listFiltree}"
+			<p:dataGrid id="idStock" var="idStock" value="#{stockBean.stocks}"
 				columns="4" layout="grid" rows="130" paginator="false"
 				style="margin-top:2em;text-align:center;border:none">
 				<p:panel id="pnl" classe="monStock"
@@ -331,7 +207,7 @@
 				hideEffect="fade" modal="true">
 				<p:outputPanel id="display">
 					<h:panelGrid columns="2" cellpadding="5"
-						rendered="true">
+						rendered="#{stockBean.stk}">
 
 						<h:outputText value="idStock : " />
 						<h:outputText value="#{stockBean.stk.idProdStock}"
@@ -362,7 +238,7 @@
 
 						<h:outputText value="quantité : " />
 						<h:outputText
-							value="#{stockBean.stk.qteInitiale} #{stockBean.stk.unite.libelleUnite} "
+							value="#{stockBean.stk.qteInitiale} #{stockBean.stk.unite.libelle_unite} "
 							style="font-weight:bold" />
 
 						<h:outputText value="Date d'ajout : " />
@@ -384,4 +260,4 @@
 		</h:form>
 	</ui:define>
 </ui:composition>
-
+</html>
