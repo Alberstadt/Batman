@@ -16,18 +16,19 @@
 			}
 		</style>
 
+		<b:form>
 		<b:alert severity="info" closable="true"
 			style="color:#007AFF;text-decoration: none"
 			value="#{stockBean.labelNbProduit}" rendered="true" />
 			
-		<b:commandLink href="stockAmar.jsf" ajax="true" update="@next" action="#{stockBean.choisirFiltreAfficheDansStock(3)}">
+		<b:commandLink href="stockAmar.jsf" style="text-decoration: none;" action="#{connexion.choisirFiltreAfficheDansStock(4)}">
 		<b:alert
 				severity="warning" closable="true" style="color:#FFC94D;"
 				value="#{stockBean.labelNbPerimeBientot}"
 				rendered="#{stockBean.booleanAlerteQuantitePerimeBientot}" />
 		</b:commandLink>
 		
-		<b:commandLink href="stockAmar.jsf" ajax="true" update="@next" action="#{stockBean.choisirFiltreAfficheDansStock(2)}" >
+		<b:commandLink href="stockAmar.jsf" style="text-decoration: none;" action="#{connexion.choisirFiltreAfficheDansStock(5)}" >
 		<b:alert
 				severity="danger" closable="true" 
 				value="#{stockBean.labelNbPerime}"
@@ -50,6 +51,7 @@
 				<div id='gmap_canvas' style='height: 300px; width: 300px;'></div>
 			</div>
 		</p:panel>
+		</b:form>
 
 	</ui:define>
 </ui:composition>

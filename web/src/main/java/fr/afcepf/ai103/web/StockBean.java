@@ -43,6 +43,7 @@ public class StockBean
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
+	
 	private int id_prod;
 	private String id_prod_stock;
 	private Produit produit;
@@ -86,6 +87,8 @@ public class StockBean
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
 	private List<Stock> listFiltree = new ArrayList<Stock>();
+	private String typeFiltre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolFiltre");
+
 	
 	public StockBean ()
 	{
@@ -97,33 +100,37 @@ public class StockBean
 	{
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
+		
 		SaveStocks = stocks = stockService.listerProdDispo(user.getIdUser());
 		listNbPerime = definirNbPerime(stocks);
 		listNbPerimeBientot = definirNbPerimeBientot(stocks);
+		
 		construireLabelnbProd();
 		construireLabelNbPerimeBientot();
 		construireLabelNbPerime();
 
+		if(typeFiltre.equals("perimeBientot")) { stocks=listNbPerimeBientot; }
+		else if (typeFiltre.equals("perime")) { stocks=listNbPerime; }
+
 	}
 	
 	
-	public void choisirFiltreAfficheDansStock(int numeroDeFiltre)
+	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{
-		//String suite = null;
-		if (numeroDeFiltre == 1)
+		String suite = null;
+		switch (numeroDeFiltre)
 		{
+		case 1:
 			stocks = SaveStocks;
-		}
-		else if (numeroDeFiltre == 2)
-		{
+			break;
+		case 2:
 			stocks = listNbPerime;
-		}
-		else if (numeroDeFiltre == 3)
-		{
+			break;
+		case 3:
 			stocks = listNbPerimeBientot;
+			break;
 		}
-
-		//return suite;
+		return suite;
 	}
 	
 	public void construireLabelnbProd()
@@ -760,6 +767,22 @@ public class StockBean
 
 	public void setListFiltree(List<Stock> listFiltree) {
 		this.listFiltree = listFiltree;
+	}
+
+	public List<Stock> getSaveStocks() {
+		return SaveStocks;
+	}
+
+	public void setSaveStocks(List<Stock> saveStocks) {
+		SaveStocks = saveStocks;
+	}
+
+	public String getTypeFiltre() {
+		return typeFiltre;
+	}
+
+	public void setTypeFiltre(String typeFiltre) {
+		this.typeFiltre = typeFiltre;
 	}
 
 	

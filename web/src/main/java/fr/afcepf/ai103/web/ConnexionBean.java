@@ -21,6 +21,7 @@ public class ConnexionBean
 	private Utilisateur user;
 	private String pseudo;
 	private String password;
+	private String boolFiltre;
 	
 	public ConnexionBean()
 	{
@@ -41,6 +42,9 @@ public class ConnexionBean
 		else
 		{
 			context.getExternalContext().getSessionMap().put("user", user);
+			boolFiltre = "stocks";
+			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
+			
 			return "/archeVide.xhtml?faces-redirect=true";
 		}
 	}
@@ -51,6 +55,33 @@ public class ConnexionBean
 		return "/login.xhtml?faces-redirect=true";
 	}
 
+	
+	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
+	{
+		System.out.println("passage stockBean");
+		String suite = null;
+		switch (numeroDeFiltre)
+		{
+		case 4:
+			System.out.println("passage case bientot perimeBientot");
+			boolFiltre = "perimeBientot";
+			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
+
+			suite = "/stockAmar.xhtml?faces-redirect=true";
+			break;
+		case 5:
+			System.out.println("passage case bientot perime");
+			boolFiltre = "perime";
+			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
+			suite = "/stockAmar.xhtml?faces-redirect=true";
+			break;
+		}
+		System.out.println("suite retourné : " + suite);
+		return suite;
+	}
+	
+	
+	
 	public Utilisateur getUser()
 	{
 		return user;
@@ -80,4 +111,7 @@ public class ConnexionBean
 	{
 		this.password = password;
 	}
+	
+	
+	
 }

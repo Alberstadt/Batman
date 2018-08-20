@@ -163,7 +163,6 @@ public class LoginBean implements Serializable
 			Adresse.setLongitude(longitude);
 			
 			// update
-			System.out.println("BEAN boucle maj adresse");
 			adresseService.majAdresse(Adresse);
 		}
 		else
