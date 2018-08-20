@@ -37,6 +37,7 @@ public class FormAnnonceBean
 		private Integer id_prod_stock = 3;
 		private Integer id_adresse;
 		private List<Adresse> adresses;
+		private String boolMap;
 		
 		
 		public FormAnnonceBean(){}
