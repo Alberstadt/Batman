@@ -203,6 +203,7 @@ public class StockBean
 		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
 		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
 		
+		if (diffInDays2 == 0) { diffInDays2 = 1; }
 		int pourcent = 100 * diffInDays / diffInDays2;
 		pourcent = 100 - pourcent;
 		if (pourcent > 100) { pourcent = 100; }
