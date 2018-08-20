@@ -230,6 +230,8 @@ public class StockService implements IStockService
 		return qteReelle;
 	}
 	
+
+	
 	@Override
 	public List<Stock> listerProdDispo(Integer id_user)
 	{

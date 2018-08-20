@@ -47,7 +47,7 @@ public class Annonce implements Serializable {
 	private MotifRetrait motifRetrait;
 
 	//bi-directional many-to-one association to Stock
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_prod_stock")
 	private Stock stock;
 

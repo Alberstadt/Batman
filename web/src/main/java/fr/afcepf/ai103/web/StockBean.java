@@ -51,6 +51,7 @@ public class StockBean
 	private Consommation cons;
 	private List<Produit> prodConsommes;
 	private List<Stock> stocks;
+	private List<Stock> SaveStocks;
 	private List<Stock> stockDrop = new ArrayList<Stock>();
 	private List<Consommation> consoDrop = new ArrayList<Consommation>();
 	private String titre;
@@ -84,6 +85,7 @@ public class StockBean
 	private String labelNbProduit;
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
+	private List<Stock> listFiltree = new ArrayList<Stock>();
 	
 	public StockBean ()
 	{
@@ -95,14 +97,34 @@ public class StockBean
 	{
 		categories = stockService.getAllCategorie();
 		unites = stockService.getAllUnite();
-		stocks = stockService.listerProdDispo(user.getIdUser());
+		SaveStocks = stocks = stockService.listerProdDispo(user.getIdUser());
 		listNbPerime = definirNbPerime(stocks);
 		listNbPerimeBientot = definirNbPerimeBientot(stocks);
 		construireLabelnbProd();
 		construireLabelNbPerimeBientot();
 		construireLabelNbPerime();
+
 	}
 	
+	
+	public void choisirFiltreAfficheDansStock(int numeroDeFiltre)
+	{
+		//String suite = null;
+		if (numeroDeFiltre == 1)
+		{
+			stocks = SaveStocks;
+		}
+		else if (numeroDeFiltre == 2)
+		{
+			stocks = listNbPerime;
+		}
+		else if (numeroDeFiltre == 3)
+		{
+			stocks = listNbPerimeBientot;
+		}
+
+		//return suite;
+	}
 	
 	public void construireLabelnbProd()
 	{
@@ -181,6 +203,7 @@ public class StockBean
 		int diffInDays = (int)( (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24) );
 		int diffInDays2 = (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) );
 		
+		if (diffInDays2 == 0) { diffInDays2 = 1; }
 		int pourcent = 100 * diffInDays / diffInDays2;
 		pourcent = 100 - pourcent;
 		if (pourcent > 100) { pourcent = 100; }
@@ -730,4 +753,14 @@ public class StockBean
 	public void setLabelNbPerimeBientot(String labelNbPerimeBientot) {
 		this.labelNbPerimeBientot = labelNbPerimeBientot;
 	}
+
+	public List<Stock> getListFiltree() {
+		return listFiltree;
+	}
+
+	public void setListFiltree(List<Stock> listFiltree) {
+		this.listFiltree = listFiltree;
+	}
+
+	
 }

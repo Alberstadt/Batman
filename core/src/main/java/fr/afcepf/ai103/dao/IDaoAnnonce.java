@@ -1,5 +1,7 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.List;
+
 import fr.afcepf.ai103.data.Annonce;
 
 public interface IDaoAnnonce {
@@ -11,5 +13,7 @@ public interface IDaoAnnonce {
 	void delete(Integer id);
 
 	Annonce getAnnonceById(Integer id);
+
+	List<Annonce> getAnnonceByUserId(int id_user);
 
 }

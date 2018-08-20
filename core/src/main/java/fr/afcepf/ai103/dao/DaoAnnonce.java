@@ -1,5 +1,7 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,4 +45,15 @@ public class DaoAnnonce implements IDaoAnnonce
 	{
 		return entityManager.find(Annonce.class, id_publi);
 	}
+	
+	
+	@Override
+	public List<Annonce> getAnnonceByUserId(int id_user)
+	{
+		return entityManager.createQuery("select annonce from Annonce annonce where annonce.dateRetrait IS NULL AND annonce.utilisateur.idUser = :id_user ", Annonce.class)
+				.setParameter("id_user", id_user).getResultList();
+	}
+	
+	
+	
 }

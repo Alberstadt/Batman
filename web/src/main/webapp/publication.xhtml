@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">
+	    Publication
+	</ui:define>
+
+
+	<ui:define name="content">
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+			crossorigin="anonymous" />
+			
+		<h:form id="idform">
+
+			<p:dataGrid id="idPublication" var="idPublication"
+				value="#{publicationBean.annonces}" columns="3" layout="grid"
+				rows="100" >
+				<f:facet name="header">
+					<div align="left" size="10">
+						<font size="4">Mes annonces</font>
+					</div>
+				</f:facet>
+				
+				<p:panel id="pnl" style="text-align:center;">
+					<f:facet name="header">
+						<p:outputLabel value="#{idPublication.stock.produit.libelleProd}"
+							style="float:center;" />
+						<p:commandButton id="boutonSupprimer" type="submit" ajax="true"
+							actionListener="#{publicationBean.updateDateDeRetraitAnnonce(idPublication.idPubli)}"
+							icon="fa fa-remove" style="float:right; background: #ff4d4d"
+							update="idPublication"
+							 />
+						<p:commandButton
+							value="#{publicationBean.getNombreReponseAnnonce(idPublication.idPubli)}"
+							icon="fa fa-user" style="float:right; background: pink"
+							type="button" />
+
+					</f:facet>
+					<div style="text-align: justify; margin: 10px">
+						<p:graphicImage value="#{idPublication.stock.produit.image}" />
+						<p:outputLabel
+							value="quantité à donner : #{idPublication.qtePubli} #{idPublication.stock.unite.libelleUnite}"
+							style="padding-left:15px;" />
+
+					</div>
+					<div style="text-align: justify;">
+						<p:outputLabel value="Description : #{idPublication.description}" />
+						<p:outputLabel
+							value="Adresse : #{idPublication.adresse.voirie} #{idPublication.adresse.codePostal} #{idPublication.adresse.ville} " />
+					</div>
+
+				</p:panel>
+			
+			</p:dataGrid>
+		
+		</h:form>
+	</ui:define>
+
+
+	<ui:define name="footer">
+
+	</ui:define>
+</ui:composition>
+</html>
