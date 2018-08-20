@@ -26,4 +26,14 @@ public class DaoReponse implements IDaoReponse
 				.setParameter("id_prod_stock", id_prod_stock)
 				.getResultList();
 	}
+	
+	@Override
+	public int getNombreReponseByIdPubli(Integer id_publi)
+	
+	{
+		return ((Long) entityManager.createQuery("SELECT COUNT (rep.idReponse) FROM Reponse rep WHERE rep.dateDemande IS NOT NULL AND rep.dateAnnulation IS NULL AND rep.annonce.idPubli = :id_publi")
+                .setParameter("id_publi", id_publi).getSingleResult()).intValue();
+		
+	}
+	
 }
