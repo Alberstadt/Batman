@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Contact;
@@ -30,8 +31,8 @@ public class ContactBean implements Serializable{
 	IUtilisateurService utilisateurService;
 	
 	private Utilisateur utilisateur1;
-	private Utilisateur utilisateur2;
-	private Contact contact;
+	private Utilisateur user = (Utilisateur) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+	private Contact contact = new Contact();
 	private String photoFf;
 	private String pseudoFf;
 	private Adresse adress;
@@ -39,7 +40,7 @@ public class ContactBean implements Serializable{
 	List<Contact> listeFoodF = new ArrayList<Contact>();
     List<Contact> listeFoodFE = new ArrayList<Contact>();
     List<Contact> listeFoodFR = new ArrayList<Contact>();
-    List<Utilisateur> listeUtilisateurs;
+    //List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
 	
 
 	public ContactBean() 
@@ -51,31 +52,40 @@ public class ContactBean implements Serializable{
 	{
 		//pseudoFf = utilisateurService.getUserById(id_user).getLogin();
 		//photoFf =utilisateurService.getUtilisateur1ByIdUser(4).getPortrait();
+		pseudoFf = user.getLogin();
+		photoFf = user.getPortrait();
 		listeUtilisateurs = utilisateurService.getAllUsers();
-		//adress = stockService.recupererAdresseById(1);	
-	}
+		//adress = stockService.recupererAdresseById(1);
+	    }
+	   private List<Utilisateur> currentlySelectedUser = new ArrayList<Utilisateur>();
+ 
+	 
 	
-	/*public List<Utilisateur> afficherListeUtilisateurs()
-	{
-		List<Utilisateur> listeUtilisateurs = utilisateurService.getAllUsers();
-		
-		return listeUtilisateurs;
-	}
-	*/
+	private  List<Utilisateur> listeUtilisateurs; // add 50 cars here
+	  
+	
+	  public void onSelect(Utilisateur User) {
+	    System.out.println("OnSelect:" + user );
+	    if (null != user)
+	        {
+	      getCurrentlySelectedUser().add(user);
+	         } 
+	  }
 	
 	public void envoyerDemandeDeFoodFriend(int id_friend, int id_user)
 	{
-		 /*utilisateur1 = utilisateurService.getUtilisateur1ByIdUser(id_friend);
+		System.out.println("passage contact bean - contact : " + contact); 
+		/*utilisateur1 = utilisateurService.getUtilisateur1ByIdUser(id_friend);
 	 
 		 utilisateur2 = utilisateurService.getUtilisateur2ByIdUser(id_user);*/
-		 
-		 utilisateur1 = utilisateurService.getUtilisateur1ByIdUser(4);
-		 utilisateur2 = utilisateurService.getUtilisateur2ByIdUser(1);
+
+		 utilisateur1 = utilisateurService.getUtilisateur1ByIdUser(id_friend);
+		// user = utilisateurService.getUtilisateur2ByIdUser(1);
 		 dateInvitation = new Date();
 		
-		contact.setUtilisateur2(utilisateur2);
-		contact.setUtilisateur1(utilisateur1);
-		contact.setDateInvitation(dateInvitation);
+		contact.setUtilisateur2(this.user);
+		contact.setUtilisateur1(this.utilisateur1);
+		contact.setDateInvitation(this.dateInvitation);
 		contact.setDateRefus(null);
 		contact.setDateAcceptation(null);
 		contact.setDateSuppression(null);
@@ -190,16 +200,6 @@ public class ContactBean implements Serializable{
 	}
 
 
-	public Utilisateur getUtilisateur2() {
-		return utilisateur2;
-	}
-
-
-	public void setUtilisateur2(Utilisateur utilisateur2) {
-		this.utilisateur2 = utilisateur2;
-	}
-
-
 	public Contact getContact() {
 		return contact;
 	}
@@ -257,13 +257,6 @@ public class ContactBean implements Serializable{
 		this.listeFoodF = listeFoodF;
 	}
 
-	public List<Utilisateur> getListeUtilisateurs() {
-		return listeUtilisateurs;
-	}
-
-	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
-		this.listeUtilisateurs = listeUtilisateurs;
-	}
 
 	public List<Contact> getListeFoodFE() {
 		return listeFoodFE;
@@ -280,6 +273,30 @@ public class ContactBean implements Serializable{
 	public void setListeFoodFR(List<Contact> listeFoodFR) {
 		this.listeFoodFR = listeFoodFR;
 	}
+
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
 	  
+	
+	 public List<Utilisateur> getCurrentlySelectedUser() {
+			return currentlySelectedUser;
+		}
+
+		public void setCurrentlySelectedUser(List<Utilisateur> currentlySelectedUser) {
+			this.currentlySelectedUser = currentlySelectedUser;
+		}
+		
+		public List<Utilisateur> getListeUtilisateurs() {
+			return listeUtilisateurs;
+		}
+
+		public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
+			this.listeUtilisateurs = listeUtilisateurs;
+		}
 	
 }

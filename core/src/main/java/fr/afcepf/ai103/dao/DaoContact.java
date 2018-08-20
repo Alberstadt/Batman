@@ -27,6 +27,7 @@ public class DaoContact implements IDaoContact {
 	@Override
 	public Contact create(Contact contact)
 	{
+		System.out.println("passage contact dao - contact : " + contact);
 		entityManager.persist(contact);
 		return contact;
 	}

@@ -10,29 +10,38 @@
 
 <ui:composition template="/templates/common.xhtml">
 	<ui:define name="content">
-
-<h:form id="form">
-
-					<!-- Affiche la liste des utilisateurs afin que l utilisateur selectionnne un et lui envoie une invitation,
+	<!-- Affiche la liste des utilisateurs afin que l utilisateur selectionnne un et lui envoie une invitation,
 					cette liste peut a terme etre remplacee par un champs de recherche d'un user -->
-					  <p:carousel value="#{contactBean.listeUtilisateurs}" headerText="Utilisateurs a proximite" var="liste" itemStyle="text-align:left" 
-            responsive="true">
-        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-            <f:facet name="header">
-                <img src="resources/images/user.png"/><br/>
-                 <h:outputText value="#{contactBean.listeUtilisateurs[5].getLogin()}"/>
-            </f:facet>
-			   
-			 <h:outputText value="Pseudo:" />
-			 <h:outputText value="Adresse:" />
-		 
-        </p:panelGrid>
-
-    </p:carousel>	
+    <h:form style="text-align:center">
+		<b:dataTable value="#{contactBean.listeUtilisateurs}"
+             var="listeUser"
+             id="listeUser"
+             fixedHeader="true"
+             scroll-size="400px"
+             scroll-x="false"
+             responsive="true"
+             lang="fr"
+             searching="false"
+             paginated="false"
+             info="false"
+             style="max-width:800px"
+             selection-mode="single"
+              onselect="ajax:listeUtilisateurs.onSelect(user);"
+              ondeselect="ajax:listeUtilisateurs.onDeselect(user);"
+              select="#{contactBean.listeUtilisateurs.select}"
+             selected-items="#{contactBean.listeUtilisateurs.selectedItems}" 
+             deselect-on-backdrop-click="#{contactBean.listeUtilisateurs.deselectOnBackdropClick}"
+             widget-var="selectableTable" >
+             
+			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Pseudo" value="#{listeUser.login}" />
+			 <b:dataTableColumn content-style="height:50px;text-align:center" orderable="false" label="Portait" ><b:image value="#{listeUser.portrait}"/></b:dataTableColumn>
+			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Adresse" value="#{listeUser.mail}" />
+		</b:dataTable>
     
-                     <!-- Pour envoyer une demande de food friend -->	  
-			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" onclick="PF('dlg2').show();"
-			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend}" />
+    
+                     <!-- Pour envoyer une demande de food friend 	-->  
+			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" onclick="ajax:onSelect(user)"
+			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend(5, 3)}" />
 			 
     
     <div class="ui-fluid">
@@ -41,7 +50,7 @@
 			<div class="form-group row">
 				<label for="description" class="control-label col-sm-4"></label>
 				<div class="col-sm-8">
-					<img src="resources/images/user.png"/>
+					<img src="#{user.portrait}"/>
 				</div>
 			</div>
 			
@@ -55,8 +64,8 @@
 			<div class="form-group row">
 				<label for="btn" class="control-label col-sm-4"></label>
 				<div class="col-sm-8">
-					<p:commandButton value="Accepter" id="idBtnAccepter" actionListener="#{contactBean.accepterDemandeDeFoodFriend}"/>
-				<p:commandButton value="Refuser" id="idBtnRefuser"  actionListener="#{contactBean.refuserDemandeDeFoodFriend}"/> 
+					<p:commandButton value="Accepter" id="idBtnAccepter" actionListener="#{contactBean.accepterDemandeDeFoodFriend()}"/>
+				<p:commandButton value="Refuser" id="idBtnRefuser"  actionListener="#{contactBean.refuserDemandeDeFoodFriend()}"/> 
 				</div>
 			</div>
           </p:dialog>

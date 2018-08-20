@@ -25,6 +25,7 @@ public class ContactService implements IContactService {
 	@Override
 	public Contact creerNouveauContact(Contact contact)
 	{
+		System.out.println("passage contact service - contact : " + contact);
 		return daoContact.create(contact);
 	}
 	

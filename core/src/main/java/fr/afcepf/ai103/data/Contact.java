@@ -37,12 +37,12 @@ public class Contact implements Serializable {
 	private Date dateSuppression;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private Utilisateur utilisateur1;
 
 	//bi-directional many-to-one association to Utilisateur
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_friend")
 	private Utilisateur utilisateur2;
 
