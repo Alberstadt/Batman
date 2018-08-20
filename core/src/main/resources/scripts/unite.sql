@@ -1,8 +1,8 @@
-insert into unite values (1, 'Piece');
-insert into unite values (2, 'Milligramme');
-insert into unite values (3, 'Gramme');
-insert into unite values (4, 'Kilogramme');
-insert into unite values (5, 'Millilitre');
-insert into unite values (6, 'Litre');
-insert into unite values (7, 'Centilitre');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (1, 'piece(s)');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (2, 'mg');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (3, 'g');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (4, 'kg');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (5, 'ml');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (6, 'l');
+insert into UNITE ( ID_UNITE, LIBELLE_UNITE) values (7, 'cl');
 commit;
