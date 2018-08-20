@@ -40,8 +40,8 @@ public class ContactBean implements Serializable{
 	List<Contact> listeFoodF = new ArrayList<Contact>();
     List<Contact> listeFoodFE = new ArrayList<Contact>();
     List<Contact> listeFoodFR = new ArrayList<Contact>();
-    //List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>();
-	
+    private List<Utilisateur> currentlySelectedUser = new ArrayList<Utilisateur>();
+	private  List<Utilisateur> listeUtilisateurs; 
 
 	public ContactBean() 
 	{
@@ -57,15 +57,10 @@ public class ContactBean implements Serializable{
 		listeUtilisateurs = utilisateurService.getAllUsers();
 		//adress = stockService.recupererAdresseById(1);
 	    }
-	   private List<Utilisateur> currentlySelectedUser = new ArrayList<Utilisateur>();
- 
-	 
-	
-	private  List<Utilisateur> listeUtilisateurs; // add 50 cars here
 	  
-	
 	  public void onSelect(Utilisateur User) {
 	    System.out.println("OnSelect:" + user );
+	   
 	    if (null != user)
 	        {
 	      getCurrentlySelectedUser().add(user);

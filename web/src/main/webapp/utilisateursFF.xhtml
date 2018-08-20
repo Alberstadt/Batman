@@ -25,23 +25,22 @@
              paginated="false"
              info="false"
              style="max-width:800px"
-             selection-mode="single"
-              onselect="ajax:listeUtilisateurs.onSelect(user);"
-              ondeselect="ajax:listeUtilisateurs.onDeselect(user);"
-              select="#{contactBean.listeUtilisateurs.select}"
-             selected-items="#{contactBean.listeUtilisateurs.selectedItems}" 
-             deselect-on-backdrop-click="#{contactBean.listeUtilisateurs.deselectOnBackdropClick}"
-             widget-var="selectableTable" >
+             onselect="ajax:contactBean.onSelect(user);"
+             ondeselect="ajax:contactBean.onDeselect(user);"
+             select="true"
+             selection-mode="single">
              
 			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Pseudo" value="#{listeUser.login}" />
 			 <b:dataTableColumn content-style="height:50px;text-align:center" orderable="false" label="Portait" ><b:image value="#{listeUser.portrait}"/></b:dataTableColumn>
 			 <b:dataTableColumn content-style="height:50px;text-align:center" label="Adresse" value="#{listeUser.mail}" />
-		</b:dataTable>
-    
+
+		   
+		   </b:dataTable>
+
     
                      <!-- Pour envoyer une demande de food friend 	-->  
 			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" onclick="ajax:onSelect(user)"
-			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend(5, 3)}" />
+			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend(user.utilisateur1, user.idUser)}" />
 			 
     
     <div class="ui-fluid">
@@ -50,7 +49,7 @@
 			<div class="form-group row">
 				<label for="description" class="control-label col-sm-4"></label>
 				<div class="col-sm-8">
-					<img src="#{user.portrait}"/>
+					<img src="#{contactBean.photoFf}"/>
 				</div>
 			</div>
 			
