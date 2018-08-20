@@ -26,3 +26,31 @@
 	background-color: #24A866 !important;
 	border-color: #24A866 !important;
 }
+
+.nobreak {
+  white-space: nowrap;
+}
+
+
+
+.boutonUser {
+/* 	background-color: blue !important; */
+/*     background-repeat:no-repeat; */
+/*     border: none; */
+/*     cursor:pointer; */
+/*     overflow: hidden; */
+/*     outline:none; */
+
+/* 	background-image: url(#{resource['images:user-icon.png']});  */
+/* color:white; */
+/* width: 300px !important; */
+/* height: 50px !important; */
+/* font-size: 20px !important; */
+}
+
+
+/* .ui-icon.fa { */
+/* color:blue; */
+/* width: 50px !important; */
+
+/* } */

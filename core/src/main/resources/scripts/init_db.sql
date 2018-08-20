@@ -11,4 +11,5 @@ source produit.sql;
 source stock.sql;
 source consommation.sql;
 source annonce.sql;
+source reponse.sql;
 
