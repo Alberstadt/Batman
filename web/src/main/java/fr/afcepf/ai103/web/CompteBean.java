@@ -1,5 +1,6 @@
 package fr.afcepf.ai103.web;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,13 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.geocoder.model.LatLng;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Utilisateur;
@@ -23,6 +31,8 @@ public class CompteBean
 	private String codePostal;
 	private String ville;
 	private boolean chkBoxAdrPrinc;
+	private String longitude;
+	private String latitude;
 	
 	@EJB
 	private IUtilisateurService utilisateurService;
@@ -53,6 +63,19 @@ public class CompteBean
 			{
 				nvlAdresse.setAdrPrincipale((short) 0);
 			}
+			
+			String adresse = voirie+" "+codePostal+" "+ville;
+			String[] v = new String[2];
+			
+			try { v = getLatLonAsString(adresse); } 
+			catch (IOException e) {e.printStackTrace();}
+			
+			latitude = v[0];
+			longitude = v[1];
+			
+			nvlAdresse.setLatitude(latitude);
+			nvlAdresse.setLongitude(longitude);
+			
 			adresses.add(nvlAdresse);
 			user.setAdresses(adresses);
 			enregistrer();
@@ -63,6 +86,29 @@ public class CompteBean
 		ville = null;
 		chkBoxAdrPrinc = false;
 	}
+	
+	
+	public String[] getLatLonAsString(String adresse) throws IOException 
+	{
+		final Geocoder geocoder = new Geocoder();
+	    String[] v = new String[2];
+	    GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adresse).setLanguage("fr").getGeocoderRequest();
+	    GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+	    List<GeocoderResult> results = geocoderResponse.getResults();
+
+	    for( GeocoderResult r : results ) 
+	    {
+	    	LatLng location = r.getGeometry().getLocation();
+		
+	    	if (location.getLat()!=null ) { v[0]=""+location.getLat(); }
+	    	else { v[0]="0.0"; }
+	    	
+	    	if (location.getLng()!=null ) { v[1]=""+location.getLng(); }
+	    	else { v[1]="0.0"; }
+	    }
+	    	return v;
+	}
+	
 	
 	public Adresse getAdrPrincipale()
 	{
@@ -120,4 +166,23 @@ public class CompteBean
 	{
 		this.chkBoxAdrPrinc = chkBoxAdrPrinc;
 	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	
+	
+	
 }

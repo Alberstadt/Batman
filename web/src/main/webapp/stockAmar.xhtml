@@ -24,11 +24,12 @@
 		<h:form id="Id">
 
 			<!-- Formulaire Ajouter-->
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#PopUpAjouter">Ajouter</button>
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(1)}" value="Enlever Filtres"/>
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(2)}" value="Produits périmés"/>
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(3)}" value="Produits qui périment bientot"/>
+			
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#PopUpAjouter">Ajouter</button>
 			
 			<div class="modal fade" id="PopUpAjouter" tabindex="-1" role="dialog"
 				aria-hidden="true">
