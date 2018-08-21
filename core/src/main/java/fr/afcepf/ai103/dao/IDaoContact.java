@@ -14,10 +14,11 @@ public interface IDaoContact {
 
 	Contact getContactById(int id_contact);
 
-	Contact getContactByIdUser(int id_user);
+	Contact getContactByIdUser(int idUser);
 
 	Contact getContactByIdFriend(int id_friend);
 
-	List<Contact> listeDesContactsDeUser(int id_user);
+	List<Contact> listeDesContactsDeUser(int idUser);
+	
 
 }

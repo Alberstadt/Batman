@@ -25,8 +25,8 @@
              paginated="false"
              info="false"
              style="max-width:800px"
-             onselect="ajax:contactBean.onSelect(user);"
-             ondeselect="ajax:contactBean.onDeselect(user);"
+             onselect="ajax:contactBean.onSelect(listeUser);"
+             ondeselect="ajax:contactBean.onDeselect(listeUser);"
              select="true"
              selection-mode="single">
              
@@ -39,9 +39,11 @@
 
     
                      <!-- Pour envoyer une demande de food friend 	-->  
-			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" onclick="ajax:onSelect(user)"
-			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend(user.utilisateur1, user.idUser)}" />
-			 
+			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" 
+			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend()}" />
+			
+			<!-- Pour accepter(dans ce cas mise a jour de mes food friends, appel de la methode ou refuser une demande de food friend --> 
+			 <p:commandButton value="Dialog" type="button"	onclick="PF('dlg2').show();" />
     
     <div class="ui-fluid">
     <p:dialog header="Ajouter Food-friend" styleClass="ui-priority-primary" widgetVar="dlg2" modal="true" resizable="true" responsive="true">
@@ -56,7 +58,7 @@
 			<div class="form-group row">
 				<label for="unite" class="control-label col-sm-4"> </label>
 				<div class="col-sm-8">
-					<h:outputText value="#{contactBean.pseudoFf}, vous a envoye une demande de food-friend"/>
+					<h:outputText value="#{listeUser.utilisateur2.login}, #{contactBean.user.login} vous a envoye une demande de food-friend"/>
 				</div>
 			</div>
 

@@ -20,6 +20,6 @@ public interface IDaoUtilisateur
 
 	List<Utilisateur> GetUsersByDescOrder();
 
-	Utilisateur getUserById(Integer id_user);
+	Utilisateur getUserById(Integer idUser);
 
 }

@@ -17,10 +17,11 @@ public class ContactService implements IContactService {
 	IDaoContact daoContact;
 	
 	@Override
-	public List<Contact> recupererListeDeMesFoodF(int id_user)
+	public List<Contact> recupererListeDeMesFoodF(int idUser)
 	{
-		return daoContact.listeDesContactsDeUser(id_user);
+		return daoContact.listeDesContactsDeUser(idUser);
 	}
+	
 	
 	@Override
 	public Contact creerNouveauContact(Contact contact)
@@ -42,15 +43,15 @@ public class ContactService implements IContactService {
 	}
 	
 	@Override
-	public Contact recupererContactByIdUser(int id_user)
+	public Contact recupererContactByIdUser(int idUser)
 	{
-		return daoContact.getContactByIdUser(id_user);
+		return daoContact.getContactByIdUser(idUser);
 	}
 	
 	@Override
-	public Contact recupererContactById(int id_contact)
+	public Contact recupererContactById(int idContact)
 	{
-		return daoContact.getContactByIdFriend(id_contact);
+		return daoContact.getContactByIdFriend(idContact);
 	}
 	
 	/*@Override
