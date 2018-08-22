@@ -3,6 +3,7 @@ package fr.afcepf.ai103.dao;
 import java.util.List;
 
 import fr.afcepf.ai103.data.Annonce;
+import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IDaoAnnonce {
 
@@ -15,5 +16,7 @@ public interface IDaoAnnonce {
 	Annonce getAnnonceById(Integer id);
 
 	List<Annonce> getAnnonceByUserId(int id_user);
+
+	List<Annonce> getAnnonces(Utilisateur user);
 
 }

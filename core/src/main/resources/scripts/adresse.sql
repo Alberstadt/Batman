@@ -1,5 +1,5 @@
-﻿insert into adresse values (1,'9 Boulevard du Général de Gaulle', '92120','Montrouge',48.8163592,'2.327170600000045', 1,'2018-05-23', NULL);
-insert into adresse values (2,'50 Boulevard du Général de Gaulle', '92120','Montrouge','48.81525490000001','2.327170600000045', 1,'2018-05-23', NULL);
+﻿insert into adresse values (1,'9 Boulevard du General de Gaulle', '92120','Montrouge','48.8163592','2.327170600000045', 1,'2018-05-23', NULL);
+insert into adresse values (2,'50 Boulevard du General de Gaulle', '92120','Montrouge','48.81525490000001','2.327170600000045', 1,'2018-05-23', NULL);
 insert into adresse values (3,'Rue Louis Rolland', '92120','Montrouge','48.816561','2.3223557999999684', 1,'2018-05-23', NULL);
 insert into adresse values (4,'Rue Georges Brassens', '75001','Paris','48.8164171','2.327170600000045', 1,'2018-05-23', NULL);
 insert into adresse values (5,'Rue de la Republique', '75001','Paris','48.8164171','2.327170600000045', 1,'2018-05-23', NULL);

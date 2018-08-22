@@ -44,6 +44,7 @@ public class ContactBean implements Serializable {
 	List<Contact> listeFoodFR;
 	private List<Utilisateur> currentlySelectedUser = new ArrayList<Utilisateur>();
 	private List<Utilisateur> listeUtilisateurs;
+    private String boolMap = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolMap");
 
 	public ContactBean() {
 	}
@@ -269,5 +270,14 @@ public class ContactBean implements Serializable {
 	public void setListeUtilisateurs(List<Utilisateur> listeUtilisateurs) {
 		this.listeUtilisateurs = listeUtilisateurs;
 	}
+
+	public String getBoolMap() {
+		return boolMap;
+	}
+
+	public void setBoolMap(String boolMap) {
+		this.boolMap = boolMap;
+	}
+	  
 
 }

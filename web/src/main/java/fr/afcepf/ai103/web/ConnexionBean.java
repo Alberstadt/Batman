@@ -1,12 +1,19 @@
 package fr.afcepf.ai103.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import fr.afcepf.ai103.data.Adresse;
+import fr.afcepf.ai103.data.Contact;
 import fr.afcepf.ai103.data.Utilisateur;
+import fr.afcepf.ai103.service.IAdresseService;
+import fr.afcepf.ai103.service.IContactService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
 @ManagedBean(name="connexion")
@@ -17,16 +24,20 @@ public class ConnexionBean
 	@EJB
 	private IUtilisateurService utilisateurService;
 	
-	private FacesContext context;
+	@EJB
+	private IContactService contactService;
+	
+	@EJB
+	private IAdresseService adresseService;
+	
+	private FacesContext context = FacesContext.getCurrentInstance();
 	private Utilisateur user;
 	private String pseudo;
 	private String password;
 	private String boolFiltre;
+	private String insertJSMap = "true";
 	
-	public ConnexionBean()
-	{
-		context = FacesContext.getCurrentInstance();
-	}
+	public ConnexionBean() {}
 	
 	public String login()
 	{
@@ -45,9 +56,13 @@ public class ConnexionBean
 			boolFiltre = "stocks";
 			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
 			
+			
 			return "/archeVide.xhtml?faces-redirect=true";
 		}
 	}
+	
+
+
 	
 	public String logout()
 	{
@@ -63,24 +78,23 @@ public class ConnexionBean
 		switch (numeroDeFiltre)
 		{
 		case 4:
-			System.out.println("passage case bientot perimeBientot");
 			boolFiltre = "perimeBientot";
 			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
 
 			suite = "/stockAmar.xhtml?faces-redirect=true";
 			break;
 		case 5:
-			System.out.println("passage case bientot perime");
 			boolFiltre = "perime";
 			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
 			suite = "/stockAmar.xhtml?faces-redirect=true";
 			break;
+		case 6:
+			boolFiltre = "none";
+			context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
+			suite = "/stockAmar.xhtml?faces-redirect=true";
 		}
-		System.out.println("suite retourné : " + suite);
 		return suite;
 	}
-	
-	
 	
 	public Utilisateur getUser()
 	{
@@ -111,7 +125,21 @@ public class ConnexionBean
 	{
 		this.password = password;
 	}
-	
-	
-	
+
+	public String getBoolFiltre() {
+		return boolFiltre;
+	}
+
+	public void setBoolFiltre(String boolFiltre) {
+		this.boolFiltre = boolFiltre;
+	}
+
+	public String getInsertJSMap() {
+		return insertJSMap;
+	}
+
+	public void setInsertJSMap(String insertJSMap) {
+		this.insertJSMap = insertJSMap;
+	}
+
 }

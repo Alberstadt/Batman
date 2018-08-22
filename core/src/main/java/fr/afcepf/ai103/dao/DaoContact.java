@@ -93,6 +93,7 @@ public class DaoContact implements IDaoContact {
 				+ "c.utilisateur2 = :user", Contact.class)
 				.setParameter("user", user)
 				.getResultList();
+
 	}
 	
 }

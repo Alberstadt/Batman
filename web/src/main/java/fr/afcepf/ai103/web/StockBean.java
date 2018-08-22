@@ -115,6 +115,11 @@ public class StockBean
 	}
 	
 	
+	public void reinitStock()
+	{
+		typeFiltre = "reinit";
+	}
+	
 	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{
 		String suite = null;
@@ -167,7 +172,7 @@ public class StockBean
 
 		for (Stock stock : stocks)
 		{
-			if (joursRestants(stock.getIdProdStock()) <= 0)
+			if (joursRestants(stock.getIdProdStock()) < 0)
 			{
 				listNbPerime.add(stock);
 			}
@@ -188,7 +193,7 @@ public class StockBean
 		{
 			if (joursRestants(stock.getIdProdStock()) <= user.getBatParamP())
 			{
-				if (joursRestants(stock.getIdProdStock()) > 0)
+				if (joursRestants(stock.getIdProdStock()) >= 0)
 				{
 					listNbPerimeBientot.add(stock);
 				}
@@ -263,6 +268,10 @@ public class StockBean
 		if (pourcent >= 40) { couleur ="#686CE8"; }
 		if (duree <= user.getBatParamE()) { couleur ="#FF4A2E"; }
 		if (pourcent == 100) {couleur ="#696969"; }
+		if ((dureePeremption(id_prod_stock)).equals("périme aujourd'hui"))
+				{
+					couleur = "#FF4A2E";
+				}
 		
 		return couleur;	
 	}
@@ -344,6 +353,10 @@ public class StockBean
 			conservations.clear();
 		}
 	}
+	
+	
+	
+	
 	
 	
 	public void chargementTypeConservation (ValueChangeEvent e)

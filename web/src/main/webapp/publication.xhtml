@@ -30,16 +30,15 @@
 					</div>
 				</f:facet>
 				
-				<p:panel id="pnl" style="text-align:center;">
+				<p:panel id="pnl" style="text-align:center">
 					<f:facet name="header">
 						<p:outputLabel value="#{idPublication.stock.produit.libelleProd}"
 							style="float:center;" />
 						<p:commandButton id="boutonSupprimer" type="submit" ajax="true"
 							actionListener="#{publicationBean.updateDateDeRetraitAnnonce(idPublication.idPubli)}"
 							icon="fa fa-remove" style="float:right; background: #ff4d4d"
-							update="idPublication"
-							 />
-						<p:commandButton
+							update="idPublication"/>
+						<p:commandButton ajax="true" update="@Form"
 							value="#{publicationBean.getNombreReponseAnnonce(idPublication.idPubli)}"
 							icon="fa fa-user" style="float:right; background: pink"
 							type="button" />
@@ -55,7 +54,7 @@
 					<div style="text-align: justify;">
 						<p:outputLabel value="Description : #{idPublication.description}" />
 						<p:outputLabel
-							value="Adresse : #{idPublication.adresse.voirie} #{idPublication.adresse.codePostal} #{idPublication.adresse.ville} " />
+							value="Adresse : #{idPublication.adresse.voirie} #{idPublication.adresse.codePostal} #{idPublication.adresse.ville}"/>
 					</div>
 
 				</p:panel>
