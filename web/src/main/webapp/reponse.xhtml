@@ -9,59 +9,108 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/templates/common.xhtml">
-	<ui:define name="title">reponse</ui:define>
+	<ui:define name="title">
+	    Publication
+	</ui:define>
+
+
 	<ui:define name="content">
-	
-		<h:form id="idform">
+
+		<link rel="stylesheet" href="./resources/css/styleStock.css" />
+
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+			crossorigin="anonymous" />
+
+		<h:form id="idform" prependId="false">
 		
-	<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->	
+		
+		<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->	
 		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}" value="Demandes d'annonces en attentes"/>
 		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}" value="Demandes annonces acceptes"/>
 
 			<p:dataGrid id="idAnnonce" var="idAnnonce"
 				value="#{reponseBean.annonces}" columns="3" layout="grid"
-				rows="100" >
-				<f:facet name="header" >
+				rows="100">
+				<f:facet name="header">
 					<div align="left" size="10">
-						<font size="4" >Food Share</font>
+						<font size="4">Food Share</font>
 					</div>
 				</f:facet>
 				
-				<p:panel id="pnl" style="text-align:center; ">
-					<f:facet name="header" >
-						<p:outputLabel value="#{idAnnonce.stock.produit.libelleProd}" style="float:center" />
-				
-							
-						<p:commandButton    ajax="true" update="@Form"
-										    value="#{publicationBean.getNombreReponseAnnonce(idAnnonce.idPubli)}"
-											icon="fa fa-user" style="float:right; background: #FFC94D"
-											type="button" />
+				<p:panel id="pnl" style="text-align:center">
 
+					<f:facet name="header">
+						<p:outputLabel value="#{Publication.stock.produit.libelleProd}"
+							style="float:center;" />			
+						<p:commandButton
+							value="#{publicationBean.getNombreReponseAnnonce(idAnnonce.idPubli)}"
+							icon="fa fa-user" style="float:right; background: pink"
+							type="button">
+						</p:commandButton>
 					</f:facet>
+
 					<div style="text-align: justify; margin: 10px">
 						<p:graphicImage value="#{idAnnonce.stock.produit.image}" />
 						<p:outputLabel
-							value="quantité à donner : #{idAnnonce.qtePubli} #{idAnnonce.stock.unite.libelleUnite}"
-							style="padding-left:15px;" />
+							value="#{idAnnonce.qtePubli} #{idAnnonce.stock.unite.libelleUnite}"
+							style="padding-left:15px; padding-right:60px;" />
+
+						<p:commandButton value="Détails" type="button"
+							onclick="PF('DetailDialog').show();" />
+
+						<p:dialog header="Informations" widgetVar="DetailDialog"
+							resizable="false" showEffect="fade" hideEffect="fade"
+							modal="true">
+							<p:panelGrid columns="2" cellpadding="5">
+
+								<p:outputLabel value="Description : " />
+								<p:outputLabel value="#{idAnnonce.description}" />
+
+								<p:outputLabel value="Adresse : " />
+								<p:outputLabel
+									value="#{idAnnonce.adresse.voirie} #{idAnnonce.adresse.codePostal} #{idAnnonce.adresse.ville} " />
+
+								<p:outputLabel value="Mail : " />
+								<p:outputLabel value="#{idAnnonce.utilisateur.mail}" />
+
+							</p:panelGrid>
+						</p:dialog>
 
 					</div>
-					<div style="text-align: justify">
-						<p:outputLabel value="Description : #{idAnnonce.description}" />
-						<p:outputLabel
-							value="Adresse : #{idAnnonce.adresse.voirie} #{idAnnonce.adresse.codePostal} #{idAnnonce.adresse.ville} " />
+
+
+					<div class="bar" style="float:center; text-align: center; margin-left:90px;" >
+						<div class="percentage has-tip"
+						style= "width: #{stockBean.dureeProgressBar(idAnnonce.stock.idProdStock)}%;background : #{stockBean.couleurProgressBar(idAnnonce.stock.idProdStock)};"													
+						data-perc="#{stockBean.dureePeremption(idAnnonce.stock.idProdStock)}">
+						</div>
 					</div>
-					<b:commandButton id="idReponse" value="intéressé" action="#{reponseBean.ajouterReponseAnnonce}" ajax="true"  
-									style="background: #007AFF" rendered="#{reponseBean.flag}">
+
+					<div>
+						<br></br> <br></br>
+						
+						<p:commandButton value="intéressé" action="#{reponseBean.ajouterReponseAnnonce}" ajax="true"  
+									style="float:right; background: #007AFF" rendered="#{reponseBean.flag}">
 						<f:setPropertyActionListener value="#{idAnnonce}" target="#{reponseBean.annonce}"/>
-					</b:commandButton>
-
+					</p:commandButton>
+					</div>
+					
+					
+				
+											
 				</p:panel>
-			
+
 			</p:dataGrid>
-		
+			
+
 		</h:form>
-	
 	</ui:define>
-	
+
+
+	<ui:define name="footer">
+
+	</ui:define>
 </ui:composition>
 </html>
