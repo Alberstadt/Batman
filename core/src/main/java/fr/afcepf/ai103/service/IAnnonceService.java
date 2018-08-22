@@ -3,6 +3,9 @@ package fr.afcepf.ai103.service;
 import java.util.List;
 
 import fr.afcepf.ai103.data.Annonce;
+import fr.afcepf.ai103.data.MotifAnnulation;
+import fr.afcepf.ai103.data.Reponse;
+import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IAnnonceService {
 
@@ -11,5 +14,20 @@ public interface IAnnonceService {
 	int getNombreReponseByIdPubli(Integer id_publi);
 
 	Annonce update(Annonce annonce);
+
+	void ajouterReponseAnnonce(Reponse reponse);
+
+	Annonce getAnnonceByIdPubli(Integer id_publi);
+
+	MotifAnnulation getMotifAnnulationByIdMotifAnnul(Integer id_motif_annul);
+
+	List<Reponse> reponseAnnonce(Utilisateur user);
+
+	List<Annonce> getAnnonces(Utilisateur user);
+
+	List<Annonce> recupDemandeEnCours(Utilisateur user);
+
+	List<Annonce> recupDemandeAnnonceAccepte(Utilisateur user);
+	
 
 }
