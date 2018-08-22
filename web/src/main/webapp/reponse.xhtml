@@ -14,9 +14,9 @@
 	
 		<h:form id="idform">
 		
-		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="toutes annonces"/>
-		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}" value="annonces favorites"/>
-		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}" value="demandes annonces acceptes"/>
+	<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->	
+		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}" value="Demandes d'annonces en attentes"/>
+		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}" value="Demandes annonces acceptes"/>
 
 			<p:dataGrid id="idAnnonce" var="idAnnonce"
 				value="#{reponseBean.annonces}" columns="3" layout="grid"
@@ -60,11 +60,6 @@
 			</p:dataGrid>
 		
 		</h:form>
-	
-	
-	
-	
-	
 	
 	</ui:define>
 	

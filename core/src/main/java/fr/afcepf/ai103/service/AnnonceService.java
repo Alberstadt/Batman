@@ -96,7 +96,7 @@ public class AnnonceService implements IAnnonceService {
 		
 		for(Reponse reponse : listReponse)
 		{
-			if(reponse.getAnnonce().getDateRetrait() == null && reponse.getDateAnnulation() == null)
+			if(reponse.getAnnonce().getDateRetrait() == null && reponse.getDateAnnulation() == null && reponse.getDateSelection() == null)
 			{
 				annoncesFavorites.add(reponse.getAnnonce());
 			}
@@ -119,6 +119,29 @@ public class AnnonceService implements IAnnonceService {
 			}
 		}
 		return demandeAnnonceAccepte;
+
+	}
+	
+	
+	@Override
+	public List<Annonce> annonceDiponible(Utilisateur user)
+	{
+		List<Annonce> annonces = daoAnnonce.getAnnonces(user);
+		List<Reponse> listReponse = daoReponse.reponseAutreUser();
+		List<Annonce> annonceDispo = new ArrayList<>();
+		
+		
+		
+		for(Annonce an : annonces)
+		{
+			Reponse rep = daoReponse.getReponseByUser(user);
+				if(rep.getUtilisateur() != user && rep.getAnnonce().getDateRetrait() == null && rep.getDateAnnulation() == null)
+				{
+					annonceDispo.add(an);
+				}
+			
+		}
+		return annonceDispo;
 
 	}
 	
