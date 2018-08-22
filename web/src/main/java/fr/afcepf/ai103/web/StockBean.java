@@ -125,14 +125,11 @@ public class StockBean
 		String suite = null;
 		switch (numeroDeFiltre)
 		{
-		case 1:
-			stocks = SaveStocks;
+		case 1: stocks = SaveStocks;
 			break;
-		case 2:
-			stocks = listNbPerime;
+		case 2: stocks = listNbPerime;
 			break;
-		case 3:
-			stocks = listNbPerimeBientot;
+		case 3: stocks = listNbPerimeBientot;
 			break;
 		}
 		return suite;

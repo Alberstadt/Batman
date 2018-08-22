@@ -10,8 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonBean 
 {
 
-	
+
 	private URL url;
 	private String libelleProd;
 	private String urlImage;
