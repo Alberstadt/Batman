@@ -1,5 +1,6 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Consommation;
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -27,6 +29,7 @@ public class DaoContact implements IDaoContact {
 	@Override
 	public Contact create(Contact contact)
 	{
+		System.out.println("passage contact dao - contact : " + contact);
 		entityManager.persist(contact);
 		return contact;
 	}
@@ -39,22 +42,22 @@ public class DaoContact implements IDaoContact {
 	}
 
 	@Override
-	public void delete(int id_contact)
+	public void delete(int idContact)
 	{
-		Contact contact = entityManager.find(Contact.class, id_contact);
+		Contact contact = entityManager.find(Contact.class, idContact);
 		entityManager.remove(contact);
 	}
 
 	@Override
-	public Contact getContactById(int id_contact)
+	public Contact getContactById(int idContact)
 	{
-		return entityManager.find(Contact.class, id_contact);
+		return entityManager.find(Contact.class, idContact);
 	}
 	
 	@Override
-	public Contact getContactByIdUser(int id_user)
+	public Contact getContactByIdUser(int idUser)
 	{
-		return entityManager.find(Contact.class, id_user);
+		return entityManager.find(Contact.class, idUser);
 	}
 	
 	@Override
@@ -64,10 +67,33 @@ public class DaoContact implements IDaoContact {
 	}
 	
 	@Override
-	public List<Contact> listeDesContactsDeUser(int id_user)
+	public List<Contact> listeDesContactsDeUser(int idUser)
 	{
-		return entityManager.createQuery("select c from Contact c where c.utilisateur1.idUser = :id_user ",
-				Contact.class).setParameter("id_user", id_user).getResultList();
+		return entityManager.createQuery("select c from Contact c where c.utilisateur1.idUser = :idUser ",Contact.class)
+				.setParameter("idUser", idUser)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user)
+	{
+		return entityManager.createQuery("SELECT c FROM Contact c WHERE c.dateInvitation IS NOT NULL AND c.dateAcceptation IS NULL AND "
+				+ "c.dateRefus IS NULL AND c.dateSuppression IS NULL AND c.utilisateur1 = :user", Contact.class)
+				.setParameter("user", user)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
+	{
+		System.out.println("Passage DaoContact demandes recues" );
+		
+		return entityManager.createQuery("SELECT c FROM Contact c WHERE "
+				+ "c.dateInvitation IS NOT NULL AND  c.dateAcceptation IS NULL AND c.dateRefus IS NULL AND c.dateSuppression IS NULL AND "
+				+ "c.utilisateur2 = :user", Contact.class)
+				.setParameter("user", user)
+				.getResultList();
+
 	}
 	
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">
+	    Food Friends
+	</ui:define>
+
+
+	<ui:define name="content">
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+			crossorigin="anonymous" />
+			
+		<h:form id="idform">
+
+             <!-- Affiche la liste de mes demandes de food friends envoyees -->
+			<p:dataGrid id="idAskFf" var="idAskFf"
+				value="#{contactBean.listeFoodFE}" columns="4" layout="grid" rows="130" paginator="false"
+				style="margin-top:2em;text-align:center;border:none">
+				<f:facet name="header">
+					<div align="left" size="10">
+						<font size="4">Food friends: Mes demandes en attente</font>
+					</div>
+				</f:facet>
+				
+				<p:panel id="pnl" header="#{idAskFf.utilisateur2.login}"
+					style="text-align:center; width:100%;height:175px;border:1px solid #d2d2d2">
+					<b:image value="#{idAskFf.utilisateur2.portrait}"
+							 style=" float:left; margin-bottom:5px;border-radius:3px "/>
+						 <br/> 
+						 
+						 <div style="border-right: 20px">
+						<p:commandButton value="Details" type="button" ajax="true"
+							look="default" style="margin-top:5px;width:150px" onclick="PF('dlgDetailsFf').show();" 
+							styleClass="ui-priority-primary"/>
+					</div>
+					<p></p>
+						
+						<!-- Pop up qui qui affiche un recap de la demande envoyee -->
+						 <div class="ui-fluid">
+    <p:dialog header="Info"  widgetVar="dlgDetailsFf" modal="true" resizable="true" responsive="true">
+    
+			<div class="form-group row">
+				<label for="description" class="control-label col-sm-4"></label>
+				<div class="col-sm-8">
+					<b:image value="#{idAskFf.utilisateur2.portrait}" style="float:left;"/>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="unite" class="control-label col-sm-4"> </label>
+				<div class="col-sm-8">
+					<h:outputText value="Vous avez envoye une demande de food-friend a #{contactBean.utilisateur2.login}"/>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="btn" class="control-label col-sm-4"></label>
+				<div class="col-sm-8">
+					<p:commandButton value="Ok" id="idBtnok"
+											onclick="PF('dlgDetailsFf').hide();"
+											styleClass="ui-priority-primary">
+							</p:commandButton>
+				</div>
+			</div>
+          </p:dialog>
+          </div>    	
+						
+				</p:panel>
+			
+			</p:dataGrid>
+		
+		</h:form>
+	</ui:define>
+
+
+	<ui:define name="footer">
+
+	</ui:define>
+</ui:composition>
+</html>

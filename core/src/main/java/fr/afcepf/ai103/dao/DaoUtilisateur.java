@@ -39,9 +39,9 @@ public class DaoUtilisateur implements IDaoUtilisateur
 	}
 	
 	@Override
-	public Utilisateur getUserById(Integer id_user)
+	public Utilisateur getUserById(Integer idUser)
 	{
-		return entityManager.find(Utilisateur.class, id_user);
+		return entityManager.find(Utilisateur.class, idUser);
 	}
 	
 	@Override

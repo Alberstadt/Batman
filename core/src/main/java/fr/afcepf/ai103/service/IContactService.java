@@ -3,10 +3,11 @@
 import java.util.List;
 
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IContactService {
 
-	 List<Contact> recupererListeDeMesFoodF(int id_user);
+	 List<Contact> recupererListeDeMesFoodF(int idUser);
 
 	Contact creerNouveauContact(Contact contact);
 
@@ -14,10 +15,13 @@ public interface IContactService {
 
 	Contact recupererContactByIdFriend(int id_friend);
 
-	Contact recupererContactByIdUser(int id_user);
+	Contact recupererContactByIdUser(int idUser);
 
-	Contact recupererContactById(int id_contact);
+	Contact recupererContactById(int idContact);
 
-	//void supprimerContact(int id_contact);
+	List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user);
+
+	List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user);
+
 
 }

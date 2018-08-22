@@ -12,6 +12,7 @@ import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Reponse;
 import fr.afcepf.ai103.data.Utilisateur;
 
+
 @Stateless
 @Local
 public class DaoReponse implements IDaoReponse
@@ -20,6 +21,30 @@ public class DaoReponse implements IDaoReponse
 	private EntityManager entityManager;
 	
 	public DaoReponse(){}
+	
+	
+	
+	@Override
+	public Reponse create(Reponse reponse)
+	{
+		entityManager.persist(reponse);
+		return reponse;
+	}
+
+	@Override
+	public Reponse update(Reponse reponse)
+	{
+		entityManager.merge(reponse);
+		return reponse;
+	}
+
+	@Override
+	public void delete(Integer id_reponse)
+	{
+		Reponse reponse = entityManager.find(Reponse.class, id_reponse);
+		entityManager.remove(reponse);
+	}
+
 	
 	@Override
 	public List<Date> getDateTransByStockId(Integer id_prod_stock)
@@ -38,6 +63,14 @@ public class DaoReponse implements IDaoReponse
 		
 	}
 	
+	@Override
+	public List<Reponse> getListeReponseByIdPubli(Integer id_publi)
+	{
+		return entityManager.createQuery("select rep from Reponse rep where rep.annonce.idPubli = :id_publi ", Reponse.class)
+				.setParameter("id_publi", id_publi).getResultList();
+		
+	}
+
 	@Override
 	public List<Reponse> reponseByUser(Utilisateur user)
 	{
@@ -78,6 +111,7 @@ public class DaoReponse implements IDaoReponse
 		}
 		
 		return reponse;
+
 	}
 	
 }

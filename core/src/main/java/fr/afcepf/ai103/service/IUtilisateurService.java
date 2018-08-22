@@ -14,15 +14,15 @@ public interface IUtilisateurService {
 
 	Utilisateur getUtilisateur1ByIdUser(int id_friend);
 	
-	Utilisateur getUtilisateur2ByIdUser(int id_user);
+	Utilisateur getUtilisateur2ByIdUser(int idUser);
 
 	List<Utilisateur> getAllUsers();
 
-	Utilisateur getUserById(Integer id_user);
+	Utilisateur getUserById(Integer idUser);
 
 	Utilisateur update(Utilisateur sessionUtilisateur);
 
-	List<Adresse> recupererAdresses(Integer id_user);
+	List<Adresse> recupererAdresses(Integer idUser);
 
 	Utilisateur GetLastUser();
 	

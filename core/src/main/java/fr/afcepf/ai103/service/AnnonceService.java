@@ -16,6 +16,7 @@ import fr.afcepf.ai103.data.MotifAnnulation;
 import fr.afcepf.ai103.data.Reponse;
 import fr.afcepf.ai103.data.Utilisateur;
 
+
 @Stateless
 @Local
 
@@ -65,13 +66,28 @@ public class AnnonceService implements IAnnonceService {
 	}
 	
 	@Override
+
+	public Reponse update(Reponse reponse)
+	{
+		return daoReponse.update(reponse);
+		
+	}
+
 	public List<Annonce> getAnnonces(Utilisateur user)
 	{
 		return daoAnnonce.getAnnonces(user);
+
 	}
 	
 	
 	@Override
+
+	public List<Reponse> getListeReponseByIdPubli(Integer id_publi)
+	{
+		return daoReponse.getListeReponseByIdPubli(id_publi);
+	}
+	 
+
 	public List<Reponse> reponseAnnonce(Utilisateur user)
 	{
 		return daoReponse.reponseByUser(user);
@@ -122,6 +138,7 @@ public class AnnonceService implements IAnnonceService {
 
 	}
 	
+
 	
 	@Override
 	public List<Annonce> annonceDiponible(Utilisateur user)
@@ -147,5 +164,6 @@ public class AnnonceService implements IAnnonceService {
 	
 	
 	
+
 
 }

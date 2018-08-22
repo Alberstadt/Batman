@@ -14,16 +14,19 @@
 
 
 	<ui:define name="content">
+
+		<link rel="stylesheet" href="./resources/css/styleStock.css" />
+
 		<link rel="stylesheet"
 			href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
 			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
 			crossorigin="anonymous" />
-			
-		<h:form id="idform">
 
-			<p:dataGrid id="idPublication" var="idPublication"
+		<h:form id="idform" prependId="false">
+
+			<p:dataGrid id="idPublication" var="Publication"
 				value="#{publicationBean.annonces}" columns="3" layout="grid"
-				rows="100" >
+				rows="100">
 				<f:facet name="header">
 					<div align="left" size="10">
 						<font size="4">Mes annonces</font>
@@ -31,36 +34,149 @@
 				</f:facet>
 				
 				<p:panel id="pnl" style="text-align:center">
+
 					<f:facet name="header">
-						<p:outputLabel value="#{idPublication.stock.produit.libelleProd}"
+						<p:outputLabel value="#{Publication.stock.produit.libelleProd}"
 							style="float:center;" />
 						<p:commandButton id="boutonSupprimer" type="submit" ajax="true"
-							actionListener="#{publicationBean.updateDateDeRetraitAnnonce(idPublication.idPubli)}"
+							actionListener="#{publicationBean.updateDateDeRetraitAnnonce(Publication.idPubli)}"
 							icon="fa fa-remove" style="float:right; background: #ff4d4d"
-							update="idPublication"/>
-						<p:commandButton ajax="true" update="@Form"
-							value="#{publicationBean.getNombreReponseAnnonce(idPublication.idPubli)}"
+							update="idPublication" />
+						<p:commandButton
+							value="#{publicationBean.getNombreReponseAnnonce(Publication.idPubli)}"
 							icon="fa fa-user" style="float:right; background: pink"
-							type="button" />
+							type="submit" onclick="PF('#{Publication.idPubli}').show();"
+							action="#{publicationBean.getListeReponseByIdPubli(Publication.idPubli)}"
+							update="idDtagridPersonne">
+
+							<f:setPropertyActionListener value="#{Publication}"
+								target="#{publicationBean.annonce}" />
+						</p:commandButton>
+
+						<p:dialog header="Personnes intéressées"
+							widgetVar="#{Publication.idPubli}" resizable="false"
+							showEffect="fade" hideEffect="fade" modal="true" height="600">
+
+							<p:dataGrid id="idDtagridPersonne" var="reponse"
+								value="#{publicationBean.reponses}" columns="2" layout="grid"
+								rows="100">
+
+								<p:panelGrid>
+
+									<f:facet name="header">
+
+										<p:row>
+											<p:column colspan="2">
+
+ 									<p:graphicImage id="gi1" styleClass="ui-icon fa fa-user"/>
+										
+											</p:column>
+										</p:row>
+									</f:facet>
+
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Nom : " />
+										</p:column>
+
+										<p:column>
+											<p:outputLabel value="#{reponse.utilisateur.nom}" />
+
+										</p:column>
+									</p:row>
+
+
+									<p:row>
+										<p:column>
+
+											<p:outputLabel value="Prenom : " />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{reponse.utilisateur.prenom}" />
+
+										</p:column>
+									</p:row>
+
+									<p:row>
+
+										<p:column>
+
+											<p:outputLabel value="Mail : " />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{reponse.utilisateur.mail}" />
+
+										</p:column>
+									</p:row>
+
+									<p:row>
+										<p:column colspan="2">
+
+											<b:commandButton value="Choisir"
+												action="#{publicationBean.updateDateDeSelectionAnnonce(reponse.idReponse)}" look="success"
+												class="boutonValider" />
+
+
+											<b:commandButton value="Demander en ami"
+												action="#{publicationBean.envoyerDemandeDeFoodFriend()}" look="success"
+												class="boutonValider" style="float:right" />
+
+										</p:column>
+									</p:row>
+
+								</p:panelGrid>
+
+							</p:dataGrid>
+
+						</p:dialog>
 
 					</f:facet>
+
 					<div style="text-align: justify; margin: 10px">
-						<p:graphicImage value="#{idPublication.stock.produit.image}" />
+						<p:graphicImage value="#{Publication.stock.produit.image}" />
 						<p:outputLabel
-							value="quantité à donner : #{idPublication.qtePubli} #{idPublication.stock.unite.libelleUnite}"
-							style="padding-left:15px;" />
+							value="quantité donnée : #{Publication.qtePubli} #{Publication.stock.unite.libelleUnite}"
+							style="padding-left:15px; padding-right:60px;" />
+
+						<p:commandButton value="Détails" type="button"
+							onclick="PF('DetailDialog').show();" />
+
+						<p:dialog header="Informations" widgetVar="DetailDialog"
+							resizable="false" showEffect="fade" hideEffect="fade"
+							modal="true">
+							<p:panelGrid columns="2" cellpadding="5">
+
+								<p:outputLabel value="Description : " />
+								<p:outputLabel value="#{Publication.description}" />
+
+								<p:outputLabel value="Adresse : " />
+								<p:outputLabel
+									value="#{Publication.adresse.voirie} #{Publication.adresse.codePostal} #{Publication.adresse.ville} " />
+
+								<p:outputLabel value="Mail : " />
+								<p:outputLabel value="#{Publication.utilisateur.mail}" />
+
+							</p:panelGrid>
+						</p:dialog>
 
 					</div>
-					<div style="text-align: justify;">
-						<p:outputLabel value="Description : #{idPublication.description}" />
-						<p:outputLabel
-							value="Adresse : #{idPublication.adresse.voirie} #{idPublication.adresse.codePostal} #{idPublication.adresse.ville}"/>
+
+
+					<div class="bar" style="float:center; text-align: center; margin-left:90px;" >
+						<div class="percentage has-tip"
+						style= "width: #{stockBean.dureeProgressBar(Publication.stock.idProdStock)}%;background : #{stockBean.couleurProgressBar(Publication.stock.idProdStock)};"													
+						data-perc="#{stockBean.dureePeremption(Publication.stock.idProdStock)}">
+						</div>
+					</div>
+
+					<div>
+						<br></br> <br></br>
 					</div>
 
 				</p:panel>
-			
+
 			</p:dataGrid>
-		
+
 		</h:form>
 	</ui:define>
 
