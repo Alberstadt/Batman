@@ -339,6 +339,10 @@ public class StockBean
 	}
 	
 	
+	
+	
+	
+	
 	public void chargementTypeConservation (ValueChangeEvent e)
 	
 	{

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.afcepf.ai103.data.Annonce;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -51,8 +52,19 @@ public class DaoAnnonce implements IDaoAnnonce
 	public List<Annonce> getAnnonceByUserId(int id_user)
 	{
 		return entityManager.createQuery("select annonce from Annonce annonce where annonce.dateRetrait IS NULL AND annonce.utilisateur.idUser = :id_user ", Annonce.class)
-				.setParameter("id_user", id_user).getResultList();
+				.setParameter("id_user", id_user)
+				.getResultList();
 	}
+	
+	@Override
+	public List<Annonce> getAnnonces(Utilisateur user)
+	{
+		return entityManager.createQuery("select an from Annonce an where an.dateRetrait IS NULL AND an.utilisateur != :user", Annonce.class)
+				.setParameter("user", user)
+				.getResultList();
+		
+	}
+	
 	
 	
 	
