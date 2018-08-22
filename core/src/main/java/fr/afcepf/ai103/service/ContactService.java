@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import fr.afcepf.ai103.dao.IDaoContact;
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -54,11 +55,18 @@ public class ContactService implements IContactService {
 		return daoContact.getContactByIdFriend(idContact);
 	}
 	
-	/*@Override
-	public void supprimerContact(int id_contact)
+	@Override
+	public List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user)
 	{
-		 daoContact.delete(id_contact);
+		System.out.println("Passage contactService demandes envoyees");
+		 return daoContact.getListDemandeFfEnvoyeesUser(user);
 	}
-	*/
+	
+	@Override
+	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
+	{
+		System.out.println("Passage contactService demandes recues");
+		return  daoContact.getListDemandeRecueFfUtilisateur2(user);
+	}
 
 }

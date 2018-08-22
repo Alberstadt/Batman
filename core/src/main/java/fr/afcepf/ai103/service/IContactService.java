@@ -3,6 +3,7 @@
 import java.util.List;
 
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IContactService {
 
@@ -18,6 +19,9 @@ public interface IContactService {
 
 	Contact recupererContactById(int idContact);
 
-	//void supprimerContact(int id_contact);
+	List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user);
+
+	List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user);
+
 
 }

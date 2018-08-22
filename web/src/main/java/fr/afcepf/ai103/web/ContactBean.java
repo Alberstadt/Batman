@@ -18,6 +18,7 @@ import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.IContactService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
+
 @ManagedBean
 @ViewScoped
 public class ContactBean implements Serializable {
@@ -39,8 +40,8 @@ public class ContactBean implements Serializable {
 	private Adresse adress;
 	private Date dateInvitation;
 	List<Contact> listeFoodF = new ArrayList<Contact>();
-	List<Contact> listeFoodFE = new ArrayList<Contact>();
-	List<Contact> listeFoodFR = new ArrayList<Contact>();
+	List<Contact> listeFoodFE;
+	List<Contact> listeFoodFR;
 	private List<Utilisateur> currentlySelectedUser = new ArrayList<Utilisateur>();
 	private List<Utilisateur> listeUtilisateurs;
 
@@ -50,14 +51,20 @@ public class ContactBean implements Serializable {
 	@PostConstruct
 	public void init() {
 	
-		pseudoFf = user.getLogin();
-		photoFf = user.getPortrait();
+		//pseudoFf = this.utilisateur2.getLogin();
+		//photoFf = this.utilisateur2.getPortrait();
 		listeUtilisateurs = utilisateurService.getAllUsers();
 		System.err.println("liste FF :: " + listeUtilisateurs);
 		// adress = stockService.recupererAdresseById(1);
+		//listeFoodFR = afficherMaListeDeDemandesDeFoodFriendsRecues();
+		listeFoodFE = contactService.getListDemandeFfEnvoyeesUser(this.user);
+		
+		listeFoodFR =  contactService.getListDemandeRecueFfUtilisateur2(this.user);
+		System.out.println("Liste dans le bean des demandes recues" + listeFoodFR);
+	
 	}
-
-	public void onSelect(Utilisateur utilisateur2) {
+		//Methode pour recuperer un utilisateur en le selctionnant dans la datatable
+	/*public void onSelect(Utilisateur utilisateur2) {
 		System.out.println("OnSelect:" + utilisateur2.getLogin());
 		this.utilisateur2 = utilisateur2;
 		if (null != utilisateur2) {
@@ -72,7 +79,7 @@ public class ContactBean implements Serializable {
 		      getCurrentlySelectedUser().remove(utilisateur2);
 		    } 
 		 }
-
+              */
 	public void envoyerDemandeDeFoodFriend() {
 		
 		System.out.println("passage contact bean - contact");
@@ -94,18 +101,20 @@ public class ContactBean implements Serializable {
 	}
 
 	public void accepterDemandeDeFoodFriend() {
-		contact = contactService.recupererContactByIdFriend(utilisateur2.getIdUser());
+		contact = contactService.recupererContactByIdFriend(user.getIdUser());
 
 		contact.setDateAcceptation(new Date());
+		
 
 		contactService.mettreAjourContact(contact);
 	}
 
 	public void refuserDemandeDeFoodFriend() {
-		contact = contactService.recupererContactByIdFriend(utilisateur2.getIdUser());
+		contact = contactService.recupererContactByIdFriend(user.getIdUser());
+		
 
 		contact.setDateRefus(new Date());
-
+		
 		contactService.mettreAjourContact(contact);
 	}
 
@@ -120,7 +129,7 @@ public class ContactBean implements Serializable {
 	}
 
 	public List<Contact> afficherLaListeDeMesFoodFriends() {
-		List<Contact> contacts = user.getContacts1();
+		List<Contact> contacts = this.user.getContacts1();
 
 		for (Contact contact : contacts) {
 			if (contact.getDateInvitation() != null && contact.getDateAcceptation() != null
@@ -131,7 +140,7 @@ public class ContactBean implements Serializable {
 		return listeFoodF;
 	}
 
-	public List<Contact> afficherMaListeDeDemandesDeFoodFriendsRecues() {
+	/*public List<Contact> afficherMaListeDeDemandesDeFoodFriendsRecues() {
 		// List<Contact> contacts1 = utilisateur1.getContacts1();
 		List<Contact> contacts = utilisateur2.getContacts2();
 
@@ -155,7 +164,7 @@ public class ContactBean implements Serializable {
 			}
 		}
 		return listeFoodFE;
-	}
+	}*/
 
 	public IContactService getContactService() {
 		return contactService;

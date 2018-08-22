@@ -1,5 +1,6 @@
 package fr.afcepf.ai103.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Consommation;
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -69,6 +71,27 @@ public class DaoContact implements IDaoContact {
 	{
 		return entityManager.createQuery("select c from Contact c where c.utilisateur1.idUser = :idUser ",Contact.class)
 				.setParameter("idUser", idUser)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user)
+	{
+		return entityManager.createQuery("SELECT c FROM Contact c WHERE c.dateInvitation IS NOT NULL AND c.dateAcceptation IS NULL AND "
+				+ "c.dateRefus IS NULL AND c.dateSuppression IS NULL AND c.utilisateur1 = :user", Contact.class)
+				.setParameter("user", user)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
+	{
+		System.out.println("Passage DaoContact demandes recues" );
+		
+		return entityManager.createQuery("SELECT c FROM Contact c WHERE "
+				+ "c.dateInvitation IS NOT NULL AND  c.dateAcceptation IS NULL AND c.dateRefus IS NULL AND c.dateSuppression IS NULL AND "
+				+ "c.utilisateur2 = :user", Contact.class)
+				.setParameter("user", user)
 				.getResultList();
 	}
 	
