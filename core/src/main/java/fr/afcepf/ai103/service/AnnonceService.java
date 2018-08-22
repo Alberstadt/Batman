@@ -16,6 +16,7 @@ import fr.afcepf.ai103.data.MotifAnnulation;
 import fr.afcepf.ai103.data.Reponse;
 import fr.afcepf.ai103.data.Utilisateur;
 
+
 @Stateless
 @Local
 
@@ -65,13 +66,28 @@ public class AnnonceService implements IAnnonceService {
 	}
 	
 	@Override
+
+	public Reponse update(Reponse reponse)
+	{
+		return daoReponse.update(reponse);
+		
+	}
+
 	public List<Annonce> getAnnonces(Utilisateur user)
 	{
 		return daoAnnonce.getAnnonces(user);
+
 	}
 	
 	
 	@Override
+
+	public List<Reponse> getListeReponseByIdPubli(Integer id_publi)
+	{
+		return daoReponse.getListeReponseByIdPubli(id_publi);
+	}
+	 
+
 	public List<Reponse> reponseAnnonce(Utilisateur user)
 	{
 		return daoReponse.reponseByUser(user);
@@ -96,7 +112,7 @@ public class AnnonceService implements IAnnonceService {
 		
 		for(Reponse reponse : listReponse)
 		{
-			if(reponse.getAnnonce().getDateRetrait() == null && reponse.getDateAnnulation() == null)
+			if(reponse.getAnnonce().getDateRetrait() == null && reponse.getDateAnnulation() == null && reponse.getDateSelection() == null)
 			{
 				annoncesFavorites.add(reponse.getAnnonce());
 			}
@@ -122,7 +138,32 @@ public class AnnonceService implements IAnnonceService {
 
 	}
 	
+
+	
+	@Override
+	public List<Annonce> annonceDiponible(Utilisateur user)
+	{
+		List<Annonce> annonces = daoAnnonce.getAnnonces(user);
+		List<Reponse> listReponse = daoReponse.reponseAutreUser();
+		List<Annonce> annonceDispo = new ArrayList<>();
+		
+		
+		
+		for(Annonce an : annonces)
+		{
+			Reponse rep = daoReponse.getReponseByUser(user);
+				if(rep.getUtilisateur() != user && rep.getAnnonce().getDateRetrait() == null && rep.getDateAnnulation() == null)
+				{
+					annonceDispo.add(an);
+				}
+			
+		}
+		return annonceDispo;
+
+	}
 	
 	
+	
+
 
 }

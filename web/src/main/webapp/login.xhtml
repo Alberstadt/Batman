@@ -25,6 +25,12 @@
             	color:black;
             }
             
+            .ui-widget-content
+            {
+            	border: 0px;
+            	background: #FFC94D;
+            }
+            
         </style>
     </h:head>
     
@@ -62,7 +68,6 @@
 			    
 		  <p:contentFlow value="#{imageViewBean.images}" var="image" style="height:100%; border-color: white; background-color: #FFC94D">
     	      <p:graphicImage url="resources/pectures/#{image}" styleClass="content" />
-    	      <div class="caption" style="color: blue;">#{image}</div>
 		  </p:contentFlow>		 
 	    </p:layoutUnit>
 	 </p:layout>
