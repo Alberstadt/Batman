@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import fr.afcepf.ai103.dao.IDaoAnnonce;
 import fr.afcepf.ai103.dao.IDaoReponse;
 import fr.afcepf.ai103.data.Annonce;
+import fr.afcepf.ai103.data.Reponse;
 
 @Stateless
 @Local
@@ -44,5 +45,17 @@ public class AnnonceService implements IAnnonceService {
 		return daoAnnonce.update(annonce);
 	}
 	
-
+	@Override
+	public Reponse update(Reponse reponse)
+	{
+		return daoReponse.update(reponse);
+	}
+	
+	
+	@Override
+	public List<Reponse> getListeReponseByIdPubli(Integer id_publi)
+	{
+		return daoReponse.getListeReponseByIdPubli(id_publi);
+	}
+	 
 }

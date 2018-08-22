@@ -17,7 +17,7 @@ import fr.afcepf.ai103.data.Utilisateur;
 import fr.afcepf.ai103.service.IContactService;
 import fr.afcepf.ai103.service.IUtilisateurService;
 
-@ManagedBean
+@ManagedBean (name="contactBean")
 @ViewScoped
 public class ContactBean implements Serializable{
 

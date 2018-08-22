@@ -197,6 +197,8 @@ public class StockBean
 	
 	public String dureeProgressBar(int id_prod_stock)
 	{
+		
+		System.out.println("ON PASSE ICICIII" + id_prod_stock);
 		String pourcentage;
 		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
 		Date date2 = stockService.getStockById(id_prod_stock).getDateAjout();
@@ -240,6 +242,7 @@ public class StockBean
 	
 	public int joursRestants(int id_prod_stock)
 	{
+		System.out.println("LALALALLALA" + id_prod_stock);
 		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
 		int diffInDays = (int)((new Date().getTime() -  date.getTime()) / (1000 * 60 * 60 * 24) );		
 		diffInDays = -1*diffInDays;
