@@ -66,7 +66,7 @@ public class DaoContact implements IDaoContact {
 	@Override
 	public List<Contact> listeDesContactsDeUser(int id_user)
 	{
-		return entityManager.createQuery("select c from Contact c where c.utilisateur.id_user = :id_user ",
+		return entityManager.createQuery("select c from Contact c where c.utilisateur1.idUser = :id_user ",
 				Contact.class).setParameter("id_user", id_user).getResultList();
 	}
 	

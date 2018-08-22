@@ -8,8 +8,22 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/templates/common.xhtml">
+		
 	<ui:define name="content">
 		<h2>Mes Food-friends </h2>
+		
+		<style>
+			#gmap_canvas img 
+			{
+				max-width: none !important;
+				background: none !important
+			}
+		</style>
+		<p:panel>
+			<div style='overflow: hidden; height: 300px; width: 250px;'>
+				<div id='gmap_canvas' style='height: 300px; width: 300px;'></div>
+			</div>
+		</p:panel>
 		<h:form>
 		
 		        <!-- Affiche la liste de mes food friends -->
@@ -36,4 +50,5 @@
 	</ui:define>
 	
 </ui:composition>
+
 </html>

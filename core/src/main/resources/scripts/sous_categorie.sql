@@ -40,4 +40,6 @@ insert into sous_categorie values (39, 14,'Autres', 0);
 insert into sous_categorie values (40, 15,'Aperitifs', 0);
 insert into sous_categorie values (41, 16,'Plats prepares', 0);
 insert into sous_categorie values (42, 17,'Autres', 0);
+insert into sous_categorie values (43, 18,'OpenFoodFacts', 0);
+
 commit;
