@@ -115,6 +115,11 @@ public class StockBean
 	}
 	
 	
+	public void reinitStock()
+	{
+		typeFiltre = "reinit";
+	}
+	
 	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{
 		String suite = null;

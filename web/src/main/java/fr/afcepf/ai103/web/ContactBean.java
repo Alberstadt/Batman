@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Contact;
@@ -40,6 +41,8 @@ public class ContactBean implements Serializable{
     List<Contact> listeFoodFE = new ArrayList<Contact>();
     List<Contact> listeFoodFR = new ArrayList<Contact>();
     List<Utilisateur> listeUtilisateurs;
+    private String boolMap = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolMap");
+
 	
 
 	public ContactBean() 
@@ -279,6 +282,14 @@ public class ContactBean implements Serializable{
 
 	public void setListeFoodFR(List<Contact> listeFoodFR) {
 		this.listeFoodFR = listeFoodFR;
+	}
+
+	public String getBoolMap() {
+		return boolMap;
+	}
+
+	public void setBoolMap(String boolMap) {
+		this.boolMap = boolMap;
 	}
 	  
 	

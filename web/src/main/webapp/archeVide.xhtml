@@ -9,13 +9,6 @@
 				template="/templates/common.xhtml">
 	<ui:define name="title">Accueil</ui:define>
 	<ui:define name="content">
-		<style>
-			#gmap_canvas img {
-				max-width: none !important;
-				background: none !important
-			}
-		</style>
-
 		<b:form>
 		<b:alert severity="info" closable="true"
 			style="color:#007AFF;text-decoration: none"
@@ -34,6 +27,8 @@
 				value="#{stockBean.labelNbPerime}"
 				rendered="#{stockBean.booleanAlerteQuantitePerime}" />
 		</b:commandLink>
+		
+		<b:button value="test recup Json" onclick="#{jsonBean.recupDonneesProduit(3029330003533)}"></b:button>
 		</b:form>
 
 	</ui:define>
