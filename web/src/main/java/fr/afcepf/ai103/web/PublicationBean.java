@@ -95,9 +95,9 @@ public class PublicationBean {
 	} 
 	
 	
-	public void envoyerDemandeDeFoodFriend(int id_friend, int id_user) {
+	public void envoyerDemandeDeFoodFriend() {
 		
-		contactBean.envoyerDemandeDeFoodFriend(id_friend, id_user);
+		contactBean.envoyerDemandeDeFoodFriend();
 		
 	}
 	

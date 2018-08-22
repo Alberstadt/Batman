@@ -15,4 +15,5 @@ insert into categorie values (14, 'Condiments');
 insert into categorie values (15, 'Aperitifs');
 insert into categorie values (16, 'Plats prepares');
 insert into categorie values (17, 'Autres');
+insert into categorie values (18, 'OpenFoodFacts');
 commit;

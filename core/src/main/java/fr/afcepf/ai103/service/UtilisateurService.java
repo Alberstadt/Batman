@@ -36,9 +36,9 @@ public class UtilisateurService implements IUtilisateurService
 	}
 	
 	@Override
-	public Utilisateur getUtilisateur2ByIdUser(int id_user)
+	public Utilisateur getUtilisateur2ByIdUser(int idUser)
 	{
-		return daoUtilisateur.getUserById(id_user);
+		return daoUtilisateur.getUserById(idUser);
 	}
 	
 	@Override
@@ -48,9 +48,9 @@ public class UtilisateurService implements IUtilisateurService
 	}	
 		
 	@Override
-	public Utilisateur getUserById(Integer id_user)
+	public Utilisateur getUserById(Integer idUser)
 	{
-		return daoUtilisateur.getUserById(id_user);
+		return daoUtilisateur.getUserById(idUser);
 	}
 
 	@Override
@@ -60,9 +60,9 @@ public class UtilisateurService implements IUtilisateurService
 	}
 	
 	@Override
-	public List<Adresse> recupererAdresses(Integer id_user)
+	public List<Adresse> recupererAdresses(Integer idUser)
 	{
-		Utilisateur user = daoUtilisateur.getUserById(id_user);
+		Utilisateur user = daoUtilisateur.getUserById(idUser);
 		List<Adresse> adresses = user.getAdresses();
 		//Pour contourner le lazy initialize
 		adresses.size();

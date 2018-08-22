@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 
 import fr.afcepf.ai103.dao.IDaoContact;
 import fr.afcepf.ai103.data.Contact;
+import fr.afcepf.ai103.data.Utilisateur;
 
 @Stateless
 @Local
@@ -17,14 +18,16 @@ public class ContactService implements IContactService {
 	IDaoContact daoContact;
 	
 	@Override
-	public List<Contact> recupererListeDeMesFoodF(int id_user)
+	public List<Contact> recupererListeDeMesFoodF(int idUser)
 	{
-		return daoContact.listeDesContactsDeUser(id_user);
+		return daoContact.listeDesContactsDeUser(idUser);
 	}
+	
 	
 	@Override
 	public Contact creerNouveauContact(Contact contact)
 	{
+		System.out.println("passage contact service - contact : " + contact);
 		return daoContact.create(contact);
 	}
 	
@@ -41,22 +44,29 @@ public class ContactService implements IContactService {
 	}
 	
 	@Override
-	public Contact recupererContactByIdUser(int id_user)
+	public Contact recupererContactByIdUser(int idUser)
 	{
-		return daoContact.getContactByIdUser(id_user);
+		return daoContact.getContactByIdUser(idUser);
 	}
 	
 	@Override
-	public Contact recupererContactById(int id_contact)
+	public Contact recupererContactById(int idContact)
 	{
-		return daoContact.getContactByIdFriend(id_contact);
+		return daoContact.getContactByIdFriend(idContact);
 	}
 	
-	/*@Override
-	public void supprimerContact(int id_contact)
+	@Override
+	public List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user)
 	{
-		 daoContact.delete(id_contact);
+		System.out.println("Passage contactService demandes envoyees");
+		 return daoContact.getListDemandeFfEnvoyeesUser(user);
 	}
-	*/
+	
+	@Override
+	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
+	{
+		System.out.println("Passage contactService demandes recues");
+		return  daoContact.getListDemandeRecueFfUtilisateur2(user);
+	}
 
 }

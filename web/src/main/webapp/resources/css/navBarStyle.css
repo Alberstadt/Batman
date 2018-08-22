@@ -1,0 +1,16 @@
+@media screen and (max-width: 700px) 
+{
+	.imageNavBar
+	{
+		width : 30px;
+		height : 30px;
+	}
+	
+	.portraitNavBar
+	{
+		position:absolute;
+		top:55px;
+		right:5px;
+	}
+	
+}

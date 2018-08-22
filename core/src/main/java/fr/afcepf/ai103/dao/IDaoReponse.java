@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.afcepf.ai103.data.Reponse;
+import fr.afcepf.ai103.data.Utilisateur;
 
 public interface IDaoReponse
 {
@@ -18,4 +19,11 @@ public interface IDaoReponse
 	Reponse update(Reponse reponse);
 
 	void delete(Integer id_reponse);
+
+	Reponse ajouterReponseAnnonce(Reponse reponse) throws Exception;
+
+	List<Reponse> reponseByUser(Utilisateur user);
+
+	Reponse getReponseByUser(Utilisateur user);
+
 }

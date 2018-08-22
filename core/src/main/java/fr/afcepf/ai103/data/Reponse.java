@@ -47,7 +47,7 @@ public class Reponse implements Serializable {
 	private Annonce annonce;
 
 	//bi-directional many-to-one association to MotifAnnulation
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_motif_annul")
 	private MotifAnnulation motifAnnulation;
 

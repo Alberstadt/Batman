@@ -14,14 +14,14 @@
 			<ui:insert name="title">Food2Eat</ui:insert>
 		</title>
 		<h:outputScript name="js/jquery-3.3.1.min.js" target="head" />
-		<h:outputStylesheet name="/resources/css/style_matthieu.css" />
+		<h:outputStylesheet name="css/style_matthieu.css" />
+		<h:outputStylesheet name="css/navBarStyle.css" />
+		<meta name="viewport" content="width=device-width" />
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCunMGLZL8MpqE7SNki88sbJFEMEs-HDjE&amp;callback=initMap" type="text/javascript"></script>
-		<script type='text/javascript'>
 
-		</script>
   	</h:head>
 
-	<h:body id="mainBody">
+	<h:body id="mainBody" style="background-image:url(resources/images/back-image.png)">
 		<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}" />
 	
 		<div id="header">

@@ -10,58 +10,41 @@
 
 <ui:composition template="/templates/common.xhtml">
 	<ui:define name="content">
-
-<h:form id="form">
-
-					<!-- Affiche la liste des utilisateurs afin que l utilisateur selectionnne un et lui envoie une invitation,
+	<!-- Affiche la liste des utilisateurs afin que l utilisateur selectionnne un et lui envoie une invitation,
 					cette liste peut a terme etre remplacee par un champs de recherche d'un user -->
-					  <p:carousel value="#{contactBean.listeUtilisateurs}" headerText="Utilisateurs a proximite" var="liste" itemStyle="text-align:left" 
-            responsive="true">
-        <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-            <f:facet name="header">
-                <img src="resources/images/user.png"/><br/>
-                 <h:outputText value="#{contactBean.listeUtilisateurs[5].getLogin()}"/>
-            </f:facet>
-			   
-			 <h:outputText value="Pseudo:" />
-			 <h:outputText value="Adresse:" />
-		 
-        </p:panelGrid>
-
-    </p:carousel>	
-    
-                     <!-- Pour envoyer une demande de food friend -->	  
-			 <p:commandButton value="Envoyer Demande" id="idBtnEnvoiDemande" onclick="PF('dlg2').show();"
-			 actionListener="#{contactBean.envoyerDemandeDeFoodFriend}" />
-			 
-    
-    <div class="ui-fluid">
-    <p:dialog header="Ajouter Food-friend" styleClass="ui-priority-primary" widgetVar="dlg2" modal="true" resizable="true" responsive="true">
-    
-			<div class="form-group row">
-				<label for="description" class="control-label col-sm-4"></label>
-				<div class="col-sm-8">
-					<img src="resources/images/user.png"/>
-				</div>
-			</div>
+    <h:form style="text-align:center">
+		
+		      <p:dataGrid value="#{contactBean.listeUtilisateurs}"
+             var="listeUser"
+             id="listeUser" columns="4"  layout="grid" rows="130" paginator="false"
+				style="margin-top:2em;text-align:center;border:none">
+				<f:facet name="header">
+					<div align="left" size="10">
+						<font size="4">Food friends: Les utilisateurs</font>
+					</div>
+				</f:facet>
+				
+				<p:panel id="pnl" classe="" header="#{listeUser.login}"
+					style="text-align:center; width:100%;height:175px;border:1px solid #d2d2d2">
+					<b:image value="#{listeUser.portrait}"
+						 style=" float:left; margin-bottom:5px;border-radius:3px "/>
+						 <br/>
+						 
+							<div style="border-right: 20px">
+						<b:label text="Inscrit(e) depuis le #{listeUser.dateInscription}"
+							severity="none" style="color:black" />
+							
+						 <!-- Pour envoyer une demande de food friend 	-->  
+        
+			 <b:commandButton value="Envoyer Demande" action="#{contactBean.envoyerDemandeDeFoodFriend()}" ajax="true"
+							look="default" style="margin-top:5px;width:150px">
+			 <f:setPropertyActionListener value="#{listeUser}"
+								target="#{contactBean.utilisateur2}" size="xs" style="width:70px" /></b:commandButton>
+								</div>
+					<p></p>
+			</p:panel>
 			
-			<div class="form-group row">
-				<label for="unite" class="control-label col-sm-4"> </label>
-				<div class="col-sm-8">
-					<h:outputText value="#{contactBean.pseudoFf}, vous a envoye une demande de food-friend"/>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="btn" class="control-label col-sm-4"></label>
-				<div class="col-sm-8">
-					<p:commandButton value="Accepter" id="idBtnAccepter" actionListener="#{contactBean.accepterDemandeDeFoodFriend}"/>
-				<p:commandButton value="Refuser" id="idBtnRefuser"  actionListener="#{contactBean.refuserDemandeDeFoodFriend}"/> 
-				</div>
-			</div>
-          </p:dialog>
-          </div>    	
-			  
+			</p:dataGrid>  
 		</h:form>
 	</ui:define>
 </ui:composition>

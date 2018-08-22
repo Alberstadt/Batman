@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Reponse;
+import fr.afcepf.ai103.data.Utilisateur;
 
 
 @Stateless
@@ -67,6 +68,37 @@ public class DaoReponse implements IDaoReponse
 	{
 		return entityManager.createQuery("select rep from Reponse rep where rep.annonce.idPubli = :id_publi ", Reponse.class)
 				.setParameter("id_publi", id_publi).getResultList();
+		
+	}
+
+	@Override
+	public List<Reponse> reponseByUser(Utilisateur user)
+	{
+		return entityManager.createQuery("select rep from Reponse rep where rep.utilisateur = :user", Reponse.class)
+				.setParameter("user", user)
+				.getResultList();
+	}
+	
+	@Override
+	public Reponse getReponseByUser(Utilisateur user)
+	{
+		return entityManager.find(Reponse.class, user);
+	}
+	
+	@Override
+	public Reponse ajouterReponseAnnonce(Reponse reponse) throws Exception
+	{
+		try
+		{
+			entityManager.persist(reponse);
+			
+		}catch (Exception e)
+		{
+			throw new Exception("Impossible d'envoyer une demande pour cette annonce !");
+		}
+		
+		return reponse;
+
 	}
 	
 }
