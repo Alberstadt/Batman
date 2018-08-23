@@ -59,3 +59,18 @@ transform : translateX(50%) translateY(100%) translateY(0px);
 -webkit-border-radius:7px;
 border-radius:7px;
 }
+
+
+  .ui-widget-header
+           {
+           	background: #F8D380;
+           	
+           } 
+
+.ui-corner-all
+{
+	
+	max-width: 400px;
+}
+
+

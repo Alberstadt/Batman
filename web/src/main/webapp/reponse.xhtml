@@ -27,17 +27,25 @@
 		
 		
 		<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->	
-		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}" value="Demandes d'annonces en attentes"/>
-		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}" value="Demandes annonces acceptes"/>
+		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}"
+		 value="Demandes d'annonces en attentes" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
+		 
+		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}"
+		 value="Demandes annonces acceptes" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
 
-			<p:dataGrid id="idAnnonce" var="idAnnonce"
+		<b:commandLink href="reponse.jsf" style="text-decoration: none">
+			<b:alert style="color:#007AFF; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F6CB67 " 
+				 value="Food Share"/>
+		</b:commandLink>
+
+			<p:dataGrid id="idAnnonce" var="idAnnonce" style="margin-left: 20px; margin-right: 20px; "
 				value="#{reponseBean.annonces}" columns="3" layout="grid"
 				rows="100">
-				<f:facet name="header">
+			<!--  	<f:facet name="header">
 					<div align="left" size="10">
 						<font size="4">Food Share</font>
 					</div>
-				</f:facet>
+				</f:facet>  -->
 				
 				<p:panel id="pnl" style="text-align:center">
 
@@ -49,6 +57,12 @@
 							icon="fa fa-user" style="float:right; background: pink"
 							type="button">
 						</p:commandButton>
+						
+						<p:commandButton icon="fa fa-heart"  action="#{reponseBean.ajouterReponseAnnonce}" ajax="true"  
+									style="float:right; background: #007AFF" rendered="#{reponseBean.flag}">
+						<f:setPropertyActionListener value="#{idAnnonce}" target="#{reponseBean.annonce}"/>
+					</p:commandButton>
+						
 					</f:facet>
 
 					<div style="text-align: justify; margin: 10px">
@@ -57,7 +71,7 @@
 							value="#{idAnnonce.qtePubli} #{idAnnonce.stock.unite.libelleUnite}"
 							style="padding-left:15px; padding-right:60px;" />
 
-						<p:commandButton value="Détails" type="button"
+						<p:commandButton value="Détails" type="button" style="background: #007AFF; float:center;"
 							onclick="PF('DetailDialog').show();" />
 
 						<p:dialog header="Informations" widgetVar="DetailDialog"
@@ -81,7 +95,7 @@
 					</div>
 
 
-					<div class="bar" style="float:center; text-align: center; margin-left:90px;" >
+					<div class="bar" style="float:center; text-align: center; margin-left:10px;" >
 						<div class="percentage has-tip"
 						style= "width: #{stockBean.dureeProgressBar(idAnnonce.stock.idProdStock)}%;background : #{stockBean.couleurProgressBar(idAnnonce.stock.idProdStock)};"													
 						data-perc="#{stockBean.dureePeremption(idAnnonce.stock.idProdStock)}">
@@ -90,15 +104,7 @@
 
 					<div>
 						<br></br> <br></br>
-						
-						<p:commandButton value="intéressé" action="#{reponseBean.ajouterReponseAnnonce}" ajax="true"  
-									style="float:right; background: #007AFF" rendered="#{reponseBean.flag}">
-						<f:setPropertyActionListener value="#{idAnnonce}" target="#{reponseBean.annonce}"/>
-					</p:commandButton>
 					</div>
-					
-					
-				
 											
 				</p:panel>
 

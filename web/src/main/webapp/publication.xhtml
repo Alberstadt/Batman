@@ -9,11 +9,10 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition template="/templates/common.xhtml">
-	<ui:define name="title">
-	    Publication
-	</ui:define>
-
-
+	
+	
+	<ui:define name="title"> Publication</ui:define>
+	
 	<ui:define name="content">
 
 		<link rel="stylesheet" href="./resources/css/styleStock.css" />
@@ -24,17 +23,29 @@
 			crossorigin="anonymous" />
 
 		<h:form id="idform" prependId="false">
+		
+		
+		<b:commandLink href="reponse.jsf" style="text-decoration: none">
+		<b:alert style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 60px; text-align: center; font-size: x-large; background-color: #A6A4E9" 
+					value="ANNONCES"/>
+		</b:commandLink>
+		
+
+		<b:commandLink  style="text-decoration: none">
+		<b:alert style="color:#007AFF; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F6CB67 " 
+				 value="Mes partages"/>
+		</b:commandLink>
 
 			<p:dataGrid id="idPublication" var="Publication"
 				value="#{publicationBean.annonces}" columns="3" layout="grid"
-				rows="100">
-				<f:facet name="header">
+				rows="100" style="margin-left: 20px; margin-right: 20px; ">
+			<!--  	<f:facet name="header">
 					<div align="left" size="10">
-						<font size="4">Mes annonces</font>
+						<font size="4">Mes partages</font>
 					</div>
-				</f:facet>
+				</f:facet>-->
 				
-				<p:panel id="pnl" style="text-align:center">
+				<p:panel id="pnl" style="text-align:center max-width: 20px;">
 
 					<f:facet name="header">
 						<p:outputLabel value="#{Publication.stock.produit.libelleProd}"
@@ -45,7 +56,7 @@
 							update="idPublication" />
 						<p:commandButton
 							value="#{publicationBean.getNombreReponseAnnonce(Publication.idPubli)}"
-							icon="fa fa-user" style="float:right; background: pink"
+							icon="fa fa-user" style="float:right; background: #007AFF"
 							type="submit" onclick="PF('#{Publication.idPubli}').show();"
 							action="#{publicationBean.getListeReponseByIdPubli(Publication.idPubli)}"
 							update="idDtagridPersonne">
@@ -136,11 +147,11 @@
 					<div style="text-align: justify; margin: 10px">
 						<p:graphicImage value="#{Publication.stock.produit.image}" />
 						<p:outputLabel
-							value="quantité donnée : #{Publication.qtePubli} #{Publication.stock.unite.libelleUnite}"
+							value="#{Publication.qtePubli} #{Publication.stock.unite.libelleUnite}"
 							style="padding-left:15px; padding-right:60px;" />
 
-						<p:commandButton value="Détails" type="button"
-							onclick="PF('DetailDialog').show();" />
+						<p:commandButton value="Détails" type="button"     
+							onclick="PF('DetailDialog').show();" style="background: #007AFF; float:center;" />
 
 						<p:dialog header="Informations" widgetVar="DetailDialog"
 							resizable="false" showEffect="fade" hideEffect="fade"
@@ -163,7 +174,7 @@
 					</div>
 
 
-					<div class="bar" style="float:center; text-align: center; margin-left:90px;" >
+					<div class="bar" style="float:center; text-align: center; margin-left:10px;" >
 						<div class="percentage has-tip"
 						style= "width: #{stockBean.dureeProgressBar(Publication.stock.idProdStock)}%;background : #{stockBean.couleurProgressBar(Publication.stock.idProdStock)};"													
 						data-perc="#{stockBean.dureePeremption(Publication.stock.idProdStock)}">
@@ -179,6 +190,7 @@
 			</p:dataGrid>
 
 		</h:form>
+		
 	</ui:define>
 
 
