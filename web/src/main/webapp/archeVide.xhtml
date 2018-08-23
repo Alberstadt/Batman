@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html >
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 				xmlns:b="http://bootsfaces.net/ui"
@@ -8,15 +10,16 @@
 				xmlns:p="http://primefaces.org/ui"
 				template="/templates/common.xhtml">
 	<ui:define name="title">Accueil</ui:define>
-	<ui:define name="content">
-		<b:form>
+	<ui:define name="content" >
+	 <b:form >
 		<b:alert severity="info" closable="true"
-			style="color:#007AFF;text-decoration: none"
+			style="color:#007AFF;text-decoration: none; margin-left: 20px; margin-right: 20px"
 			value="#{stockBean.labelNbProduit}" rendered="true" />
 			
-		<b:commandLink href="stockAmar.jsf" style="text-decoration: none;" action="#{connexion.choisirFiltreAfficheDansStock(4)}">
+		<b:commandLink href="stockAmar.jsf" style="text-decoration: none; " action="#{connexion.choisirFiltreAfficheDansStock(4)}">
 		<b:alert
-				severity="warning" closable="true" style="color:#FFC94D;"
+				severity="warning" closable="true" 
+				style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px"
 				value="#{stockBean.labelNbPerimeBientot}"
 				rendered="#{stockBean.booleanAlerteQuantitePerimeBientot}" />
 		</b:commandLink>
@@ -24,6 +27,7 @@
 		<b:commandLink href="stockAmar.jsf" style="text-decoration: none;" action="#{connexion.choisirFiltreAfficheDansStock(5)}" >
 		<b:alert
 				severity="danger" closable="true" 
+				style="text-decoration: none; margin-left: 20px; margin-right: 20px"
 				value="#{stockBean.labelNbPerime}"
 				rendered="#{stockBean.booleanAlerteQuantitePerime}" />
 		</b:commandLink>
@@ -52,7 +56,7 @@
 			</div>
 		</p:panel>
 		<b:button value="test recup Json" onclick="#{jsonBean.recupDonneesProduit(3029330003533)}"></b:button>
-		</b:form>
-
+	</b:form>
 	</ui:define>
 </ui:composition>
+</html>

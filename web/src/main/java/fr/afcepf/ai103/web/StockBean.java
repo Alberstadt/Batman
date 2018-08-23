@@ -87,7 +87,8 @@ public class StockBean
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
 	private List<Stock> listFiltree = new ArrayList<Stock>();
-	private String typeFiltre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolFiltre");
+	private String boolFiltre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolFiltre");
+	private FacesContext context = FacesContext.getCurrentInstance();
 
 	
 	public StockBean ()
@@ -109,15 +110,16 @@ public class StockBean
 		construireLabelNbPerimeBientot();
 		construireLabelNbPerime();
 
-		if(typeFiltre.equals("perimeBientot")) { stocks=listNbPerimeBientot; }
-		else if (typeFiltre.equals("perime")) { stocks=listNbPerime; }
+		if(boolFiltre.equals("perimeBientot")) { stocks=listNbPerimeBientot; boolFiltre ="reinit"; context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);}
+		else if (boolFiltre.equals("perime")) { stocks=listNbPerime; boolFiltre ="reinit"; context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);}
 
 	}
 	
 	
 	public void reinitStock()
 	{
-		typeFiltre = "reinit";
+		boolFiltre = "reinit";
+		context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
 	}
 	
 	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
@@ -125,14 +127,11 @@ public class StockBean
 		String suite = null;
 		switch (numeroDeFiltre)
 		{
-		case 1:
-			stocks = SaveStocks;
+		case 1: stocks = SaveStocks;
 			break;
-		case 2:
-			stocks = listNbPerime;
+		case 2: stocks = listNbPerime;
 			break;
-		case 3:
-			stocks = listNbPerimeBientot;
+		case 3: stocks = listNbPerimeBientot;
 			break;
 		}
 		return suite;
@@ -794,11 +793,11 @@ public class StockBean
 	}
 
 	public String getTypeFiltre() {
-		return typeFiltre;
+		return boolFiltre;
 	}
 
 	public void setTypeFiltre(String typeFiltre) {
-		this.typeFiltre = typeFiltre;
+		this.boolFiltre = typeFiltre;
 	}
 
 	

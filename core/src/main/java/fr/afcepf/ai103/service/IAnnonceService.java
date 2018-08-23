@@ -32,6 +32,8 @@ public interface IAnnonceService {
 	List<Annonce> recupDemandeEnCours(Utilisateur user);
 
 	List<Annonce> recupDemandeAnnonceAccepte(Utilisateur user);
+
+	List<Annonce> annonceDiponible(Utilisateur user);
 	
 
 

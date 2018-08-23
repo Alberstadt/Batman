@@ -26,4 +26,9 @@ public interface IDaoReponse
 
 	Reponse getReponseByUser(Utilisateur user);
 
+
+	//List<Reponse> reponseAutreUser(Utilisateur user);
+
+	List<Reponse> reponseAutreUser();
+
 }

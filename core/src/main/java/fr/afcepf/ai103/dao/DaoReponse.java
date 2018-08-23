@@ -79,11 +79,24 @@ public class DaoReponse implements IDaoReponse
 				.getResultList();
 	}
 	
+	
+	
+	@Override
+	public List<Reponse> reponseAutreUser()
+	{
+		return entityManager.createQuery("select rep from Reponse rep ", Reponse.class)
+				.getResultList();
+	}
+	
+	
+	
 	@Override
 	public Reponse getReponseByUser(Utilisateur user)
 	{
 		return entityManager.find(Reponse.class, user);
 	}
+	
+	
 	
 	@Override
 	public Reponse ajouterReponseAnnonce(Reponse reponse) throws Exception

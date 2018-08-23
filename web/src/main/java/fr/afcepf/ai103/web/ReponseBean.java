@@ -49,28 +49,17 @@ public class ReponseBean {
 		
 		
 		annoncesTotales = annonces = annonceService.getAnnonces(user);
+		
+		//annoncesTotales = annonceService.annonceDiponible(user);
 				
 		annoncesFavorites = annonceService.recupDemandeEnCours(user);
 		
 		demandeAnnonceAccepte = annonceService.recupDemandeAnnonceAccepte(user);
 		
-		//afficherButtonLibelle( annonces);
 		
 	}
 	
-/*	public Boolean afficherButtonLibelle(List<Annonce> annonces)
-	{
-		Reponse reponse = new Reponse();
-		if(reponse.getDateSelection() != null)
-		{   flag = true;
-			return flag;
-		}
-		else
-		{   flag = false;
-			return flag;
-		}
-	}  */
-	
+
 
 	public void choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{

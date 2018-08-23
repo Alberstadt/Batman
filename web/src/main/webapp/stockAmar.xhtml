@@ -31,11 +31,10 @@
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(2)}" value="Produits périmés"/>
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(3)}" value="Produits qui périment bientot"/>
 			
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#PopUpAjouter">Ajouter</button>
-			
-			<div class="modal fade" id="PopUpAjouter" tabindex="-1" role="dialog"
-				aria-hidden="true">
+			<h:button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#PopUpAjouter" value="Ajouter"></h:button>
+			<p:commandButton value="Ajouter" type="button"	onclick="PF('dlgAnnonce').show();" />
+			<p:dialog header="Ajouter un produit" widgetVar="dlgAnnonce" modal="true" resizable="true" responsive="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body couleurmodal">
@@ -145,14 +144,13 @@
 								<b:commandButton value="Valider"
 									action="#{stockBean.ajouterProduit}" look="success"
 									class="boutonValider" />
-								<button type="button" class="btn btn-secondary boutonAnnuler"
-									data-dismiss="modal">Annuler</button>
+								<h:button type="button" class="btn btn-secondary boutonAnnuler"
+									data-dismiss="modal" value="Annuler"></h:button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</p:dialog>
 
 			        <!-- Poubelle pour les produits jeter-->
 					<p:fieldset id="idProdConsommer" 
