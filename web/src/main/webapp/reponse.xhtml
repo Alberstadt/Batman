@@ -23,34 +23,30 @@
 			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
 			crossorigin="anonymous" />
 
-		<h:form id="idform" prependId="false">
+		<h:form >
 		
 		
-		<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->	
+		<!-- <b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(1)}" value="Recherche annonces"/>   -->
 		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(2)}"
-		 value="Demandes d'annonces en attentes" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
+		 value="Demandes d'annonces en attentes" style="background-color: #F2E9D5 ; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/> 
 		 
 		<b:commandButton ajax="true" update="@form" action="#{reponseBean.choisirFiltreAfficheDansStock(3)}"
-		 value="Demandes annonces acceptes" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
+		 value="Demandes annonces acceptes" style="background-color: #F2E9D5; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/> 	
 
-		<b:commandLink href="reponse.jsf" style="text-decoration: none">
-			<b:alert style="color:#007AFF; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F6CB67 " 
+		<b:commandLink  style="text-decoration: none">
+		<b:alert style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F2E9D5 " 
 				 value="Food Share"/>
 		</b:commandLink>
 
 			<p:dataGrid id="idAnnonce" var="idAnnonce" style="margin-left: 20px; margin-right: 20px; "
 				value="#{reponseBean.annonces}" columns="3" layout="grid"
 				rows="100">
-			<!--  	<f:facet name="header">
-					<div align="left" size="10">
-						<font size="4">Food Share</font>
-					</div>
-				</f:facet>  -->
+		
 				
 				<p:panel id="pnl" style="text-align:center">
 
 					<f:facet name="header">
-						<p:outputLabel value="#{Publication.stock.produit.libelleProd}"
+						<p:outputLabel value="#{idAnnonce.stock.produit.libelleProd}"
 							style="float:center;" />			
 						<p:commandButton
 							value="#{publicationBean.getNombreReponseAnnonce(idAnnonce.idPubli)}"
@@ -71,7 +67,7 @@
 							value="#{idAnnonce.qtePubli} #{idAnnonce.stock.unite.libelleUnite}"
 							style="padding-left:15px; padding-right:60px;" />
 
-						<p:commandButton value="Détails" type="button" style="background: #007AFF; float:center;"
+						<p:commandButton value="Détails" type="button" style="background: #F2E9D5; float:center;"
 							onclick="PF('DetailDialog').show();" />
 
 						<p:dialog header="Informations" widgetVar="DetailDialog"

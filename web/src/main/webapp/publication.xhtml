@@ -26,13 +26,13 @@
 		
 		
 		<b:commandLink href="reponse.jsf" style="text-decoration: none">
-		<b:alert style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 60px; text-align: center; font-size: x-large; background-color: #A6A4E9" 
+		<b:alert style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 60px; text-align: center; font-size: x-large; background-color: #F2E9D5" 
 					value="ANNONCES"/>
 		</b:commandLink>
 		
 
 		<b:commandLink  style="text-decoration: none">
-		<b:alert style="color:#007AFF; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F6CB67 " 
+		<b:alert style="color:#FFC94D; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F2E9D5 " 
 				 value="Mes partages"/>
 		</b:commandLink>
 
@@ -40,15 +40,6 @@
 				value="#{publicationBean.annonces}" columns="3" layout="grid"
 				rows="100" style="margin-left: 20px; margin-right: 20px; ">
 				
-			 <!--   	<f:facet name="header">
-					<div align="left" size="10">
-
-						<font size="4">Mes partages</font>
-					</div>
-				</f:facet>-->
-
-					
-
 				
 				<p:panel id="pnl" style="text-align:center max-width: 20px;">
 
@@ -169,7 +160,7 @@
 							style="padding-left:15px; padding-right:60px;" />
 
 						<p:commandButton value="Détails" type="button"     
-							onclick="PF('DetailDialog').show();" style="background: #007AFF; float:center;" />
+							onclick="PF('DetailDialog').show();" style="background: #F2E9D5; float:center;" />
 
 						<p:dialog header="Informations" widgetVar="DetailDialog"
 							resizable="false" showEffect="fade" hideEffect="fade"
