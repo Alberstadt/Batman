@@ -19,11 +19,11 @@ INSERT into annonce values (18,3,null,18,3,'1 baguette','achetee a la boulangeri
 INSERT into annonce values (19,4,null,19,4,'1 paquet de coquilettes','500g',500,'20/07/18',null);
 INSERT into annonce values (20,5,null,20,5,'Sorbet au citron','1 litre',1,'24/07/18',null);
 INSERT into annonce values (21,6,null,21,6,'Gros sel de cuisine','1 Kg',1000,'25/07/18',null);
-INSERT into annonce values (22,7,null,22,7,'Sachet de curry','200 g',200,'26/07/18',null);
-INSERT into annonce values (23,8,null,23,8,'Vinaigre blanc','2 bouteilles',1,'27/07/17',null);
-INSERT into annonce values (24,9,null,24,9,'2 pots de mayonnaise','conserves au frigo',150,'22/07/18',null);
-INSERT into annonce values (25,10,null,25,10,'ketchup','1 boite de 20 sachets individuels',1,'29/07/18',null);
-INSERT into annonce values (26,11,null,26,11,'petit pot de moutarde a l ancienne',null,150,'16/07/18',null);
+INSERT into annonce values (22,1,null,22,7,'Sachet de curry','200 g',200,'26/07/18',null);
+INSERT into annonce values (23,1,null,23,8,'Vinaigre blanc','2 bouteilles',1,'27/07/17',null);
+INSERT into annonce values (24,1,null,24,9,'2 pots de mayonnaise','conserves au frigo',150,'22/07/18',null);
+INSERT into annonce values (25,2,null,25,10,'ketchup','1 boite de 20 sachets individuels',1,'29/07/18',null);
+INSERT into annonce values (26,2,null,26,11,'petit pot de moutarde a l ancienne',null,150,'16/07/18',null);
 INSERT into annonce values (27,12,null,27,12,'4 bouteilles d Evian',null,1,'01/08/18',null);
 INSERT into annonce values (28,13,null,28,13,'2 pack d eau gazeuse (Perrier)','je les aurais bien bu mais mon docteur m a deconseille les eaux gazeuses',1,'30/07/18',null);
 INSERT into annonce values (29,14,null,29,14,'tetrapack jus muiltifruit','2 litres',2,'10/08/18',null);

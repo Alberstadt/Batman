@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-
+import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
 import fr.afcepf.ai103.data.Reponse;
 import fr.afcepf.ai103.data.Utilisateur;
@@ -29,11 +29,16 @@ public class PublicationBean {
 	@ManagedProperty(value="#{contactBean}")
 	private ContactBean contactBean;
 	
+	
 	private Annonce annonce;
 		
 	private List <Reponse> reponses; 
-		
+			
 	private Utilisateur user = (Utilisateur) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+		
+	private List<Adresse> adresses;
+	
+	private Adresse adrPrincipale;
 	
 	private int nombreReponse;	
 	private List<Annonce> annonces;
@@ -95,10 +100,26 @@ public class PublicationBean {
 	} 
 	
 	
-	public void envoyerDemandeDeFoodFriend() {
+	public void envoyerDemandeDeFoodFriend(Utilisateur user1, Utilisateur user2) {
 		
-		contactBean.envoyerDemandeDeFoodFriend();
+		contactBean.envoyerDemandeDeFoodFriend(user1, user2);
 		
+	}
+	
+	
+	public String getAdrPrincipale(Utilisateur utilisateur)
+	{
+		
+		
+		adresses = utilisateur.getAdresses();
+		for (Adresse adresse : adresses)
+		{
+			if(adresse.getAdrPrincipale() == 1)
+			{
+				adrPrincipale = adresse;
+			}
+		}
+		return adrPrincipale.getVille();
 	}
 	
 	
@@ -191,6 +212,6 @@ public class PublicationBean {
 	public void setContactBean(ContactBean contactBean) {
 		this.contactBean = contactBean;
 	}
-	
+		
 
 }
