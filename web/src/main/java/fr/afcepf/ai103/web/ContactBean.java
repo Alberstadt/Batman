@@ -100,7 +100,26 @@ public class ContactBean implements Serializable {
 		contactService.creerNouveauContact(nouvContact);
 		
 	}
+	
+	public void envoyerDemandeDeFoodFriend(Utilisateur user1, Utilisateur user2) {
+		
+		System.out.println("passage contact bean - contact");
 
+		Contact nouvContact = new Contact();
+		dateInvitation = new Date();
+
+		nouvContact.setUtilisateur1(user1);
+		nouvContact.setUtilisateur2(user2);
+		nouvContact.setDateInvitation(new Date());
+		nouvContact.setDateRefus(null);
+		nouvContact.setDateAcceptation(null);
+		nouvContact.setDateSuppression(null);
+
+		contactService.creerNouveauContact(nouvContact);
+		
+	}
+	
+	
 	public void accepterDemandeDeFoodFriend() {
 		contact = contactService.recupererContactByIdFriend(user.getIdUser());
 

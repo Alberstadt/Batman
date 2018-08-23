@@ -31,7 +31,7 @@
 				<f:facet name="header">
 					<div align="left" size="10">
 						<font size="4">Mes annonces</font>
-					</div>
+					</div>				
 				</f:facet>
 				
 				<p:panel id="pnl" style="text-align:center">
@@ -42,8 +42,9 @@
 						<p:commandButton id="boutonSupprimer" type="submit" ajax="true"
 							actionListener="#{publicationBean.updateDateDeRetraitAnnonce(Publication.idPubli)}"
 							icon="fa fa-remove" style="float:right; background: #ff4d4d"
-							update="idPublication" />
-						<p:commandButton
+							update=":idform" />
+						<p:commandButton 
+							id ="butonUser"
 							value="#{publicationBean.getNombreReponseAnnonce(Publication.idPubli)}"
 							icon="fa fa-user" style="float:right; background: pink"
 							type="submit" onclick="PF('#{Publication.idPubli}').show();"
@@ -56,7 +57,7 @@
 
 						<p:dialog header="Personnes intéressées"
 							widgetVar="#{Publication.idPubli}" resizable="false"
-							showEffect="fade" hideEffect="fade" modal="true" height="600">
+							showEffect="fade" hideEffect="fade" modal="true" height="500">
 
 							<p:dataGrid id="idDtagridPersonne" var="reponse"
 								value="#{publicationBean.reponses}" columns="2" layout="grid"
@@ -97,7 +98,20 @@
 
 										</p:column>
 									</p:row>
+									
+									
+									<p:row>
+										<p:column>
 
+											<p:outputLabel value="Ville : " />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{publicationBean.getAdrPrincipale(reponse.utilisateur)}" />
+
+										</p:column>
+									</p:row>
+									
+									
 									<p:row>
 
 										<p:column>
@@ -115,12 +129,11 @@
 
 											<b:commandButton value="Choisir"
 												action="#{publicationBean.updateDateDeSelectionAnnonce(reponse.idReponse)}" look="success"
-												class="boutonValider" />
-
+												class="boutonValider"/>
 
 											<b:commandButton value="Demander en ami"
-												action="#{publicationBean.envoyerDemandeDeFoodFriend()}" look="success"
-												class="boutonValider" style="float:right" />
+												action="#{publicationBean.envoyerDemandeDeFoodFriend(Publication.utilisateur, reponse.utilisateur)}" look="success"
+												class="boutonValider" style="float:right"/>
 
 										</p:column>
 									</p:row>
@@ -152,7 +165,7 @@
 
 								<p:outputLabel value="Adresse : " />
 								<p:outputLabel
-									value="#{Publication.adresse.voirie} #{Publication.adresse.codePostal} #{Publication.adresse.ville} " />
+									value="#{Publication.adresse.voirie} - #{Publication.adresse.codePostal} - #{Publication.adresse.ville} " />
 
 								<p:outputLabel value="Mail : " />
 								<p:outputLabel value="#{Publication.utilisateur.mail}" />
