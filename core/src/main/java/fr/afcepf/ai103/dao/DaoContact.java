@@ -29,7 +29,6 @@ public class DaoContact implements IDaoContact {
 	@Override
 	public Contact create(Contact contact)
 	{
-		System.out.println("passage contact dao - contact : " + contact);
 		entityManager.persist(contact);
 		return contact;
 	}
@@ -86,8 +85,6 @@ public class DaoContact implements IDaoContact {
 	@Override
 	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
 	{
-		System.out.println("Passage DaoContact demandes recues" );
-		
 		return entityManager.createQuery("SELECT c FROM Contact c WHERE "
 				+ "c.dateInvitation IS NOT NULL AND  c.dateAcceptation IS NULL AND c.dateRefus IS NULL AND c.dateSuppression IS NULL AND "
 				+ "c.utilisateur2 = :user", Contact.class)

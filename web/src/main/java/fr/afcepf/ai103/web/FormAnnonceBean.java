@@ -1,14 +1,18 @@
 package fr.afcepf.ai103.web;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
+import org.primefaces.context.PrimeFacesContext;
 
 import fr.afcepf.ai103.data.Adresse;
 import fr.afcepf.ai103.data.Annonce;
@@ -32,9 +36,8 @@ public class FormAnnonceBean
 		private Double qte_publi;
 		private String description;
 		private String unite;
-		private Stock stock;
+		private Stock stock = (Stock) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("prodStock");
 		private Utilisateur user = (Utilisateur) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-		private Integer id_prod_stock = 3;
 		private Integer id_adresse;
 		private List<Adresse> adresses;
 		
@@ -44,14 +47,29 @@ public class FormAnnonceBean
 		@PostConstruct
 		public void init()
 		{
-			this.stock = stockService.getStockById(id_prod_stock);
+			//this.stock = stockService.getStockById(id_prod_stock);
 			this.libelle = stock.getProduit().getLibelleProd();
-			this.qte_stock = stockService.calculerQteReelle(id_prod_stock);
+			this.qte_stock = stockService.calculerQteReelle(stock.getIdProdStock());
 			this.unite = stock.getUnite().getLibelleUnite();
 			this.adresses = utilisateurService.recupererAdresses(user.getIdUser());	
 		}
+		
+		public void openDialog()
+		{
+			Map<String,Object> options = new HashMap<>();
+	        options.put("resizable", false);
+	        options.put("modal", true);
+	        options.put("draggable", true);
+	        options.put("responsive", true);
+	        PrimeFaces.current().dialog().openDynamic("formulaireAnnonce", options, null);
+		}
+		
+		public void closeDialog()
+		{
+			PrimeFaces.current().dialog().closeDynamic("");
+		}
 				
-		public void validerAnnonce()
+		public String validerAnnonce()
 		{
 			Adresse adresse = stockService.recupererAdresseById(this.id_adresse);
 			
@@ -68,8 +86,12 @@ public class FormAnnonceBean
 			annonce.setDateRetrait(null);
 			
 			stockService.partagerProduit(annonce);
+			
+			closeDialog();
+			
+			return "/stockAmar.xhtml?faces-redirect=true";
 		}
-
+		
 		public String getLibelle()
 		{
 			return libelle;
@@ -108,16 +130,6 @@ public class FormAnnonceBean
 		public void setStock(Stock stock)
 		{
 			this.stock = stock;
-		}
-
-		public Integer getId_prod_stock()
-		{
-			return id_prod_stock;
-		}
-
-		public void setId_prod_stock(Integer id_prod_stock)
-		{
-			this.id_prod_stock = id_prod_stock;
 		}
 
 		public Integer getId_adresse()

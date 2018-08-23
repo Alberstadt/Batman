@@ -4,22 +4,22 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:p="http://primefaces.org/ui">
-
-<ui:composition template="/templates/common.xhtml">
-
-	<ui:define name="title">Formulaire annonce</ui:define>
-	<ui:define name="content">
-  
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<h:outputScript name="js/jquery-3.3.1.min.js" target="head" />
+		<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+		<title>Partager un produit</title>
+	</h:head>
+	<h:body>
            <!-- Dans ce formulaire sont recuperees les donnees d un produit afin de creer une annonce -->
 		<h:form>
-			<p:commandButton value="Partager" type="button"	onclick="PF('dlgAnnonce').show();" />
+			<div class="container-fluid">
 
-			<div class="ui-fluid">
-				<p:dialog header="Partager un produit" widgetVar="dlgAnnonce" modal="true" resizable="true" responsive="true">
 					<div class="form-group row">
-						<label for="titre" class="control-label col-sm-4">Titre: </label>
+						<label for="titre" class="control-label col-sm-4">Nom du produit: </label>
 						<div class="col-sm-8" id="titre">
 							<h:outputText value="#{formAnnonceBean.libelle}" />
 						</div>
@@ -71,24 +71,18 @@
 					<div class="form-group row">
 						<label class="control-label col-sm-4"></label>
 						<div class="col-sm-4">
-							<p:commandButton value="Enregistrer"
+							<p:commandButton value="Valider"
 							id="idBtnEnregistrer"
-							actionListener="#{formAnnonceBean.validerAnnonce}"
-							oncomplete="PF('dlgAnnonce').hide();"
+							action="#{formAnnonceBean.validerAnnonce}"
 							styleClass="ui-priority-primary" />
 						</div>
 						<div class="col-sm-4">
 							<p:commandButton value="Annuler" id="idBtnAnnuler"
-											onclick="PF('dlgAnnonce').hide();"
-											styleClass="ui-priority-primary">
-							</p:commandButton>
+							styleClass="ui-priority-default"
+							action="#{formAnnonceBean.closeDialog}" />
 						</div>
 					</div>
-				</p:dialog>
 			</div>
 		</h:form>
-		
-		
-	</ui:define>
-</ui:composition>
+	</h:body>
 </html>

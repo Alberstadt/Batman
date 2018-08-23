@@ -68,7 +68,9 @@ public class StockBean
 	private Date date_peremption;
 	private Integer duree_ext_stock ;
 	private Double prix;
-	private Double qte_initiale;		 
+	private Double qte_initiale;
+	private Double qteReelle;
+	private Double qteConso;
 	private int id_cat;
 	private String libelle_cat;
 	private int id_sous_cat;
@@ -87,7 +89,8 @@ public class StockBean
 	private String labelNbPerime;
 	private String labelNbPerimeBientot;
 	private List<Stock> listFiltree = new ArrayList<Stock>();
-	private String typeFiltre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolFiltre");
+	private String boolFiltre = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("boolFiltre");
+	private FacesContext context = FacesContext.getCurrentInstance();
 
 	
 	public StockBean ()
@@ -109,15 +112,16 @@ public class StockBean
 		construireLabelNbPerimeBientot();
 		construireLabelNbPerime();
 
-		if(typeFiltre.equals("perimeBientot")) { stocks=listNbPerimeBientot; }
-		else if (typeFiltre.equals("perime")) { stocks=listNbPerime; }
+		if(boolFiltre.equals("perimeBientot")) { stocks=listNbPerimeBientot; boolFiltre ="reinit"; context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);}
+		else if (boolFiltre.equals("perime")) { stocks=listNbPerime; boolFiltre ="reinit"; context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);}
 
 	}
 	
 	
 	public void reinitStock()
 	{
-		typeFiltre = "reinit";
+		boolFiltre = "reinit";
+		context.getExternalContext().getSessionMap().put("boolFiltre", boolFiltre);
 	}
 	
 	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
@@ -125,14 +129,11 @@ public class StockBean
 		String suite = null;
 		switch (numeroDeFiltre)
 		{
-		case 1:
-			stocks = SaveStocks;
+		case 1: stocks = SaveStocks;
 			break;
-		case 2:
-			stocks = listNbPerime;
+		case 2: stocks = listNbPerime;
 			break;
-		case 3:
-			stocks = listNbPerimeBientot;
+		case 3: stocks = listNbPerimeBientot;
 			break;
 		}
 		return suite;
@@ -209,8 +210,6 @@ public class StockBean
 	
 	public String dureeProgressBar(int id_prod_stock)
 	{
-		
-		System.out.println("ON PASSE ICICIII" + id_prod_stock);
 		String pourcentage;
 		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
 		Date date2 = stockService.getStockById(id_prod_stock).getDateAjout();
@@ -254,7 +253,6 @@ public class StockBean
 	
 	public int joursRestants(int id_prod_stock)
 	{
-		System.out.println("LALALALLALA" + id_prod_stock);
 		Date date = stockService.getStockById(id_prod_stock).getDatePeremption();
 		int diffInDays = (int)((new Date().getTime() -  date.getTime()) / (1000 * 60 * 60 * 24) );		
 		diffInDays = -1*diffInDays;
@@ -356,12 +354,7 @@ public class StockBean
 			conservations.clear();
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	public void chargementTypeConservation (ValueChangeEvent e)
 	
 	{
@@ -370,7 +363,7 @@ public class StockBean
 		conservations = stockService.getAllConservation();
 
 	}
-	
+
 	public Stock recupDonneesProduit()
 	{
 		stock = stockService.getStockById(1);
@@ -394,9 +387,16 @@ public class StockBean
 	public void mangerProduit()
 	{
 		Date date = new Date();
-		stockService.consommerProduitStock(1, 1, date , 50.00, user.getIdUser());
+		qteReelle -= qteConso;
+		stockService.consommerProduitStock(stk.getIdProdStock(), 1, date , qteConso, user.getIdUser());
 	}
-
+	
+	public Double afficherQte(Integer idProdStock)
+	{
+		qteReelle = stockService.calculerQteReelle(idProdStock);
+		return qteReelle;
+	}
+	
 	public Stock getStock() {
 		return stock;
 	}
@@ -652,6 +652,7 @@ public class StockBean
 
 
 	public void setStk(Stock stk) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("prodStock", stk);
 		this.stk = stk;
 	}
 
@@ -794,12 +795,31 @@ public class StockBean
 	}
 
 	public String getTypeFiltre() {
-		return typeFiltre;
+		return boolFiltre;
 	}
 
 	public void setTypeFiltre(String typeFiltre) {
-		this.typeFiltre = typeFiltre;
+		this.boolFiltre = typeFiltre;
 	}
 
-	
+	public Double getQteReelle()
+	{
+		return qteReelle;
+	}
+
+	public void setQteReelle(Double qteReelle)
+	{
+		this.qteReelle = qteReelle;
+	}
+
+	public Double getQteConso()
+	{
+		return qteConso;
+	}
+
+	public void setQteConso(Double qteConso)
+	{
+		this.qteConso = qteConso;
+	}
+
 }

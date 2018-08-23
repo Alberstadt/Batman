@@ -73,7 +73,6 @@ public class ConnexionBean
 	
 	public String choisirFiltreAfficheDansStock(int numeroDeFiltre)
 	{
-		System.out.println("passage stockBean");
 		String suite = null;
 		switch (numeroDeFiltre)
 		{

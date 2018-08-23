@@ -24,11 +24,9 @@
 
 		<h:form id="Id">
 		
-		
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PopUpAjouter"
 		 style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;">Ajouter</button>
-					
-		
+
 			<!-- Formulaire Ajouter-->
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(1)}" 
 			value="Enlever Filtres" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
@@ -39,6 +37,7 @@
 			<b:commandButton ajax="true" update="@form" action="#{stockBean.choisirFiltreAfficheDansStock(3)}" 
 			value="Produits qui périment bientot" style="background-color: #007AFF; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; width: 250px;"/>
 			
+			<p:commandButton value="Ajouter" type="button"	onclick="PF('dlgAnnonce').show();" styleClass="ui-priority-primary" icon="fa fa-plus"/>
 			
 			 <!-- Poubelle pour les produits jeter-->
 					<p:fieldset id="idProdConsommer" 
@@ -50,10 +49,8 @@
 					</p:fieldset>
 					
 					<br />
-			
-			
-			<div class="modal fade" id="PopUpAjouter" tabindex="-1" role="dialog"
-				aria-hidden="true">
+
+			<p:dialog header="Ajouter un produit" widgetVar="dlgAnnonce" modal="true" resizable="false" responsive="true" draggable="true" >
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-body couleurmodal">
@@ -163,56 +160,50 @@
 								<b:commandButton value="Valider"
 									action="#{stockBean.ajouterProduit}" look="success"
 									class="boutonValider" />
-								<button type="button" class="btn btn-secondary boutonAnnuler"
-									data-dismiss="modal">Annuler</button>
+								<h:button type="button" class="btn btn-secondary boutonAnnuler"
+									data-dismiss="modal" value="Annuler"></h:button>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-
-
+			</p:dialog>
 
 		<b:commandLink  style="text-decoration: none">
 		<b:alert style="color:#007AFF; text-decoration: none; margin-left: 20px; margin-right: 20px; margin-bottom: 0px; text-align: center; font-size: x-large; background-color: #F6CB67 " 
 				 value="Mon Stock"/>
 		</b:commandLink>
-			       
-			
+
 			    	<!-- remplir le datagrid a partir de la liste consommations -->
 			<p:dataGrid id="idStock" var="idStock" value="#{stockBean.stocks}"
 				columns="4" layout="grid" rows="130" paginator="false"
 				style="margin-top:0px; margin-left: 20px; margin-right: 20px; text-align:center;border:none">
-				<p:panel id="pnl" classe="monStock"
-					header="#{idStock.produit.libelleProd}"
-					style="text-align:center; width:100%;height:175px;border:1px solid #d2d2d2">
-					<b:image value="#{idStock.produit.image}"
-						style=" float:left; margin-bottom:5px;border-radius:3px;max-height:58px;max-width:58px " />
-					<br />
-					<div style="border-right: 20px">
-						<b:label
-							text="#{idStock.qteInitiale} #{idStock.unite.libelleUnite} "
-							severity="none" style="color:black" />
-						<b:commandButton update=":Id:display"
-							oncomplete="PF('carDialog').show()" value="Détails" ajax="true"
-							look="default" style="margin-top:5px;width:80px; background-color: #007AFF">
-							<f:setPropertyActionListener value="#{idStock}"	target="#{stockBean.stk}" />
-						</b:commandButton>
-					</div>
-					<p></p>
-					<div style="padding-left:5px;margin-left:10px">
-					<div class="bar">
-						<div class="percentage has-tip" 
-						style="width: #{stockBean.dureeProgressBar(idStock.idProdStock)}%;background : #{stockBean.couleurProgressBar(idStock.idProdStock)}; "
-							data-perc="#{stockBean.dureePeremption(idStock.idProdStock)}"></div>
-					</div>
-					</div>
-				</p:panel>
-				<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar"
-					stack=".ui-panel" opacity="0.3" />
+					
+				<p:commandLink onclick="PF('prodDialog').show()" action="#{stockBean.afficherQte(stockBean.stk.idProdStock)}" update=":Id:display">
+					<p:panel id="pnl" classe="monStock"
+						header="#{idStock.produit.libelleProd}"
+						style="text-align:center; width:100%;height:160px;border:1px solid #d2d2d2">
+						<b:image value="#{idStock.produit.image}"
+							style=" float:left; margin-bottom:5px;border-radius:3px;max-height:58px;max-width:58px " />
+						<br />
+						<div style="border-right: 20px">
+							<b:label
+								text="#{stockBean.afficherQte(idStock.idProdStock)} #{idStock.unite.libelleUnite} "
+								severity="none" style="color:black" />
+						</div>
+						<p></p>
+						<div style="padding-left:5px;margin-left:10px">
+						<div class="bar">
+							<div class="percentage has-tip" 
+							style="width: #{stockBean.dureeProgressBar(idStock.idProdStock)}%;background : #{stockBean.couleurProgressBar(idStock.idProdStock)}; "
+								data-perc="#{stockBean.dureePeremption(idStock.idProdStock)}"></div>
+						</div>
+						</div>
+					</p:panel>
+					<f:setPropertyActionListener value="#{idStock}"	target="#{stockBean.stk}" />
+				</p:commandLink>
+				<p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel" opacity="0.3" />
 			</p:dataGrid>
-
+			
 			<!-- cette partie du code permet deplacer mon panel -->
 			<p:droppable for="idProdConsommer" tolerance="touch"
 				activeStyleClass="ui-state-highlight" datasource="idStock"
@@ -220,63 +211,44 @@
 				<p:ajax listener="#{stockBean.deplacerProduit}"
 					update="idDropProd idStock" />
 			</p:droppable>
-
+			
 			<!-- pop up fiche produit -->
-			<p:dialog id="ficheProd" header="Fiche produit" widgetVar="carDialog"
-				resizable="false" draggable="false" showEffect="fade"
-				hideEffect="fade" modal="true">
-				<p:outputPanel id="display">
-					<h:panelGrid columns="2" cellpadding="5"
-						rendered="#{stockBean.stk}">
-
-						<h:outputText value="idStock : " />
-						<h:outputText value="#{stockBean.stk.idProdStock}"
-							style="font-weight:bold" />
-
-						<h:outputText value="libele : " />
-						<h:outputText value="#{stockBean.stk.produit.libelleProd}"
-							style="font-weight:bold" />
-
-						<h:outputText value="conservation : " />
-						<h:outputText value="#{stockBean.stk.conservation.type}"
-							style="font-weight:bold" />
-
-						<h:outputText value="categorie : " />
-						<h:outputText
-							value="#{stockBean.stk.produit.sousCategorie.categorie.libelleCat}"
-							style="font-weight:bold" />
-
-						<h:outputText value="Sous Categorie : " />
-						<h:outputText
-							value="#{stockBean.stk.produit.sousCategorie.libelleSousCat}"
-							style="font-weight:bold" />
-
-						<h:outputText value="date d'extension : " />
-						<h:outputText
-							value="#{stockBean.stk.produit.sousCategorie.dureeExtScat}"
-							style="font-weight:bold" />
-
-						<h:outputText value="quantité : " />
-						<h:outputText
-							value="#{stockBean.stk.qteInitiale} #{stockBean.stk.unite.libelle_unite} "
-							style="font-weight:bold" />
-
-						<h:outputText value="Date d'ajout : " />
-						<h:outputText value="#{stockBean.stk.dateAjout}"
-							style="font-weight:bold" />
-
-						<h:outputText value="Date peremption : " />
-						<h:outputText value="#{stockBean.stk.datePeremption}"
-							style="font-weight:bold" />
-
-						<h:outputText value="Prix : " />
-						<h:outputText value="#{stockBean.stk.prix}"
-							style="font-weight:bold" />
-
-					</h:panelGrid>
-				</p:outputPanel>
-			</p:dialog>
-
+			<p:scrollPanel mode="native">
+				<p:dialog id="ficheProd" header="Detail du produit" widgetVar="prodDialog"
+					resizable="false" draggable="true" modal="true" responsive="true">
+					<b:container id="display" fluid="true">
+						<b:row>
+							<b:column col-sm="6"><h:outputText value="Libelle:" style="font-weight:bold"/></b:column>
+							<b:column col-sm="6"><h:outputText value="#{stockBean.stk.produit.libelleProd}"/></b:column>
+						</b:row>
+						<b:row>
+							<b:column col-sm="6"><h:outputText value="Quantite:" style="font-weight:bold"/></b:column>
+							<b:column col-sm="6"><h:outputText value="#{stockBean.qteReelle} #{stockBean.stk.unite.libelleUnite}"/></b:column>
+						</b:row>
+						<b:row>
+							<b:column col-sm="6"><h:outputText value="Date de peremption:" style="font-weight:bold"/></b:column>
+							<b:column col-sm="6"><h:outputText value="#{stockBean.stk.datePeremption}"/></b:column>
+						</b:row>
+						<b:row>
+							<b:column col-sm="6"><h:outputText value="Type de conservation:" style="font-weight:bold"/></b:column>
+							<b:column col-sm="6"><h:outputText value="#{stockBean.stk.conservation.type}"/></b:column>
+						</b:row>
+						<br/>
+						<b:row>
+							<b:column>
+								<b:slider2 span="4" min="0" max="#{stockBean.qteReelle}" mode="badge" value="#{stockBean.qteConso}" label="#{stockBean.stk.unite.libelleUnite}" />
+							</b:column>
+							<b:column col-sm="4">
+								<b:commandButton look="primary" value="Consommer" icon-awesome="fa-cutlery" update=":Id:idStock" onclick="PF('prodDialog').hide()" action="#{stockBean.mangerProduit}"/>
+							</b:column>
+							<b:column col-sm="4">
+								<b:commandButton look="primary" value="Partager" icon-awesome="fa-share-alt" onclick="PF('prodDialog').hide()" actionListener="#{formAnnonceBean.openDialog}" />
+							</b:column>
+						</b:row>
+					</b:container>
+				</p:dialog>
+			</p:scrollPanel>
+					
 		</h:form>
 	</ui:define>
 </ui:composition>

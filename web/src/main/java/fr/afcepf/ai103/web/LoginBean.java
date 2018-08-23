@@ -130,9 +130,6 @@ public class LoginBean implements Serializable
 	
 	public void ajouterAdresse()
 	{
-	System.out.println("BEAN passage ajouterAdresse");
-	System.out.println("BEAN checkbox : "+ chckboxAdr_principale);
-	
 		if(chckboxAdr_principale)
 		{
 			Adresse Adresse = getAdressePrincipale(sessionUtilisateur.getAdresses());
@@ -169,7 +166,6 @@ public class LoginBean implements Serializable
 			newAdresse.setVoirie(voirie);
 			newAdresse.setAdrPrincipale((short)0);
 			//create
-			System.out.println("BEAN boucle ajouter une adresse");
 			//utilisateurService.ajouterAdresse(newAdresse,sessionUtilisateur);
 		}
 	}

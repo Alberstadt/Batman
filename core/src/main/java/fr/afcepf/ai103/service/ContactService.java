@@ -27,7 +27,6 @@ public class ContactService implements IContactService {
 	@Override
 	public Contact creerNouveauContact(Contact contact)
 	{
-		System.out.println("passage contact service - contact : " + contact);
 		return daoContact.create(contact);
 	}
 	
@@ -58,14 +57,12 @@ public class ContactService implements IContactService {
 	@Override
 	public List<Contact> getListDemandeFfEnvoyeesUser(Utilisateur user)
 	{
-		System.out.println("Passage contactService demandes envoyees");
 		 return daoContact.getListDemandeFfEnvoyeesUser(user);
 	}
 	
 	@Override
 	public List<Contact> getListDemandeRecueFfUtilisateur2(Utilisateur user)
 	{
-		System.out.println("Passage contactService demandes recues");
 		return  daoContact.getListDemandeRecueFfUtilisateur2(user);
 	}
 
