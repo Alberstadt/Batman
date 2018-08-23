@@ -91,18 +91,9 @@ public class StockService implements IStockService
 		Consommation conso = new Consommation();
 		conso.setDateConso(date);
 		conso.setStock(daoStock.getStockById(id_prod_stock));
-		
-		if (id_mode == 1)
-		{
-			conso.setModeConso(daoModeConso.getModeConsoById(id_mode));
-			conso.setQteConso(quantite);
-		}
-		else if (id_mode == 2)
-		{
-			Double quantiteInitiale = daoStock.getQuantiteById(id_prod_stock, id_user);
-			conso.setModeConso(daoModeConso.getModeConsoById(id_mode));
-			conso.setQteConso(quantiteInitiale);
-		}
+		conso.setModeConso(daoModeConso.getModeConsoById(id_mode));
+		conso.setQteConso(quantite);
+
 		daoConsommation.create(conso);
 	}
 	

@@ -19,8 +19,6 @@ public class AdresseService implements IAdresseService
 	@Override
 	public Adresse ajouterAdresse(Adresse adresse, int id_user)
 	{
-		System.out.println("SERVICE ajouter adresse");
-
 			return daoAdresse.create(adresse, id_user);
 
 	}
@@ -34,8 +32,6 @@ public class AdresseService implements IAdresseService
 	@Override
 	public Adresse majAdresse(Adresse newAdresse) 
 	{
-		System.out.println("SERVICE maj adresse");
-
 		return daoAdresse.update(newAdresse);
 	}
 

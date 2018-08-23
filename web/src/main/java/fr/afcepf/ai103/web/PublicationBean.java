@@ -84,14 +84,7 @@ public class PublicationBean {
 	
 	public void getListeReponseByIdPubli(Integer id_publi)
 	{
-
-		reponses = annonceService.getListeReponseByIdPubli(id_publi);
-
-		for (Reponse reponse : reponses)
-		{
-			System.out.println(reponse.getDateDemande());
-		}
-				
+		reponses = annonceService.getListeReponseByIdPubli(id_publi);				
 	} 
 	
 	
