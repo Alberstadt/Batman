@@ -1,0 +1,411 @@
+openapi: 3.0.1
+info:
+  title: PAD
+  description: PAD
+                    
+  contact:
+    email: support.pad@franceagrimer.fr
+  license:
+    url: http://franceAgriMer-API.todo
+    name: "franceAgriMer-API"
+  version: 1.0.0
+servers:
+- url: http://srvglassfish20int.franceagrimer.fr:8080/pad-wstransverse-metier/
+tags:
+- name: userData
+  description: Données utilisateur PAD
+- name: validateData
+  description: Validation des données de formulaire
+- name: info
+  description: Obtenir des informations sur le service
+paths:
+  /info/ping:
+    get:
+      tags:
+      - info
+      summary: Retourne l'état du service
+      description: Retourne le code HTTP 200 si le service fonctionne sinon retourne
+        un code erreur
+      operationId: infoPingGET
+      responses:
+        "200":
+          description: Successful
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "405":
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "406":
+          description: Not acceptable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+      x-swagger-router-controller: Info
+                                     
+  /userData/{idDispositif}:
+    get:
+      tags:
+      - userData
+      summary: Récupérer les données à pré-remplir dans PAD pour dispositif et un
+        utilisateur donnés
+      description: Un tableau de clé/valeur est retourné avec toutes les informations
+        à pré-remplir
+      operationId: userDataIdDispositifGET
+      parameters:
+      - name: idDispositif
+        in: path
+        description: ID du dispositif PAD concerné
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: idCpte
+        in: query
+        description: Identifiant CAS de l'utilisateur si le dispositif est un dispositif
+          authentifié
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: typeIdentifiant
+        in: query
+        description: Type d'identifiant
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - SIRET
+          - RNA
+          - TVAIC
+          - EMAIL
+      - name: identifiant
+        in: query
+        description: identifiant de l'usager si le dispositif est un dispositif identifié
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDataForUserSortieDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "405":
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "406":
+          description: Not acceptable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+      x-swagger-router-controller: UserData
+                   
+  /validateData:
+    post:
+      tags:
+      - validateData
+      summary: Valider les données d'un formulaire pour un dispositif
+      description: Prend en paramètre un tableau de clé/valeur à valider
+      operationId: validateDataPOST
+      requestBody:
+        description: Données à valider
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateDataEntreeDTO'
+        required: true
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateDataSortieDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "405":
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "406":
+          description: Not acceptable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erreur'
+      x-swagger-router-controller: ValidateData
+                   
+components:
+  schemas:
+    DataSet:
+      required:
+      - code
+      - name
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListKeyValueDTO'
+      example:
+        code: code
+        data:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        name: name
+    Erreur:
+      required:
+      - error
+      type: object
+      properties:
+        error:
+          type: string
+        errordescription:
+          type: string
+    ListMessageDTO:
+      type: object
+      properties:
+        code:
+          type: boolean
+        typeMessage:
+          type: string
+          enum:
+          - ERREUR
+          - WARN
+          - INFO
+        libelleMessage:
+          type: string
+        params:
+          type: array
+          items:
+            type: string
+      example:
+        code: true
+        params:
+        - params
+        - params
+        libelleMessage: libelleMessage
+        typeMessage: ERREUR
+    ListKeyValueDTO:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      example:
+        value: value
+        key: key
+    ValidateDataSortieDTO:
+      required:
+      - codeRetour
+      - listMessage
+      type: object
+      properties:
+        codeRetour:
+          type: string
+        listMessage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListMessageDTO'
+      example:
+        codeRetour: codeRetour
+        listMessage:
+        - code: true
+          params:
+          - params
+          - params
+          libelleMessage: libelleMessage
+          typeMessage: ERREUR
+        - code: true
+          params:
+          - params
+          - params
+          libelleMessage: libelleMessage
+          typeMessage: ERREUR
+    GetDataForUserSortieDTO:
+      required:
+      - codeRetour
+      type: object
+      properties:
+        codeRetour:
+          type: string
+        listMessage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListMessageDTO'
+        listDataSet:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSet'
+      example:
+        listDataSet:
+        - code: code
+          data:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          name: name
+        - code: code
+          data:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          name: name
+        codeRetour: codeRetour
+        listMessage:
+        - code: true
+          params:
+          - params
+          - params
+          libelleMessage: libelleMessage
+          typeMessage: ERREUR
+        - code: true
+          params:
+          - params
+          - params
+          libelleMessage: libelleMessage
+          typeMessage: ERREUR
+    ValidateDataEntreeDTO:
+      required:
+      - controleUniquement
+      - idDispositif
+      - idDossier
+      type: object
+      properties:
+        idDispositif:
+          type: string
+        idcpte:
+          type: string
+        typeIdentifiant:
+          type: string
+          enum:
+          - SIRET
+          - RNA
+          - TVAIC
+        identifiant:
+          type: string
+        idDossier:
+          type: string
+        controleUniquement:
+          type: boolean
+        dataSet:
+          $ref: '#/components/schemas/DataSet'
+  securitySchemes:
+    api_key:
+      type: http
+      scheme: bearer
